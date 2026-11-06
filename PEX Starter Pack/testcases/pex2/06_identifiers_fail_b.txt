@@ -1,0 +1,7 @@
+~ EXPECTED: FAIL (parser) - identifier starting with a number
+~ The lexer splits "1abc" into an integer (1) and an id (abc), so the parser
+~ sees INF followed by an integer and rejects it.
+
+MARCH {
+    INF 1abc;
+}

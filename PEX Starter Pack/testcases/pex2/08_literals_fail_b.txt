@@ -1,0 +1,8 @@
+~ EXPECTED: FAIL (parser) - keyword used where a literal is expected
+~ TLP lexes as a keyword, not a value, so the parser rejects it.
+
+MARCH {
+    INF i;
+
+    i -> TLP;
+}

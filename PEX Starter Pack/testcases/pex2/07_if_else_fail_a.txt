@@ -1,0 +1,10 @@
+~ EXPECTED: FAIL (parser) - else with no if
+~ A statement cannot begin with CAVEAT.
+
+MARCH {
+    INF y;
+
+    CAVEAT {
+        y -> 1;
+    }
+}

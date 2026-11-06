@@ -1,0 +1,6 @@
+~ EXPECTED: FAIL (parser) - declaration with a type but no variable name
+~ The parser expects an identifier after INF but finds ';'.
+
+MARCH {
+    INF ;
+}

@@ -1,0 +1,36 @@
+~ EXPECTED: PASS
+~ IF/ELSE (spec 2.1) - TLP is if, CAVEAT is else
+
+MARCH {
+    INF x;
+    INF y;
+
+    x -> 5;
+    y -> 0;
+
+    ~ If only
+    TLP (x > 3) {
+        y -> 1;
+    }
+
+    ~ If/else
+    TLP (x --> 5) {
+        y -> 2;
+    } CAVEAT {
+        y -> 3;
+    }
+
+    ~ Nested if/else with a compound condition
+    TLP (x > 0 & y < 10) {
+        TLP (# y --> 0) {
+            y -> y + 1;
+        } CAVEAT {
+            y -> 0;
+        }
+    }
+
+    ~ Empty blocks
+    TLP (x <-= 1) {
+    } CAVEAT {
+    }
+}

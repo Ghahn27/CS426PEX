@@ -1,0 +1,14 @@
+~ EXPECTED: FAIL (parser) - assigning a procedure call to a variable
+~ Procedures have no return values (spec 2.3), so a call is not an expression.
+~ The parser rejects '(' after the identifier on the right-hand side.
+
+MISSION set_range(INF meters) {
+    INF r;
+    r -> meters;
+}
+
+MARCH {
+    INF x;
+
+    x -> set_range(5);
+}

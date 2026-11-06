@@ -1,0 +1,7 @@
+I used claude to help me get started and asked what I needed to add to the language. From there I asked if I was on the right
+track with creating key words, I was not and it helped me. I then asked it for some test cases in which it made the over complex
+I deleted the fluff in the document and used its cases. https://claude.ai/share/9207b1cf-b86e-4dc7-9843-90eed1c98e84
+
+
+PEX2: I used claude to help me capture everything needed with in the project as well as create test files. I mainly specified what to
+do and claude helped. https://claude.ai/share/c2a44553-a18d-4bf5-b830-5374aac19fdc I also used claude to generate test cases.

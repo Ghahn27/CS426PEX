@@ -1,0 +1,31 @@
+~ EXPECTED: PASS
+~ Declarations (spec 1.2)
+~ Declares uninitialized variables of every type in a procedure and in main,
+~ then uses them.
+
+MISSION calc_distance(FA speed, FA time) {
+    FA distance;
+    INF legs;
+    CBRN label;
+
+    distance -> speed * time;
+    legs -> 2;
+    label -> "leg one";
+
+    TLP (distance > 100.0) {
+        INF extra_legs;
+        extra_legs -> legs + 1;
+    }
+}
+
+MARCH {
+    INF count;
+    FA speed;
+    CBRN name;
+
+    count -> 1;
+    speed -> 2.5;
+    name -> "Falcon";
+
+    calc_distance(speed, 4.0);
+}

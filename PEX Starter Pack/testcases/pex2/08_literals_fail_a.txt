@@ -1,0 +1,8 @@
+~ EXPECTED: FAIL (lexer) - invalid character inside a numeric literal
+~ '@' is not a token in this language, so the LEXER rejects it.
+
+MARCH {
+    INF i;
+
+    i -> 4@2;
+}

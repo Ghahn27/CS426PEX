@@ -1,0 +1,55 @@
+~ EXPECTED: PASS
+~ Boolean and comparison operators (spec 3.1, 3.2)
+~ Each operator on its own, then combinations that check precedence:
+~   relational (< <-= > ->=)  binds tighter than  equality (--> #-->)
+~   equality  tighter than  NOT (#)  tighter than  AND (&)  tighter than  OR (|)
+~ Results are assigned to an INF only so the parser sees full statements;
+~ whether that is type-legal is a PEX 3 question.
+
+MARCH {
+    INF a;
+    INF b;
+    INF c;
+    INF d;
+    INF flag;
+
+    a -> 1;
+    b -> 2;
+    c -> 3;
+    d -> 4;
+
+    ~ Relational operators
+    flag -> a > b;
+    flag -> a < b;
+    flag -> a ->= b;
+    flag -> a <-= b;
+
+    ~ Equality operators
+    flag -> a --> b;
+    flag -> a #--> b;
+
+    ~ Logical operators
+    flag -> a & b;
+    flag -> a | b;
+    flag -> # a;
+    flag -> # # a;
+
+    ~ Arithmetic binds tighter than comparison: (a + 1) > (b * 2)
+    flag -> a + 1 > b * 2;
+
+    ~ Relational binds tighter than equality: (a < b) --> (c < d)
+    flag -> a < b --> c < d;
+
+    ~ NOT is looser than comparison: #(a > b)
+    flag -> # a > b;
+
+    ~ AND binds tighter than OR: a | (b & c)
+    flag -> a | b & c;
+
+    ~ Everything combined: ((#(a > b)) & (c --> d)) | (a #--> d)
+    flag -> # a > b & c --> d | a #--> d;
+
+    ~ Parentheses override logical precedence: (a | b) & c
+    flag -> (a | b) & c;
+    flag -> # (a > b | c <-= d);
+}

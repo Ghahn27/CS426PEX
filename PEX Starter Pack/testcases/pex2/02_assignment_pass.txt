@@ -1,0 +1,35 @@
+~ EXPECTED: PASS
+~ Assignment (spec 1.3)
+~ Assigns valid numbers, single characters, and strings to each variable type.
+~ The language has no char type, so a "char" is a one-character CBRN string.
+
+MARCH {
+    INF count;
+    FA speed;
+    CBRN letter;
+    CBRN callsign;
+
+    ~ Integers
+    count -> 0;
+    count -> 42;
+    count -> 1000000;
+
+    ~ Floats, including exponent notation
+    speed -> 3.14;
+    speed -> 0.5;
+    speed -> 5.2e-4;
+    speed -> 2.0E+3;
+    speed -> 1e10;
+
+    ~ Single characters and strings
+    letter -> "a";
+    letter -> "Z";
+    callsign -> "Viper";
+    callsign -> "";
+    callsign -> "Viper 1-1";
+
+    ~ Assigning from other variables and self-reference
+    count -> count + 1;
+    speed -> speed * 2.0;
+    callsign -> letter;
+}

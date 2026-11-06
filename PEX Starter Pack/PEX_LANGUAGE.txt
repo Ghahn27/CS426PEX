@@ -1,0 +1,149 @@
+// This tells SableCC to put all of the code in a package called CS426
+Package CS426;
+
+// Helpers are sets that let you talk about multiple characters in the same way
+Helpers
+	whitespaces = ' ' | 9 | 10 | 13;
+	natural = ['1'..'9'];
+	whole = ['0' + natural];
+	letter = [['a'..'z'] + ['A'..'Z']];
+	idhelp = [letter + whole];
+	all = [0..0xffff];
+	dquote = '"';
+	backslash = '\';
+	string_char = [all - [[dquote + backslash] + [10 + 13]]];
+	exponent = ('e' | 'E') ('+' | '-')? whole+;
+
+// PEX 1 - Lexer Portion
+Tokens
+
+	// Operations and eol
+	assign = '->';
+	plus = '+';
+	minus = '-';
+	mult = '*';
+	eol = ';';
+	div = '/';
+	comma = ',';
+	equiv = '-->';
+	notequiv = '#-->';
+	not = '#';
+	greater = '>';
+	less = '<';
+	greatereq = '->=';
+	lesseq = '<-=';
+	and = '&';
+	or = '|';
+
+
+	// Delimiters
+	open_parenthesis = '(';
+	close_parenthesis = ')';
+	open_curly = '{';
+	close_curly = '}';
+	open_bracket = '[';
+	close_bracket = ']';
+
+	// Keywords (INF = integer, FA = float, CBRN = string, SOP = constant, TLP = if, CAVEAT = else, STX = while, MISSION = procedure, MARCH = main)
+	inf = 'INF';
+	fa = 'FA';
+	cbrn = 'CBRN';
+	sop = 'SOP';
+	tlp = 'TLP';
+	caveat = 'CAVEAT';
+	stx = 'STX';
+	mission = 'MISSION';
+	main = 'MARCH';
+
+	// Identifiers (vars, procedure names) - starts with a letter or underscore, never two underscores in a row
+	id = (letter | '_' idhelp) (idhelp | '_' idhelp)* '_'?;
+
+	// Comments
+	comment = '~' ([[0..0xffff] - [10 + 13]])*;
+
+	// Literals
+	integer = natural whole* | '0';
+	float = (natural whole* | '0') ('.' whole+ exponent? | exponent);
+	string_literal = dquote (string_char | backslash (dquote | backslash))* dquote;
+
+	// Whitespace
+	blank = whitespaces+;
+
+Ignored Tokens
+	blank, comment;
+
+
+// PEX 2 - Parser Portion
+Productions
+
+	program = constants procedures main_proc;
+
+	type = {int} inf | {float} fa | {string} cbrn;
+	declare_statement = type id eol;
+
+	//assign
+	assign_statement = id assign expression eol;
+
+	block = open_curly statements close_curly;
+
+	statement = {declaration} declare_statement
+			| {assignment} assign_statement
+			| {if} if_statement
+			| {while_stmt} while_statement
+			| {call_stmt} call_statement;
+
+	statements = {multiple} statement statements | {none};
+
+	constants  = {multiple} constant constants | {none};
+	constant   = sop type id assign expression eol;
+
+	procedures = {multiple} procedure procedures | {none};
+	procedure = mission id open_parenthesis params close_parenthesis block;
+
+	main_proc = main block;
+
+
+	expression = {or} expression or and_expr | {pass} and_expr;                 
+	and_expr   = {and} and_expr and not_expr | {pass} not_expr;                 
+	not_expr   = {not} not not_expr | {pass} equality;                          
+
+	equality   = {equiv}    equality equiv relational                           
+			| {notequiv} equality notequiv relational
+			| {pass} relational;
+
+	relational = {less}    relational less arith                                
+			| {greater} relational greater arith
+			| {lesseq} relational lesseq arith
+			| {greatereq} relational greatereq arith
+			| {pass} arith;
+
+	arith  = {add} arith plus term | {sub} arith minus term | {pass} term;      
+	term   = {mult} term mult factor | {div} term div factor | {pass} factor;   
+	factor = {negative} minus factor | {pass} operand;                           
+
+	operand = {int} integer                                                    
+			| {float} float
+			| {string} string_literal
+			| {variable} id
+			| {paren} open_parenthesis expression close_parenthesis;
+
+	params     = {some} param_list | {none};
+	param_list = {multiple} param comma param_list | {single} param;
+	param      = type id;
+
+	call_statement = id open_parenthesis args close_parenthesis eol;
+
+	if_statement = {if} tlp open_parenthesis expression close_parenthesis block
+        	| {ifelse} tlp open_parenthesis expression close_parenthesis [then_block]:block caveat [else_block]:block;
+
+	while_statement = stx open_parenthesis expression close_parenthesis block;
+
+	args = {some} arg_list | {none};
+	arg_list = {multiple} expression comma arg_list | {single} expression;
+
+
+	
+
+
+
+

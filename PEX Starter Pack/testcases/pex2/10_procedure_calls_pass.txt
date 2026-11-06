@@ -1,0 +1,40 @@
+~ EXPECTED: PASS
+~ Procedures and calls (spec 2.3)
+~ Covers 0, 1, and 3 parameters, expression and string arguments,
+~ and calls inside an if/else.
+
+MISSION halt() {
+}
+
+MISSION set_range(INF meters) {
+    INF r;
+    r -> meters;
+}
+
+MISSION report(CBRN callsign, INF count, FA bearing) {
+    CBRN msg;
+    msg -> callsign;
+}
+
+MARCH {
+    INF x;
+
+    x -> 4;
+
+    ~ Zero arguments
+    halt();
+
+    ~ Expression arguments
+    set_range(x * 100 + 50);
+    set_range((x - 1) * 2);
+
+    ~ String argument mixed with others
+    report("Viper 1", x, 2.7e2);
+
+    ~ Calls inside an if/else
+    TLP (x > 2) {
+        report("Viper 2", x + 1, 90.0);
+    } CAVEAT {
+        halt();
+    }
+}

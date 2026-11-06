@@ -1,0 +1,10 @@
+~ EXPECTED: FAIL (parser) - if with no condition
+~ The parser expects an expression inside the parentheses but finds ')'.
+
+MARCH {
+    INF y;
+
+    TLP () {
+        y -> 1;
+    }
+}

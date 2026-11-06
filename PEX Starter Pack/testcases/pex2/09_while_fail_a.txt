@@ -1,0 +1,11 @@
+~ EXPECTED: FAIL (parser) - while with no condition
+~ The parser expects an expression inside the parentheses but finds ')'.
+
+MARCH {
+    INF rounds;
+
+    rounds -> 0;
+    STX () {
+        rounds -> rounds + 1;
+    }
+}

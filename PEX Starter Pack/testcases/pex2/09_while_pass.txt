@@ -1,0 +1,31 @@
+~ EXPECTED: PASS
+~ WHILE loops (spec 2.2) - STX is while
+
+MARCH {
+    INF rounds;
+    INF mags;
+
+    rounds -> 0;
+    mags -> 3;
+
+    ~ Basic loop
+    STX (rounds < 30) {
+        rounds -> rounds + 1;
+    }
+
+    ~ Nested loop with an if inside
+    STX (mags > 0) {
+        rounds -> 0;
+        STX (rounds <-= 29) {
+            rounds -> rounds + 1;
+        }
+        TLP (mags --> 1) {
+            rounds -> rounds - 1;
+        }
+        mags -> mags - 1;
+    }
+
+    ~ Compound condition and empty body
+    STX (# rounds --> 0 | mags > 0) {
+    }
+}

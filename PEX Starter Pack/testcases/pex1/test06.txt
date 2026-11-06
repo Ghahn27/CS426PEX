@@ -1,0 +1,13 @@
+'a'
+'Z'
+
+'7'
+' '
+'+'
+'~'
+CBRN grade -> 'A'
+'a' 'b'
+'x' ~ this part is a comment
+MISSION CBRN Flag () {
+	SITREP 'R'
+}

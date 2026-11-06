@@ -1,0 +1,12 @@
+~ EXPECTED: FAIL in PEX 3 (semantic analyzer) - chained comparison
+~ Spec 3.3 says chained comparisons are rejected in PEX 3. With left-recursive
+~ comparison productions this file PARSES in PEX 2. It only fails in the parser
+~ if you made the comparison productions non-associative.
+
+MARCH {
+    INF x;
+    INF flag;
+
+    x -> 4;
+    flag -> 3 < x < 5;
+}

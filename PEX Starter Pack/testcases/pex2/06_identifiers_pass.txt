@@ -1,0 +1,34 @@
+~ EXPECTED: PASS
+~ Identifiers (spec 1.1)
+~ Letters, mixed case, digits after the first character, a leading underscore,
+~ single underscores between parts, and a trailing underscore. The last group
+~ starts with a keyword but is longer, so the lexer must read it as an id.
+
+MARCH {
+    INF x;
+    INF X;
+    INF abc;
+    INF camelCase;
+    INF UPPER;
+    INF a1;
+    INF var2go;
+    INF _private;
+    INF _x1;
+    INF my_var;
+    INF a_b_c;
+    INF trailing_;
+    INF _a_b_;
+    INF x9_y8_z7;
+
+    ~ Start with a keyword but are not keywords
+    INF INFO;
+    INF FAST;
+    INF MARCHING;
+    INF Inf;
+    INF tlp;
+
+    x -> 1;
+    _private -> x;
+    a_b_c -> _private + trailing_;
+    INFO -> FAST * MARCHING;
+}

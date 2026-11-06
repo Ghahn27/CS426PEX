@@ -1,0 +1,106 @@
+~ EXPECTED: PASS
+~ Integration test: a fire team engages, reloads, and sends a SALUTE report.
+~ Uses constants, procedures with 0..n parameters, declarations, assignments,
+~ nested IF/ELSE and WHILE, procedure calls, all operator groups, and comments.
+~ The language has no output statement, so "sending" the report means building
+~ each field and passing all of them to a procedure.
+~ SALUTE = Size, Activity, Location, Unit, Time, Equipment
+
+SOP INF MAG_CAPACITY -> 30;
+SOP INF MAGS_CARRIED -> 7;
+SOP INF BURST_SIZE -> 3;
+SOP FA SECONDS_PER_ROUND -> 0.25;
+SOP CBRN REPORTING_UNIT -> "2nd Platoon, Bravo Company";
+
+~ Reload: swap in a fresh magazine if one is available, counting load time
+MISSION reload(INF rounds_in_mag, INF spare_mags) {
+    INF rounds;
+    INF mags;
+    FA elapsed;
+    CBRN status;
+
+    rounds -> rounds_in_mag;
+    mags -> spare_mags;
+    elapsed -> 0.0;
+    status -> "RELOADING";
+
+    TLP (mags > 0 & rounds < MAG_CAPACITY) {
+        mags -> mags - 1;
+        STX (rounds < MAG_CAPACITY) {
+            rounds -> rounds + 1;
+            elapsed -> elapsed + SECONDS_PER_ROUND;
+        }
+        status -> "UP";
+    } CAVEAT {
+        TLP (mags --> 0) {
+            ~ No spare magazines left
+            status -> "WINCHESTER";
+        }
+    }
+}
+
+~ SALUTE report sent by a unit
+MISSION send_salute(CBRN sender, CBRN size, CBRN activity, CBRN location,
+                    CBRN enemy_unit, CBRN time, CBRN equipment) {
+    CBRN line;
+    INF lines_sent;
+
+    lines_sent -> 0;
+
+    line -> size;
+    lines_sent -> lines_sent + 1;
+    line -> activity;
+    lines_sent -> lines_sent + 1;
+    line -> location;
+    lines_sent -> lines_sent + 1;
+    line -> enemy_unit;
+    lines_sent -> lines_sent + 1;
+    line -> time;
+    lines_sent -> lines_sent + 1;
+    line -> equipment;
+    lines_sent -> lines_sent + 1;
+
+    TLP (lines_sent #--> 6) {
+        line -> "REPORT INCOMPLETE";
+    }
+}
+
+MARCH {
+    INF rounds_in_mag;
+    INF spare_mags;
+    INF shots_fired;
+    CBRN grid;
+    CBRN dtg;
+
+    rounds_in_mag -> MAG_CAPACITY;
+    spare_mags -> MAGS_CARRIED - 1;
+    shots_fired -> 0;
+
+    ~ Engage: fire bursts until the magazine runs dry
+    STX (rounds_in_mag > 0) {
+        rounds_in_mag -> rounds_in_mag - BURST_SIZE;
+        shots_fired -> shots_fired + BURST_SIZE;
+        TLP (rounds_in_mag < 0) {
+            rounds_in_mag -> 0;
+        }
+    }
+
+    ~ Magazine empty and a spare is available: reload
+    TLP (rounds_in_mag --> 0 & # spare_mags --> 0) {
+        reload(rounds_in_mag, spare_mags);
+    } CAVEAT {
+        spare_mags -> 0;
+    }
+
+    ~ Build and send the SALUTE report
+    grid -> "11S NU 1234 5678";
+    dtg -> "061430ZOCT26";
+
+    send_salute(REPORTING_UNIT,
+                "Squad-sized element, approximately 9 personnel",
+                "Engaged friendly forces, then withdrew east",
+                grid,
+                "Unknown, mixed civilian clothing with green armbands",
+                dtg,
+                "Small arms and 1x technical vehicle");
+}

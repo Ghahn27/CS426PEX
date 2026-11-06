@@ -1,0 +1,8 @@
+~ EXPECTED: FAIL (parser) - assignment with nothing on the right-hand side
+~ The parser expects an expression after '->' but finds ';'.
+
+MARCH {
+    INF count;
+
+    count -> ;
+}

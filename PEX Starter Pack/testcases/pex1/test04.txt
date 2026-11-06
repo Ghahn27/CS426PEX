@@ -1,0 +1,18 @@
+~ --- GOOD 1: this whole line is a comment, yields zero tokens
+5 ~ everything after the tilde disappears
+~~ still just a comment
+~
+~ @ # $ % ^ & _ = . ' " illegal junk 007 all fine in here
+~ comment ends at this newline
+42
+~     -> integer(1) plus integer(2)
+1	+     2
+
+
+
+
+9
+3+4
+~     -> integer(1) plus integer(2)
+1 + ~ interrupting comment
+2

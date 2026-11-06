@@ -1,0 +1,21 @@
+~ EXPECTED: PASS
+~ Comments - full-line, after code, containing keywords and symbols,
+~ and a final comment with no trailing newline.
+~ Keywords in a comment: INF FA CBRN SOP TLP CAVEAT STX MISSION MARCH
+~ Symbols in a comment: -> --> #--> ->= <-= & | # ( ) { } [ ] ; , " \ ~
+
+SOP INF LIMIT -> 3; ~ comment after a constant
+
+MISSION noop() { ~ comment after an opening brace
+} ~ comment after a closing brace
+
+MARCH { ~ comment after main
+    INF x; ~ comment after a declaration
+    ~ indented full-line comment
+    x -> LIMIT * 2; ~ comment after an assignment
+    TLP (x > 1) { x -> 0; } ~ comment after an if
+    noop(); ~ comment after a call
+    ~
+    ~ the line above is an empty comment
+}
+~ final comment with no trailing newline

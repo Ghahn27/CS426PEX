@@ -1,0 +1,12 @@
+~ EXPECTED: FAIL (parser) - expression ends in an operator
+~ The parser expects an operand after '*' but finds ';'.
+
+MARCH {
+    INF a;
+    INF b;
+    INF result;
+
+    a -> 10;
+    b -> 4;
+    result -> a + b *;
+}

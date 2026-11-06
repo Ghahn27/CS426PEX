@@ -1,0 +1,7 @@
+~ EXPECTED: FAIL (parser) - declaring a literal instead of a variable name
+~ The parser expects an identifier after INF but finds a string literal.
+~ (INF 'a' would also fail, but in the lexer, since ' is not a token.)
+
+MARCH {
+    INF "a";
+}

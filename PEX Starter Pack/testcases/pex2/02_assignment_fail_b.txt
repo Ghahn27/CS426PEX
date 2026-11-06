@@ -1,0 +1,9 @@
+~ EXPECTED: FAIL (lexer) - wrong assignment symbol '=' instead of '->'
+~ Note: '=' is not a token in this language, so the LEXER rejects this file
+~ before the parser runs ("Unknown token: =").
+
+MARCH {
+    INF count;
+
+    count = 5;
+}

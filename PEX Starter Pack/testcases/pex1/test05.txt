@@ -1,0 +1,20 @@
+
+( )
+{ }
+, ;
+SOP Fa pi -> 3.14
+MISSION Fa Circumference (Fa r) {
+	SITREP 2 * pi * r
+}
+MISSION Inf March () {
+	Fa rad -> 3.4
+	Fa cir -> Circumference (rad)
+	SITREP 0
+}
+MISSION Fa Area (Fa w, Fa h, Inf scale) {
+	SITREP w * h
+}
+( ( { )
+MISSION MISSION } -> ; (
+FTX (Inf i -> 0; i < 10; i++) {
+}

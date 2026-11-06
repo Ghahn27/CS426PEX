@@ -1,0 +1,2 @@
+inf _w -> 4
+inf 9lives -> 9

@@ -1,0 +1,14 @@
+\\wsl.localhost\Ubuntu\home\garretthahn\CS426\PEX Starter Pack\bin\Debug\ConsoleApplication.exe.config
+\\wsl.localhost\Ubuntu\home\garretthahn\CS426\PEX Starter Pack\bin\Debug\ConsoleApplication.exe
+\\wsl.localhost\Ubuntu\home\garretthahn\CS426\PEX Starter Pack\bin\Debug\ConsoleApplication.pdb
+\\wsl.localhost\Ubuntu\home\garretthahn\CS426\PEX Starter Pack\obj\x86\Debug\ArmyLanguage.csproj.AssemblyReference.cache
+\\wsl.localhost\Ubuntu\home\garretthahn\CS426\PEX Starter Pack\obj\x86\Debug\ArmyLanguage.csproj.CoreCompileInputs.cache
+\\wsl.localhost\Ubuntu\home\garretthahn\CS426\PEX Starter Pack\obj\x86\Debug\ConsoleApplication.exe
+\\wsl.localhost\Ubuntu\home\garretthahn\CS426\PEX Starter Pack\obj\x86\Debug\ConsoleApplication.pdb
+C:\CS426\PEX Starter Pack\bin\Debug\ConsoleApplication.exe.config
+C:\CS426\PEX Starter Pack\bin\Debug\ConsoleApplication.exe
+C:\CS426\PEX Starter Pack\bin\Debug\ConsoleApplication.pdb
+C:\CS426\PEX Starter Pack\obj\x86\Debug\ArmyLanguage.csproj.AssemblyReference.cache
+C:\CS426\PEX Starter Pack\obj\x86\Debug\ArmyLanguage.csproj.CoreCompileInputs.cache
+C:\CS426\PEX Starter Pack\obj\x86\Debug\ConsoleApplication.exe
+C:\CS426\PEX Starter Pack\obj\x86\Debug\ConsoleApplication.pdb

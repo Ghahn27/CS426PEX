@@ -1,0 +1,89 @@
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{59587D39-E6DF-ABE5-CA4F-5B11796B1E6B}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>ConsoleApplication</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>ArmyLanguage</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="analysis.cs" />
+    <Compile Include="lexer.cs" />
+    <Compile Include="main.cs" />
+    <Compile Include="nodes.cs" />
+    <Compile Include="parser.cs" />
+    <Compile Include="prods.cs" />
+    <Compile Include="tokens.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".vs\ArmyLanguage.slnx\FileContentIndex\36d54d2d-0aee-48bd-bcf8-af937ef48389.vsidx" />
+    <None Include=".vs\ArmyLanguage.slnx\FileContentIndex\4014be42-cad4-4543-9f72-a379f4ac5a8c.vsidx" />
+    <None Include=".vs\ArmyLanguage.slnx\FileContentIndex\4698dad7-b06a-4643-8253-e03e46fc3c90.vsidx" />
+    <None Include=".vs\ArmyLanguage.slnx\FileContentIndex\5939b001-d220-427c-9e65-cd56d721091f.vsidx" />
+    <None Include=".vs\ArmyLanguage.slnx\FileContentIndex\c092fdb5-70b0-4cae-a6f6-ecc3375b036a.vsidx" />
+    <None Include=".vs\ArmyLanguage.slnx\v18\.suo" />
+    <None Include=".vs\ArmyLanguage.slnx\v18\DocumentLayout.backup.json" />
+    <None Include=".vs\ArmyLanguage.slnx\v18\DocumentLayout.json" />
+    <None Include=".vs\ArmyLanguage\CopilotIndices\18.9.1306.19527\SemanticSymbols.db" />
+    <None Include="app.config" />
+    <None Include="Doxyfile" />
+    <None Include="Makefile.dotgnu" />
+    <None Include="Makefile.mono" />
+    <None Include="PEX_BUILD.bat" />
+    <None Include="PEX_TEST.bat" />
+    <None Include="README.parser" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ArmyLanguage.slnx" />
+    <Content Include="doxygen.css" />
+    <Content Include="PEX_LANGUAGE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="testcases\pex1\" />
+    <Folder Include="testcases\pex2\" />
+    <Folder Include="testcases\pex3\" />
+    <Folder Include="testcases\pex4\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>

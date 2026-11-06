@@ -1,0 +1,26 @@
+~ EXPECTED: PASS
+~ Constants (spec 1.2, 1.4)
+~ One constant of each type, declared before any procedure and before main.
+~ Also covers a negative value and an expression initializer.
+
+SOP INF MAX_ROUNDS -> 30;
+SOP FA MUZZLE_VELOCITY -> 2.97e3;
+SOP CBRN UNIT_NAME -> "Alpha Company";
+SOP INF MIN_TEMP -> -40;
+SOP INF TOTAL_ROUNDS -> 7 * 30 + 10;
+
+MISSION status() {
+    INF r;
+    r -> MAX_ROUNDS;
+}
+
+MARCH {
+    INF rounds;
+    FA velocity;
+    CBRN unit;
+
+    rounds -> MAX_ROUNDS;
+    velocity -> MUZZLE_VELOCITY;
+    unit -> UNIT_NAME;
+    status();
+}

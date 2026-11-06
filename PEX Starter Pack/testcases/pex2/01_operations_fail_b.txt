@@ -1,0 +1,14 @@
+~ EXPECTED: FAIL (parser) - missing closing parenthesis
+~ The parser reaches ';' while still inside the open '('.
+
+INF MARCH {
+    INF a;
+    INF b;
+    INF c;
+    INF result;
+
+    a -> 10;
+    b -> 4;
+    c -> 2;
+    result -> (a + b * c;
+}

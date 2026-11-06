@@ -1,0 +1,9 @@
+~ EXPECTED: FAIL (parser) - constant declared after main
+~ Main must be last (spec 2.4), so nothing may follow the MARCH block.
+
+MARCH {
+    INF rounds;
+    rounds -> 30;
+}
+
+SOP INF MAX_ROUNDS -> 30;

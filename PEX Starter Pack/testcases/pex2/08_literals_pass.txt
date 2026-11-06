@@ -1,0 +1,39 @@
+~ EXPECTED: PASS
+~ Literals (spec 1.5, 1.6)
+
+MARCH {
+    INF i;
+    FA f;
+    CBRN s;
+
+    ~ Integers
+    i -> 0;
+    i -> 7;
+    i -> 42;
+    i -> 1000000;
+    i -> -3;
+
+    ~ Floats: decimal, exponent only, decimal with exponent, signed exponents
+    f -> 0.0;
+    f -> 0.5;
+    f -> 3.14;
+    f -> 10.0;
+    f -> 1e10;
+    f -> 5.2e-4;
+    f -> 2.0E+3;
+    f -> 6.02e23;
+    f -> 0e5;
+    f -> -1.5;
+
+    ~ Strings
+    s -> "";
+    s -> "hello";
+    s -> "a";
+    s -> "Fox 2!";
+    s -> "He said \"Fox two\" over the radio";
+    s -> "C:\\Users\\cadet";
+    s -> "\\";
+    s -> "\"";
+    s -> "symbols inside a string: ~ # & | -> --> { } ( ) ; ,";
+    s -> "keywords inside a string: INF FA CBRN TLP MARCH";
+}

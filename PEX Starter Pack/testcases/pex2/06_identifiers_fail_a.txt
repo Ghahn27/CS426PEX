@@ -1,0 +1,6 @@
+~ EXPECTED: FAIL (lexer) - identifier containing an invalid character
+~ '$' is not a token in this language, so the LEXER rejects it.
+
+MARCH {
+    INF my$var;
+}

@@ -1,0 +1,9 @@
+~ EXPECTED: FAIL (parser) - constant with no value
+~ Constants must be initialized when declared (spec 1.2).
+
+SOP INF MAX_ROUNDS;
+
+MARCH {
+    INF rounds;
+    rounds -> 30;
+}

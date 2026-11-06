@@ -1,0 +1,12 @@
+~ EXPECTED: FAIL (parser) - invalid comparison, two comparison operators in a row
+~ The parser expects an operand after '>' but finds '<'.
+
+MARCH {
+    INF a;
+    INF b;
+    INF flag;
+
+    a -> 1;
+    b -> 2;
+    flag -> a > < b;
+}
