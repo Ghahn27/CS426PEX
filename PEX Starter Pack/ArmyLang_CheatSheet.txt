@@ -1,0 +1,186 @@
+PEX LANGUAGE CHEAT SHEET - HELPERS AND TOKENS
+==========================================
+Based on this project's PEX_LANGUAGE.txt.
+That file is the SableCC grammar; this file is a plain-English reference.
+
+1. WHAT YOU ARE LOOKING AT
+-------------------------
+Helpers: reusable character patterns used to define tokens.
+Tokens: the pieces the lexer recognizes (names, numbers, keywords, symbols).
+Ignored Tokens: recognized pieces the parser skips (spaces and comments).
+Productions: rules for combining tokens into valid programs.
+
+Package CS426 puts generated C# code under the CS426 namespace.
+The .cs files implement the language tools; the examples below are programs
+written IN the custom language those tools recognize.
+
+2. HOW TO READ THE GRAMMAR NOTATION
+----------------------------------
+'text'       Literal characters to match.
+|            Either alternative: 'a' | 'b' matches a or b.
+?            Optional: zero or one occurrence.
+*            Zero or more occurrences.
++            One or more occurrences when written AFTER a pattern.
+(...)        Groups a pattern.
+['a'..'z']   A character range, including both endpoints.
+[A + B]      Union of character sets: characters from either set.
+[A - B]      Difference of sets: characters in A except those in B.
+;            Ends a grammar definition.
+
+Context matters: + in [A + B] combines sets; + after whole repeats digits;
+the token definition plus = '+' matches an actual plus sign in a program.
+
+3. HELPERS - ALL OF THEM
+-----------------------
+whitespaces  Space, tab (9), line feed (10), carriage return (13).
+natural      ONE digit from 1 through 9, despite the name.
+whole        ONE digit from 0 through 9, despite the name.
+letter       One ASCII letter: a-z or A-Z.
+idhelp       One ASCII letter or digit. Does not include underscore.
+all          Character codes 0 through 0xffff.
+dquote       The double-quote character: "
+backslash    The backslash character: \
+string_char  Any character in all except ", backslash, LF, and CR.
+exponent     e or E, optional + or -, then one or more digits.
+             Examples: e3, E-2, e+10.
+
+4. KEYWORDS - CASE SENSITIVE
+---------------------------
+Spelling   Token name   Familiar meaning / example
+INF        inf          Integer type:     INF count;
+FA         fa           Float type:       FA rate;
+CBRN       cbrn         String type:      CBRN message;
+SOP        sop          Constant:         SOP INF LIMIT -> 10;
+TLP        tlp          If:               TLP (count > 0) { ... }
+CAVEAT     caveat       Else:             CAVEAT { ... }
+STX        stx          While:            STX (count > 0) { ... }
+MISSION    mission      Procedure:        MISSION work(INF x) { ... }
+MARCH      main         Main entry block: MARCH { ... }
+
+Use uppercase keyword spellings. Inf and tlp are identifiers, not keywords.
+Longer names such as INFO and MARCHING are also identifiers.
+
+5. OPERATORS AND PUNCTUATION - ALL FIXED SYMBOL TOKENS
+----------------------------------------------------
+Symbol  Token name          Meaning / example
+->      assign              Assignment:             count -> 5;
++       plus                Addition:               a + b
+-       minus               Subtraction / negation: a - b, -5
+*       mult                Multiplication:         a * b
+/       div                 Division:               a / b
+;       eol                 Ends a simple statement (not a physical line).
+,       comma               Separates parameters or arguments.
+-->     equiv               Equality (like ==):     count --> 5
+#-->    notequiv            Inequality (like !=):   count #--> 5
+#       not                 Logical NOT (like !):   #(count --> 5)
+>       greater             Greater than:           count > 5
+<       less                Less than:              count < 5
+->=     greatereq           Greater than or equal:  count ->= 5
+<-=     lesseq              Less than or equal:     count <-= 5
+&       and                 Logical AND:            a > 0 & b > 0
+|       or                  Logical OR:             a > 0 | b > 0
+(       open_parenthesis    Starts a condition, grouped expression, or list.
+)       close_parenthesis   Ends it.
+{       open_curly          Starts a block of statements.
+}       close_curly         Ends a block.
+[       open_bracket        Recognized by lexer; unused by current productions.
+]       close_bracket       Recognized by lexer; unused by current productions.
+
+Watch the arrows: -> assigns; --> compares for equality; ->= compares >=.
+Use &, |, and # rather than &&, ||, and !.
+An ordinary = is not a token in this language.
+
+6. IDENTIFIERS - TOKEN: id
+-------------------------
+Names for variables, constants, procedures, and parameters.
+Exact rule: (letter | '_' idhelp) (idhelp | '_' idhelp)* '_'?
+
+- Start with a letter, OR an underscore followed by a letter or digit.
+- After that, use letters, digits, and single underscores.
+- A trailing underscore is allowed; consecutive underscores are not.
+- ASCII letters only; names are case sensitive.
+- An exact uppercase keyword is reserved.
+
+Valid:   count, Count, x2, my_var, _private, _1, trailing_, _a_b_
+Invalid as a single identifier: 2count, _, __name, a__b, my$name
+
+7. LITERALS - VALUES WRITTEN DIRECTLY IN CODE
+--------------------------------------------
+integer
+  Rule: natural whole* | '0'
+  Examples: 0, 7, 42, 100
+  A multi-digit integer cannot start with zero as a single token.
+  -5 is a minus token followed by integer 5, not one signed-number token.
+
+float
+  Rule: (natural whole* | '0') ('.' whole+ exponent? | exponent)
+  Examples: 0.5, 12.75, 1e3, 2E-4, 3.0e+2
+  Needs digits before the decimal point AND digits after it when present.
+  .5 and 5. are not valid float tokens. Use 0.5 and 5.0.
+  The exponent must have digits: 1e and 1e+ are incomplete.
+
+string_literal
+  Double quotes surround the text: "hello", "A", ""
+  Supported escapes: \" for a quote, \\ for a backslash.
+  Example: "He said \"go\"" or "C:\\temp"
+  No raw newline inside a string; \n and \t are not supported escapes.
+  Single quotes do not delimit strings; there is no separate character token.
+
+8. COMMENTS AND WHITESPACE
+-------------------------
+comment    ~ starts a comment lasting until the physical line ends.
+blank      One or more spaces, tabs, line feeds, or carriage returns.
+
+Both are ignored by the parser. Newlines do not replace semicolons.
+~ inside a quoted string is ordinary text.
+
+Example:
+  INF count;       ~ Declare a variable.
+  count -> 3;      ~ Assign its value.
+
+9. SMALL PROGRAM TO CONNECT THE PIECES
+--------------------------------------
+SOP INF LIMIT -> 3;
+
+MISSION inspect(INF value) {
+    CBRN status;
+    TLP (value ->= LIMIT) {
+        status -> "ready";
+    } CAVEAT {
+        status -> "waiting";
+    }
+}
+
+MARCH {
+    INF count;
+    count -> 0;
+    STX (count < LIMIT) {
+        count -> count + 1;
+    }
+    inspect(count);
+}
+
+Program order: zero or more SOP constants, then zero or more MISSION
+procedures, then one MARCH block.
+Variable declarations and assignments are separate: INF x; x -> 5;
+The current grammar does not allow INF x -> 5; as one declaration.
+Calls are statements ending in ;. They cannot be used as expression operands.
+
+10. EXPRESSION PRECEDENCE - HIGHEST FIRST
+----------------------------------------
+1. Parentheses and literal/variable operands
+2. Unary minus: -x
+3. * and /
+4. + and binary -
+5. <, >, <-=, ->=
+6. --> and #-->
+7. # (logical NOT)
+8. & (logical AND)
+9. | (logical OR)
+
+This grammar puts NOT below comparisons: # x --> 0 means #(x --> 0).
+Binary operators at the same level associate left to right.
+
+This sheet describes lexical rules and accepted syntax. Successful parsing
+alone does not establish type compatibility, declaration correctness, or
+runtime behavior; those belong to later compiler stages.
