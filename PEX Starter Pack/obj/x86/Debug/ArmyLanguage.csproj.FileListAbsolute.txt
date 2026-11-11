@@ -12,3 +12,10 @@ C:\CS426\PEX Starter Pack\obj\x86\Debug\ArmyLanguage.csproj.AssemblyReference.ca
 C:\CS426\PEX Starter Pack\obj\x86\Debug\ArmyLanguage.csproj.CoreCompileInputs.cache
 C:\CS426\PEX Starter Pack\obj\x86\Debug\ConsoleApplication.exe
 C:\CS426\PEX Starter Pack\obj\x86\Debug\ConsoleApplication.pdb
+C:\Code\PEX_3\CS426PEX\PEX Starter Pack\bin\Debug\ConsoleApplication.exe.config
+C:\Code\PEX_3\CS426PEX\PEX Starter Pack\bin\Debug\ConsoleApplication.exe
+C:\Code\PEX_3\CS426PEX\PEX Starter Pack\bin\Debug\ConsoleApplication.pdb
+C:\Code\PEX_3\CS426PEX\PEX Starter Pack\obj\x86\Debug\ArmyLanguage.csproj.AssemblyReference.cache
+C:\Code\PEX_3\CS426PEX\PEX Starter Pack\obj\x86\Debug\ArmyLanguage.csproj.CoreCompileInputs.cache
+C:\Code\PEX_3\CS426PEX\PEX Starter Pack\obj\x86\Debug\ConsoleApplication.exe
+C:\Code\PEX_3\CS426PEX\PEX Starter Pack\obj\x86\Debug\ConsoleApplication.pdb

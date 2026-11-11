@@ -137,7 +137,11 @@ class TestParser
 
             Lexer l = new Lexer(new StreamReader(args[0]));
             Parser p = new Parser(l);
-            Start s = p.Parse();
+            Start s = p.Parse(); //parse tree
+
+            // create semantic analyzer and apply it to the parse tree
+            SemanticAnalyzer sa = new SemanticAnalyzer();
+            s.Apply(sa);
 
             TextPrinter printer = new TextPrinter();
             if (args.Length > 1 && args[1] == "-ansi")
