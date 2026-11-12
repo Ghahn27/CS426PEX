@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CS426.node;
 
 namespace CS426.analysis
 {
@@ -17,5 +18,21 @@ namespace CS426.analysis
         Dictionary<string, Definition> localSymbolTable = new Dictionary<string, Definition>();
 
 
+
+        public override void InAProgram(AProgram node)
+        {
+            // Create Definitoion for integers
+            Definition intDefinition = new NumberDefinition();
+            intDefinition.name = "INF";
+
+            Definition strDefinition = new StringDefinition();
+            strDefinition.name = "CBRN";
+
+            // register the defininiton with the global symbol table
+            globalSymbolTable.Add("INF", intDefinition);
+            globalSymbolTable.Add("CBRN", strDefinition);
+
+            Console.WriteLine("Semantic analysis started");
+        }
     }
 }
