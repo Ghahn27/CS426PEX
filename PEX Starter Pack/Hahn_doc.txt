@@ -5,3 +5,39 @@ I deleted the fluff in the document and used its cases. https://claude.ai/share/
 
 PEX2: I used claude to help me capture everything needed with in the project as well as create test files. I mainly specified what to
 do and claude helped. https://claude.ai/share/c2a44553-a18d-4bf5-b830-5374aac19fdc I also used claude to generate test cases.
+
+PEX3: I watched the video create the first set of "Out" statements (Operands). I created those for my language and asked claude to replicate
+the structure of those definitions for the rest of the language.
+
+Output (unable to export a thread as this was done in terminal w/ claude):
+I added an Out handler for every remaining node in PEX_LANGUAGE.txt. Each one copies your pattern: get the child’s definition from decoratedParseTree, check it, then either call PrintWarning or add a label for the node. The project builds. A valid test program ran with no warnings, and a program with 10 deliberate errors produced the correct warning for each one. Nothing is committed.
+
+What each part of the grammar now does (SemanticAnalyzer.cs):
+
+Parentheses ( expression ): passes the inner expression’s type up, like your pass methods.
+Arithmetic (unary -, *, /, +, -): both sides must be the same number type, and the result is that type. Mixing int and float gives a warning.
+Comparisons (<, >, <-=, ->=): both sides must be the same number type, and the result is a new BooleanDefinition named "bool".
+Equality (-->, #-->): both sides can be any type as long as it’s the same type. The result is "bool".
+Logic (#, &, |): the operands must be bools, and the result is "bool".
+Types (INF, FA, CBRN): labeled "int", "float" and "str", the same names your operands use, so the types can be compared by name.
+Declarations: add a variable to the local symbol table, with a warning if the name already exists.
+Assignments: check that the variable exists, isn’t a constant, and has the same type as the expression.
+Constants (SOP): check the type and add the constant to the global symbol table.
+TLP and STX (if and while): the condition must be a bool.
+Procedure calls: check that the name is a procedure, then check the number and types of the arguments against its parameters.
+Procedures and main: each one starts with an empty local symbol table. Parameters go into the local table and also into the procedure’s FunctionDefinition.parameters list.
+
+Changes outside the Out handlers:
+
+InAProcedure: this one is an “In” handler. It adds the procedure to the global table before its parameters and body are visited, so the body can call the procedure itself (recursion) and the parameters can be added to it.
+InAMainProc: also an “In” handler; it clears the local table for main.
+ConstantDefinition: a new class in Definition.cs that extends VariableDefinition, so assignments to SOP constants can be rejected.
+OutAVariableOperand: I changed it to also look in the global table, so constants can be found.
+Helpers: I added two, SameType (compares type names) and LookUp (searches the local table first, then the global one).
+
+Limitations:
+
+A variable declared inside a TLP/STX block stays visible for the rest of the procedure, because blocks don’t get their own scope.
+Strings can’t be joined with +.
+
+Change either of those if your assignment requires it.

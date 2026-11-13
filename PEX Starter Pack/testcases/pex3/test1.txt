@@ -1,18 +1,6 @@
-~ Small valid program: count to 3, then calculate a result.
+MISSION foo () {
+}
+
 MARCH {
-    INF count;
-    INF result;
-
-    count -> 0;
-    result -> 0;
-
-    STX (count < 3) {
-        count -> count + 1;
-    }
-
-    TLP (count --> 3) {
-        result -> count * 2;
-    } CAVEAT {
-        result -> 1;
-    }
+	x -> y;
 }

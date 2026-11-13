@@ -27,6 +27,9 @@ namespace CS426.analysis
         public TypeDefinition VariableType;
     }
 
+    // A constant (SOP) is a variable that cannot be assigned to after it is declared
+    public class ConstantDefinition : VariableDefinition { }
+
     public class FunctionDefinition : Definition
     {
         public List<VariableDefinition> parameters;
