@@ -1065,6 +1065,23 @@ TEST:     03_boolean_pass.txt
 TESTING:  Every comparison and logical operator, plus precedence combinations 
 EXPECTED: Parse tree printed 
 ------------------------------------------------------------------------ 
+Line 22 Col 10: Cannot assign bool to flag (int)
+Line 23 Col 10: Cannot assign bool to flag (int)
+Line 24 Col 10: Cannot assign bool to flag (int)
+Line 25 Col 10: Cannot assign bool to flag (int)
+Line 28 Col 10: Cannot assign bool to flag (int)
+Line 29 Col 10: Cannot assign bool to flag (int)
+Line 32 Col 15: Cannot & int and int
+Line 33 Col 15: Cannot | int and int
+Line 34 Col 13: Cannot apply # to a int
+Line 35 Col 15: Cannot apply # to a int
+Line 38 Col 10: Cannot assign bool to flag (int)
+Line 41 Col 10: Cannot assign bool to flag (int)
+Line 44 Col 10: Cannot assign bool to flag (int)
+Line 47 Col 19: Cannot & int and int
+Line 50 Col 10: Cannot assign bool to flag (int)
+Line 53 Col 16: Cannot | int and int
+Line 54 Col 10: Cannot assign bool to flag (int)
 
 - AProgram
      `- ANoneConstants
@@ -1710,6 +1727,7 @@ TEST:     03_boolean_fail_a.txt
 TESTING:  Chained comparison, 3 less than x less than 5 
 EXPECTED: Parse tree printed - chaining is rejected in PEX 3, not by the parser 
 ------------------------------------------------------------------------ 
+Line 11 Col 19: Cannot compare bool < int
 
 - AProgram
      `- ANoneConstants
