@@ -1,0 +1,6 @@
+MARCH {
+    INF x;
+    INF y;
+    x -> 5;
+    y -> 3;
+}

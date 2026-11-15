@@ -515,6 +515,84 @@ public sealed class AStringType : PType
     }
 
 }
+public sealed class ANameType : PType
+{
+    private TId _id_;
+
+    public ANameType ()
+    {
+    }
+
+    public ANameType (
+            TId _id_
+    )
+    {
+        SetId (_id_);
+    }
+
+    public override Object Clone()
+    {
+        return new ANameType (
+            (TId)CloneNode (_id_)
+        );
+    }
+
+    public override void Apply(Switch sw)
+    {
+        ((Analysis) sw).CaseANameType(this);
+    }
+
+    public TId GetId ()
+    {
+        return _id_;
+    }
+
+    public void SetId (TId node)
+    {
+        if(_id_ != null)
+        {
+            _id_.Parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.Parent() != null)
+            {
+                node.Parent().RemoveChild(node);
+            }
+
+            node.Parent(this);
+        }
+
+        _id_ = node;
+    }
+
+    public override string ToString()
+    {
+        return ""
+            + ToString (_id_)
+        ;
+    }
+
+    internal override void RemoveChild(Node child)
+    {
+        if ( _id_ == child )
+        {
+            _id_ = null;
+            return;
+        }
+    }
+
+    internal override void ReplaceChild(Node oldChild, Node newChild)
+    {
+        if ( _id_ == oldChild )
+        {
+            SetId ((TId) newChild);
+            return;
+        }
+    }
+
+}
 public sealed class ADeclareStatement : PDeclareStatement
 {
     private PType _type_;

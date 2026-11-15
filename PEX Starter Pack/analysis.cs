@@ -19,6 +19,7 @@ public interface Analysis : Switch
     void CaseAIntType(AIntType node);
     void CaseAFloatType(AFloatType node);
     void CaseAStringType(AStringType node);
+    void CaseANameType(ANameType node);
     void CaseADeclareStatement(ADeclareStatement node);
     void CaseAAssignStatement(AAssignStatement node);
     void CaseABlock(ABlock node);
@@ -193,6 +194,10 @@ public class AnalysisAdapter : Analysis
         DefaultCase(node);
     }
     public virtual void CaseAStringType(AStringType node)
+    {
+        DefaultCase(node);
+    }
+    public virtual void CaseANameType(ANameType node)
     {
         DefaultCase(node);
     }
@@ -696,6 +701,25 @@ public class DepthFirstAdapter : AnalysisAdapter
             node.GetCbrn().Apply(this);
         }
         OutAStringType(node);
+    }
+    public virtual void InANameType(ANameType node)
+    {
+        DefaultIn(node);
+    }
+
+    public virtual void OutANameType(ANameType node)
+    {
+        DefaultOut(node);
+    }
+
+    public override void CaseANameType(ANameType node)
+    {
+        InANameType(node);
+        if(node.GetId() != null)
+        {
+            node.GetId().Apply(this);
+        }
+        OutANameType(node);
     }
     public virtual void InADeclareStatement(ADeclareStatement node)
     {
@@ -2162,6 +2186,25 @@ public class ReversedDepthFirstAdapter : AnalysisAdapter
             node.GetCbrn().Apply(this);
         }
         OutAStringType(node);
+    }
+    public virtual void InANameType(ANameType node)
+    {
+        DefaultIn(node);
+    }
+
+    public virtual void OutANameType(ANameType node)
+    {
+        DefaultOut(node);
+    }
+
+    public override void CaseANameType(ANameType node)
+    {
+        InANameType(node);
+        if(node.GetId() != null)
+        {
+            node.GetId().Apply(this);
+        }
+        OutANameType(node);
     }
     public virtual void InADeclareStatement(ADeclareStatement node)
     {

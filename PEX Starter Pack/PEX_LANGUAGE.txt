@@ -78,7 +78,7 @@ Productions
 
 	program = constants procedures main_proc;
 
-	type = {int} inf | {float} fa | {string} cbrn;
+	type = {int} inf | {float} fa | {string} cbrn | {name} id;
 	declare_statement = type id eol;
 
 	//assign

@@ -579,11 +579,32 @@ namespace CS426.analysis
             decoratedParseTree.Add(node, strDefinition);
         }
 
+        public override void OutANameType(ANameType node)
+        {
+            string typeName = node.GetId().Text;
+            Definition definition = LookUp(typeName);
+
+            if (definition == null)
+            {
+                PrintWarning(node.GetId(),
+                    typeName + " is not a declared type");
+            }
+            else if (!(definition is TypeDefinition))
+            {
+                PrintWarning(node.GetId(),
+                    typeName + " is not a type");
+            }
+            else
+            {
+                decoratedParseTree.Add(node, definition);
+            }
+        }
+
         //-----------
         // Statements
         //-----------
 
-        // TYPE id ;  -> add a new local variable
+            // TYPE id ;  -> add a new local variable
         public override void OutADeclareStatement(ADeclareStatement node)
         {
             String varName = node.GetId().Text;
