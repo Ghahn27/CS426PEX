@@ -1,0 +1,5 @@
+~ EXPECTED: PASS - Called procedure is declared.
+MISSION report() {}
+MARCH {
+    report();
+}

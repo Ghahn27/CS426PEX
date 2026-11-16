@@ -1,0 +1,5 @@
+~ EXPECTED: PASS - STX condition is Boolean and false.
+MARCH {
+    STX (1 > 2) {
+    }
+}

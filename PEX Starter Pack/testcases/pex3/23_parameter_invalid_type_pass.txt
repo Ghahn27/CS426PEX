@@ -1,0 +1,5 @@
+~ EXPECTED: PASS - Formal parameter uses a valid type.
+MISSION report(INF count) {}
+MARCH {
+    report(1);
+}

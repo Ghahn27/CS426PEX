@@ -3,7 +3,15 @@
   "WorkspaceRootPath": "C:\\Code\\PEX_3\\CS426PEX\\PEX Starter Pack\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{59587D39-E6DF-ABE5-CA4F-5B11796B1E6B}|ArmyLanguage.csproj|c:\\code\\pex_3\\cs426pex\\pex starter pack\\pex_test.bat||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "AbsoluteMoniker": "D:0:0:{59587D39-E6DF-ABE5-CA4F-5B11796B1E6B}|ArmyLanguage.csproj|c:\\code\\pex_3\\cs426pex\\pex starter pack\\semanticanalyzer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{59587D39-E6DF-ABE5-CA4F-5B11796B1E6B}|ArmyLanguage.csproj|solutionrelative:semanticanalyzer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{59587D39-E6DF-ABE5-CA4F-5B11796B1E6B}|ArmyLanguage.csproj|C:\\Code\\PEX_3\\CS426PEX\\PEX Starter Pack\\pex_language.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{59587D39-E6DF-ABE5-CA4F-5B11796B1E6B}|ArmyLanguage.csproj|solutionrelative:pex_language.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{59587D39-E6DF-ABE5-CA4F-5B11796B1E6B}|ArmyLanguage.csproj|C:\\Code\\PEX_3\\CS426PEX\\PEX Starter Pack\\pex_test.bat||{3B902123-F8A7-4915-9F01-361F908088D0}",
       "RelativeMoniker": "D:0:0:{59587D39-E6DF-ABE5-CA4F-5B11796B1E6B}|ArmyLanguage.csproj|solutionrelative:pex_test.bat||{3B902123-F8A7-4915-9F01-361F908088D0}"
     },
     {
@@ -13,14 +21,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{59587D39-E6DF-ABE5-CA4F-5B11796B1E6B}|ArmyLanguage.csproj|C:\\Code\\PEX_3\\CS426PEX\\PEX Starter Pack\\testcases\\pex3\\test1.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{59587D39-E6DF-ABE5-CA4F-5B11796B1E6B}|ArmyLanguage.csproj|solutionrelative:testcases\\pex3\\test1.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{59587D39-E6DF-ABE5-CA4F-5B11796B1E6B}|ArmyLanguage.csproj|C:\\Code\\PEX_3\\CS426PEX\\PEX Starter Pack\\semanticanalyzer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{59587D39-E6DF-ABE5-CA4F-5B11796B1E6B}|ArmyLanguage.csproj|solutionrelative:semanticanalyzer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{59587D39-E6DF-ABE5-CA4F-5B11796B1E6B}|ArmyLanguage.csproj|C:\\Code\\PEX_3\\CS426PEX\\PEX Starter Pack\\pex_language.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{59587D39-E6DF-ABE5-CA4F-5B11796B1E6B}|ArmyLanguage.csproj|solutionrelative:pex_language.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{59587D39-E6DF-ABE5-CA4F-5B11796B1E6B}|ArmyLanguage.csproj|C:\\Code\\PEX_3\\CS426PEX\\PEX Starter Pack\\nodes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -38,24 +38,23 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "PEX_TEST.bat",
               "DocumentMoniker": "C:\\Code\\PEX_3\\CS426PEX\\PEX Starter Pack\\PEX_TEST.bat",
               "RelativeDocumentMoniker": "PEX_TEST.bat",
               "ToolTip": "C:\\Code\\PEX_3\\CS426PEX\\PEX Starter Pack\\PEX_TEST.bat",
               "RelativeToolTip": "PEX_TEST.bat",
-              "ViewState": "AgIAAOoAAAAAAAAAAAAAAAIBAABZAAAAAAAAAA==",
+              "ViewState": "AgIAAN4AAAAAAAAAAAAAAAIBAAAAAAAAAAAAAA==",
               "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAH/SURBVEhLY6Ap\u002BP//P5Q1hAFjZXnpfaBfFKB8KgPGB0zUMNzbNwArDTIb6IOS/43NbVAB6oL62ioGoA/wg99//jLsOnKGYcfBU0D2H6go8QCnBd9\u002B/GS4dvsBw817jxh\u002BfP/B8OPHD4Y7958wHD19keHrt\u002B9QVYQBTgsuXr/DcOfhU4Y7Dx6DXf4HiC/fuM3w6OkLhrOXrkNVEQY4LdBSUWBgYmQAGvyXwdPBgsHT0RJsCQjraqhAVREGOC0AZcLvwKD5CzQQxAZhkOHMQB3//v\u002BDqiIMcFpw9eZdqIt/M6zbtpdh7ZY9YMu\u002Bff/OcPz0BagqwgCnBQbaagxS4sIMOhrKYEv\u002B/P3NoKGqxKClpsxgb2UKVUUY4LSAm4uTwd7ShEFTRQkYLEwMLEBspKfFYGVqyDBt/mKG9v4pUJX4AQuUxgnY2FgZ4sL8wez123YCg\u002Bccw\u002BfPnxn\u002B/P7FkF1czuDsYMsQ5OsDlscGcPoAG2BnZ2f49OkTQ0tVKUN7XRXDx48fGf7/xR/hJFnw99dvht\u002B/fgJT1D8w/v3zJzgh4AMkWfDv/18GVmZmhrySCobsghIGNhZmhi\u002BfP0FlsQOSLPD38mCYMaGbQVpSgkFGWoJh8fw5DMmJCVBZ7IAkC2Cgu62Zoa\u002BzA8rDD4DFdTGwwmGkUYXz/wGUMQpwAQYGAH2yzOcQ/PnSAAAAAElFTkSuQmCC",
-              "WhenOpened": "2026-11-15T01:17:47.382Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-11-15T01:17:47.382Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "test1.txt",
               "DocumentMoniker": "C:\\Code\\PEX_3\\CS426PEX\\PEX Starter Pack\\testcases\\pex3\\test1.txt",
               "RelativeDocumentMoniker": "testcases\\pex3\\test1.txt",
@@ -67,13 +66,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "PEX_LANGUAGE.txt",
               "DocumentMoniker": "C:\\Code\\PEX_3\\CS426PEX\\PEX Starter Pack\\PEX_LANGUAGE.txt",
               "RelativeDocumentMoniker": "PEX_LANGUAGE.txt",
               "ToolTip": "C:\\Code\\PEX_3\\CS426PEX\\PEX Starter Pack\\PEX_LANGUAGE.txt",
               "RelativeToolTip": "PEX_LANGUAGE.txt",
-              "ViewState": "AgIAAEgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAAAE4AAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
               "WhenOpened": "2026-11-13T00:19:40.965Z",
               "EditorCaption": ""
@@ -92,15 +91,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "SemanticAnalyzer.cs",
               "DocumentMoniker": "C:\\Code\\PEX_3\\CS426PEX\\PEX Starter Pack\\SemanticAnalyzer.cs",
               "RelativeDocumentMoniker": "SemanticAnalyzer.cs",
               "ToolTip": "C:\\Code\\PEX_3\\CS426PEX\\PEX Starter Pack\\SemanticAnalyzer.cs",
               "RelativeToolTip": "SemanticAnalyzer.cs",
-              "ViewState": "AgIAAGYCAAAAAAAAAAAwwFQDAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADcCAAAAAAAAAAAwwE4CAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-12T00:05:37.382Z"
+              "WhenOpened": "2026-11-12T00:05:37.382Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -116,7 +116,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "main.cs",
               "DocumentMoniker": "C:\\Code\\PEX_3\\CS426PEX\\PEX Starter Pack\\main.cs",
               "RelativeDocumentMoniker": "main.cs",

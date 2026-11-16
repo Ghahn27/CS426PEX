@@ -1,0 +1,5 @@
+~ EXPECTED: FAIL - x exists, but it is a variable rather than a type.
+MARCH {
+    INF x;
+    x y;
+}

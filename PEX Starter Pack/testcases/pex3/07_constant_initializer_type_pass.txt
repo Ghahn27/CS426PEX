@@ -1,0 +1,6 @@
+~ EXPECTED: PASS - Initializers match their declared types.
+SOP INF LIMIT -> 10;
+SOP FA SPEED -> 2.5;
+SOP CBRN LABEL -> "Alpha";
+MARCH {
+}

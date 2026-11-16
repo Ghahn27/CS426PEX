@@ -1,0 +1,7 @@
+~ EXPECTED: PASS - INF is a type; x is used as a variable, not a type.
+MARCH {
+    INF x;
+    INF y;
+    x -> 5;
+    y -> x;
+}

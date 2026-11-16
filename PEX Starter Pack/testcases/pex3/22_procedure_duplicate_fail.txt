@@ -1,0 +1,5 @@
+~ EXPECTED: FAIL - Procedure name report is declared twice.
+MISSION report() {}
+MISSION report() {}
+MARCH {
+}

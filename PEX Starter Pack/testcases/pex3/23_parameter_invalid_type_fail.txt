@@ -1,0 +1,5 @@
+~ EXPECTED: FAIL - Formal parameter uses invalid type x.
+~ x has not been declared as a type.
+MISSION report(x x) {}
+MARCH {
+}

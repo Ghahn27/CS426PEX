@@ -1,0 +1,7 @@
+~ EXPECTED: PASS - Constant can be read and variable can be updated.
+SOP INF LIMIT -> 10;
+MARCH {
+    INF x;
+    x -> LIMIT;
+    x -> 20;
+}

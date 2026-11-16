@@ -1,0 +1,9 @@
+~ EXPECTED: FAIL - Assignments mismatch INF, FA, and CBRN destinations.
+MARCH {
+    INF count;
+    FA speed;
+    CBRN label;
+    count -> 2.5;
+    speed -> 1;
+    label -> 1;
+}

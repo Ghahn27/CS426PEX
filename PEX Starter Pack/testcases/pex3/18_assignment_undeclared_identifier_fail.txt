@@ -1,0 +1,4 @@
+~ EXPECTED: FAIL - Assignment target missing is undeclared.
+MARCH {
+    missing -> 1;
+}

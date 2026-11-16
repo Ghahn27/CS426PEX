@@ -1,0 +1,6 @@
+~ EXPECTED: FAIL - Call target report is a variable.
+MARCH {
+    INF report;
+    report -> 1;
+    report();
+}

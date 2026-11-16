@@ -1,0 +1,9 @@
+~ EXPECTED: PASS - Assignments match destination types.
+MARCH {
+    INF count;
+    FA speed;
+    CBRN label;
+    count -> 1;
+    speed -> 2.5;
+    label -> "Alpha";
+}

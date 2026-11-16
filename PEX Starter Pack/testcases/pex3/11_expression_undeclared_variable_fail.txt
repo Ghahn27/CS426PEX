@@ -1,0 +1,5 @@
+~ EXPECTED: FAIL - Expression variable missing is undeclared.
+MARCH {
+    INF y;
+    y -> missing + 1;
+}

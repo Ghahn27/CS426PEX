@@ -1,0 +1,4 @@
+~ EXPECTED: FAIL - Called procedure missing is undeclared.
+MARCH {
+    missing();
+}

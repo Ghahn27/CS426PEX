@@ -1,0 +1,6 @@
+~ EXPECTED: FAIL - MAX_ROUNDS is declared twice in the global scope.
+SOP INF MAX_ROUNDS -> 30;
+SOP INF MAX_ROUNDS -> 5;
+
+MARCH {
+}

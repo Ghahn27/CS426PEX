@@ -1,0 +1,7 @@
+~ EXPECTED: PASS - Assignment target is a variable.
+MISSION report() {
+}
+MARCH {
+    INF x;
+    x -> 1;
+}

@@ -1,0 +1,4 @@
+~ EXPECTED: FAIL - Constant uses an undeclared type.
+SOP UnknownType LIMIT -> 10;
+MARCH {
+}

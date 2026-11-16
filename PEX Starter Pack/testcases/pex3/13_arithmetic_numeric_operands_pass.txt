@@ -1,0 +1,8 @@
+~ EXPECTED: PASS - Arithmetic operands are numeric.
+MARCH {
+    INF x;
+    x -> 8 + 2;
+    x -> 8 - 2;
+    x -> 8 * 2;
+    x -> 8 / 2;
+}

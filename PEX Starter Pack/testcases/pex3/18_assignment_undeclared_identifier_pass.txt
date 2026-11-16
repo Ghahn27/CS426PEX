@@ -1,0 +1,5 @@
+~ EXPECTED: PASS - Assignment target is declared.
+MARCH {
+    INF x;
+    x -> 1;
+}

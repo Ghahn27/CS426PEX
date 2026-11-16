@@ -1,0 +1,5 @@
+~ EXPECTED: PASS - TLP condition is Boolean.
+MARCH {
+    TLP (1 < 2) {
+    }
+}

@@ -1,0 +1,5 @@
+~ EXPECTED: PASS - Formal parameter names are distinct.
+MISSION report(INF count, INF limit) {}
+MARCH {
+    report(1, 2);
+}

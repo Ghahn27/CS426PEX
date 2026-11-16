@@ -1,0 +1,7 @@
+~ EXPECTED: PASS - Calls have exactly the required number of arguments.
+MISSION halt() {}
+MISSION report(INF count, FA speed) {}
+MARCH {
+    halt();
+    report(1, 2.5);
+}

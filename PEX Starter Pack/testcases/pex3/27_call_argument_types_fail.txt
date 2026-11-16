@@ -1,0 +1,5 @@
+~ EXPECTED: FAIL - Argument count matches, but argument types do not.
+MISSION report(INF count, FA speed, CBRN label) {}
+MARCH {
+    report(2.5, 1, 3);
+}

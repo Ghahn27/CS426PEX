@@ -1,0 +1,10 @@
+~ EXPECTED: FAIL - Comparisons use matching but nonnumeric CBRN operands.
+~ Per the supplied checklist, comparisons require numeric operands.
+MARCH {
+    TLP ("a" < "b") {}
+    TLP ("a" > "b") {}
+    TLP ("a" <-= "b") {}
+    TLP ("a" ->= "b") {}
+    TLP ("a" --> "b") {}
+    TLP ("a" #--> "b") {}
+}

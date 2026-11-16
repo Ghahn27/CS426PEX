@@ -1,0 +1,9 @@
+~ EXPECTED: PASS - Comparisons use numeric operands.
+MARCH {
+    TLP (1 < 2) {}
+    TLP (1 > 2) {}
+    TLP (1 <-= 2) {}
+    TLP (1 ->= 2) {}
+    TLP (1 --> 2) {}
+    TLP (1 #--> 2) {}
+}

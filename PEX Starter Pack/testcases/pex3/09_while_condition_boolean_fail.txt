@@ -1,0 +1,5 @@
+~ EXPECTED: FAIL - STX condition is INF.
+MARCH {
+    STX (1) {
+    }
+}

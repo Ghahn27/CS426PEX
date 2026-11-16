@@ -1,0 +1,5 @@
+~ EXPECTED: PASS - Call target is a procedure.
+MISSION report() {}
+MARCH {
+    report();
+}

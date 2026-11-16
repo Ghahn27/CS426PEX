@@ -1,0 +1,6 @@
+~ EXPECTED: FAIL - Assignment target report is a procedure.
+MISSION report() {
+}
+MARCH {
+    report -> 1;
+}

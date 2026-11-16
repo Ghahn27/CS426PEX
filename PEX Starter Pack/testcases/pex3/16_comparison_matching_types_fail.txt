@@ -1,0 +1,9 @@
+~ EXPECTED: FAIL - Each comparison mixes INF and FA.
+MARCH {
+    TLP (1 < 2.0) {}
+    TLP (1 > 2.0) {}
+    TLP (1 <-= 2.0) {}
+    TLP (1 ->= 2.0) {}
+    TLP (1 --> 2.0) {}
+    TLP (1 #--> 2.0) {}
+}

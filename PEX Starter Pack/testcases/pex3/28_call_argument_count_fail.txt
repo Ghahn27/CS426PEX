@@ -1,0 +1,8 @@
+~ EXPECTED: FAIL - Calls provide too few and too many arguments.
+MISSION report(INF count, FA speed) {}
+MARCH {
+    ~ Too few arguments; supplied argument has the correct type.
+    report(1);
+    ~ Too many arguments; the first two have the correct types.
+    report(1, 2.5, 3);
+}

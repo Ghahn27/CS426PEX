@@ -1,0 +1,7 @@
+~ EXPECTED: PASS - AND and OR combine Boolean operands.
+MARCH {
+    TLP ((1 < 2) & (3 < 4)) {
+    }
+    TLP ((1 > 2) | (3 < 4)) {
+    }
+}

@@ -1,0 +1,7 @@
+~ EXPECTED: FAIL - Expression uses the type INF as a value.
+~ Current grammar treats INF as a keyword, so this may fail during parsing.
+~ Intended semantic requirement: a type cannot be used as a value.
+MARCH {
+    INF x;
+    x -> INF;
+}

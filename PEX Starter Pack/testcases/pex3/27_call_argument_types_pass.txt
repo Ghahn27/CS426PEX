@@ -1,0 +1,5 @@
+~ EXPECTED: PASS - All argument types match their corresponding parameters.
+MISSION report(INF count, FA speed, CBRN label) {}
+MARCH {
+    report(1, 2.5, "Alpha");
+}

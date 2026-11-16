@@ -1,0 +1,4 @@
+~ EXPECTED: FAIL - FA initializer does not match INF.
+SOP INF LIMIT -> 2.5;
+MARCH {
+}

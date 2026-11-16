@@ -1,0 +1,7 @@
+~ EXPECTED: PASS - Expression uses a variable value.
+MARCH {
+    INF x;
+    INF y;
+    x -> 1;
+    y -> x;
+}

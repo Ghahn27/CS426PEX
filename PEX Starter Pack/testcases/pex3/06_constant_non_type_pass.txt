@@ -1,0 +1,5 @@
+~ EXPECTED: PASS - Constant uses INF as its type.
+SOP INF BASE -> 5;
+SOP INF LIMIT -> BASE;
+MARCH {
+}

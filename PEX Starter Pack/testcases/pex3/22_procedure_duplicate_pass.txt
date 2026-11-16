@@ -1,0 +1,7 @@
+~ EXPECTED: PASS - Procedure names are distinct.
+MISSION first() {}
+MISSION second() {}
+MARCH {
+    first();
+    second();
+}

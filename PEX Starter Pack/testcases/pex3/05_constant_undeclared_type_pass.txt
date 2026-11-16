@@ -1,0 +1,4 @@
+~ EXPECTED: PASS - Constant uses a declared type.
+SOP INF LIMIT -> 10;
+MARCH {
+}

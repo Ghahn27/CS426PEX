@@ -1,0 +1,10 @@
+~ EXPECTED: PASS - Comparisons use matching numeric types.
+MARCH {
+    TLP (1 < 2) {}
+    TLP (1 > 2) {}
+    TLP (1 <-= 2) {}
+    TLP (1 ->= 2) {}
+    TLP (1 --> 2) {}
+    TLP (1 #--> 2) {}
+    TLP (1.0 < 2.0) {}
+}

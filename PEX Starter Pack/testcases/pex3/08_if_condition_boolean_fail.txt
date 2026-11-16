@@ -1,0 +1,5 @@
+~ EXPECTED: FAIL - TLP condition is INF.
+MARCH {
+    TLP (1) {
+    }
+}

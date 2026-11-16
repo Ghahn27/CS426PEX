@@ -1,0 +1,6 @@
+~ EXPECTED: PASS - Constants have different names.
+SOP INF MAX_ROUNDS -> 30;
+SOP INF MIN_ROUNDS -> 5;
+
+MARCH {
+}

@@ -1,0 +1,7 @@
+~ EXPECTED: FAIL - AND and OR mix Boolean and INF operands.
+MARCH {
+    TLP ((1 < 2) & 1) {
+    }
+    TLP ((1 < 2) | 1) {
+    }
+}

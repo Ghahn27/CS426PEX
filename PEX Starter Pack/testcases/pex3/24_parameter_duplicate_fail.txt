@@ -1,0 +1,4 @@
+~ EXPECTED: FAIL - Formal parameter count is declared twice.
+MISSION report(INF count, INF count) {}
+MARCH {
+}

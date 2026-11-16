@@ -1,0 +1,5 @@
+~ EXPECTED: FAIL - SOP constant cannot be reassigned.
+SOP INF LIMIT -> 10;
+MARCH {
+    LIMIT -> 20;
+}

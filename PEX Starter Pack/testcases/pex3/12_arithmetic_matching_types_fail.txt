@@ -1,0 +1,8 @@
+~ EXPECTED: FAIL - Each arithmetic expression mixes INF and FA.
+MARCH {
+    INF x;
+    x -> 8 + 2.0;
+    x -> 8 - 2.0;
+    x -> 8 * 2.0;
+    x -> 8 / 2.0;
+}

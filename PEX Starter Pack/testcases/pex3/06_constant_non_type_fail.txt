@@ -1,0 +1,5 @@
+~ EXPECTED: FAIL - BASE exists as a constant, but is used as a type.
+SOP INF BASE -> 5;
+SOP BASE LIMIT -> 10;
+MARCH {
+}
