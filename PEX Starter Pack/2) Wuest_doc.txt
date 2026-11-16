@@ -1,0 +1,3026 @@
+I first completed everything in the video from 0:00 to 21:00 by myself. I then handed off the project to Garrett. He got to 1hr in the video.
+when I picked up from where he left off I used chat to scan the github repo, and give me a checklist of what I needed to do next. 
+I also had chat clarify for me all of the semantic errors that needed to be caught. https://chatgpt.com/share/6afb8768-7508-83e8-a4ae-867d3d4da5a4
+
+I then plugged what I had from chat into codex so that it could rewrite PexTest.bat and add blank test cases in /testcases/pex3. After I wrote the
+first two test cases, and cowrote the 3rd and 4th (I was using the wrong type name for constants so it had to help me there). I understood the premise. 
+I then told it to write the rest of the test cases. 
+
+Below is the terminal logs from codex.
+
+
+
+edit pex_test.bat so that all pex 2 tests are commented and so there is a new section that just has the pex 3 test section header. Do not write any tests for pex 3 yet.
+
+I’ll check pex_test.bat, comment out the PEX 2 tests, and add an empty PEX 3 section header.
+Get-Location; rg --files -g AGENTS.md -g pex_test.bat
+
+Path
+----
+C:\Code\PEX_3\CS426PEX
+
+
+✗ (1) • 1.58s
+Get-ChildItem -Force -Name; rg --files --hidden -g '*test*.bat' -g AGENTS.md
+.git
+PEX Starter Pack
+✗ (1) • 1.34s
+Get-ChildItem -LiteralPath 'PEX Starter Pack' -Force; Get-ChildItem -Path . -Filter AGENTS.md -Recurse -Force; Get-ChildItem -Path . -Filter '*.bat' -Recurse -Force
+
+
+    Directory: C:\Code\PEX_3\CS426PEX\PEX Starter Pack
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        11/11/2026   4:42 PM                .vs
+d-----        11/11/2026   4:39 PM                bin
+d-----        11/11/2026   4:16 PM                obj
+d-----        11/11/2026   4:16 PM                sablecc
+d-----        11/11/2026   4:31 PM                testcases
+-a----        11/14/2026   6:14 PM          84393 analysis.cs
+-a----        11/11/2026   4:16 PM            161 app.config
+-a----        11/11/2026   4:55 PM           3981 ArmyLanguage.csproj
+-a----        11/11/2026   4:42 PM            394 ArmyLanguage.csproj.user
+-a----        11/11/2026   4:16 PM            181 ArmyLanguage.slnx
+-a----        11/11/2026   4:26 PM           7809 ArmyLang_CheatSheet.txt
+-a----        11/14/2026   6:04 PM            936 Definition.cs
+-a----        11/14/2026   6:14 PM           8592 Doxyfile
+-a----        11/14/2026   6:14 PM           2209 doxygen.css
+-a----        11/14/2026   6:04 PM           3641 Hahn_doc.txt
+-a----        11/14/2026   6:14 PM          38560 lexer.cs
+-a----        11/11/2026   4:42 PM           3645 main.cs
+-a----        11/14/2026   6:14 PM            644 Makefile.dotgnu
+-a----        11/14/2026   6:14 PM            595 Makefile.mono
+-a----        11/14/2026   6:14 PM           4673 nodes.cs
+-a----        11/14/2026   6:14 PM          65832 parser.cs
+-a----        11/11/2026   4:16 PM             84 PEX_BUILD.bat
+-a----        11/11/2026   4:16 PM           4236 PEX_LANGUAGE.txt
+-a----        11/11/2026   4:16 PM          14452 PEX_TEST.bat
+-a----        11/14/2026   6:14 PM         311677 pex_test_results.txt
+-a----        11/14/2026   6:14 PM         147850 prods.cs
+-a----        11/14/2026   6:14 PM           1292 README.parser
+-a----        11/14/2026   6:04 PM          32084 SemanticAnalyzer.cs
+-a----        11/14/2026   6:14 PM            553 test_lexer.cs
+-a----        11/14/2026   6:14 PM           2840 test_parser.cs
+-a----        11/14/2026   6:14 PM          16703 tokens.cs
+-a----        11/11/2026   4:16 PM             84 PEX_BUILD.bat
+-a----        11/11/2026   4:16 PM          14452 PEX_TEST.bat
+
+
+    Directory: C:\Code\PEX_3\CS426PEX\PEX Starter Pack\sablecc\bin
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        11/11/2026   4:16 PM            526 sablecc.bat
+
+
+✓ • 1.60s
+Get-Content -LiteralPath 'PEX Starter Pack\PEX_TEST.bat'; git status --short
+:: Creates a Variable for the Output File
+@SET file="pex_test_results.txt"
+
+:: Erases Everything Currently In the Output File
+type NUL>%file%
+
+:: ----------------------------------------
+:: TITLE
+:: ----------------------------------------
+echo PEX 2 PARSER TEST CASES (C1C Hahn) >> %file%
+echo Correct tests print the parse tree. Incorrect tests print the [line,column] of the first error. >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     01_operations_pass.txt >> %file%
+echo TESTING:  Add, subtract, multiply, divide, unary minus, parentheses, chaining and order of operations on INF and FA >> %file%
+echo EXPECTED: Parse tree printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\01_operations_pass.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     01_operations_fail_a.txt >> %file%
+echo TESTING:  Expression ends in an operator >> %file%
+echo EXPECTED: Parser error - parse tree NOT printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\01_operations_fail_a.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     01_operations_fail_b.txt >> %file%
+echo TESTING:  Missing closing parenthesis >> %file%
+echo EXPECTED: Parser error - parse tree NOT printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\01_operations_fail_b.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     02_assignment_pass.txt >> %file%
+echo TESTING:  Assigning numbers, single characters and strings to each variable type >> %file%
+echo EXPECTED: Parse tree printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\02_assignment_pass.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     02_assignment_fail_a.txt >> %file%
+echo TESTING:  Assignment with nothing on the right-hand side >> %file%
+echo EXPECTED: Parser error - parse tree NOT printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\02_assignment_fail_a.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     02_assignment_fail_b.txt >> %file%
+echo TESTING:  Wrong assignment symbol, an equals sign instead of the arrow >> %file%
+echo EXPECTED: Lexer error - unknown token = >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\02_assignment_fail_b.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     03_boolean_pass.txt >> %file%
+echo TESTING:  Every comparison and logical operator, plus precedence combinations >> %file%
+echo EXPECTED: Parse tree printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\03_boolean_pass.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     03_boolean_fail_a.txt >> %file%
+echo TESTING:  Chained comparison, 3 less than x less than 5 >> %file%
+echo EXPECTED: Parse tree printed - chaining is rejected in PEX 3, not by the parser >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\03_boolean_fail_a.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     03_boolean_fail_b.txt >> %file%
+echo TESTING:  Invalid comparison, two comparison operators in a row >> %file%
+echo EXPECTED: Parser error - parse tree NOT printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\03_boolean_fail_b.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     04_constants_pass.txt >> %file%
+echo TESTING:  One constant of each type declared before procedures and main >> %file%
+echo EXPECTED: Parse tree printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\04_constants_pass.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     04_constants_fail_a.txt >> %file%
+echo TESTING:  Constant declared after MARCH (main) >> %file%
+echo EXPECTED: Parser error - parse tree NOT printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\04_constants_fail_a.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     04_constants_fail_b.txt >> %file%
+echo TESTING:  Constant declared without a value >> %file%
+echo EXPECTED: Parser error - parse tree NOT printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\04_constants_fail_b.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     05_declarations_pass.txt >> %file%
+echo TESTING:  Uninitialized declarations of each type in a procedure and in main >> %file%
+echo EXPECTED: Parse tree printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\05_declarations_pass.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     05_declarations_fail_a.txt >> %file%
+echo TESTING:  Declaration with a type but no variable name >> %file%
+echo EXPECTED: Parser error - parse tree NOT printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\05_declarations_fail_a.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     05_declarations_fail_b.txt >> %file%
+echo TESTING:  Declaring a string literal instead of a variable name >> %file%
+echo EXPECTED: Parser error - parse tree NOT printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\05_declarations_fail_b.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     06_identifiers_pass.txt >> %file%
+echo TESTING:  Valid identifier forms, including names that start with a keyword >> %file%
+echo EXPECTED: Parse tree printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\06_identifiers_pass.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     06_identifiers_fail_a.txt >> %file%
+echo TESTING:  Identifier containing an invalid character ($) >> %file%
+echo EXPECTED: Lexer error - unknown token $ >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\06_identifiers_fail_a.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     06_identifiers_fail_b.txt >> %file%
+echo TESTING:  Identifier starting with a number >> %file%
+echo EXPECTED: Parser error - parse tree NOT printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\06_identifiers_fail_b.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     07_if_else_pass.txt >> %file%
+echo TESTING:  TLP (if) alone, TLP/CAVEAT (if/else), nested and empty blocks >> %file%
+echo EXPECTED: Parse tree printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\07_if_else_pass.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     07_if_else_fail_a.txt >> %file%
+echo TESTING:  CAVEAT (else) with no TLP (if) >> %file%
+echo EXPECTED: Parser error - parse tree NOT printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\07_if_else_fail_a.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     07_if_else_fail_b.txt >> %file%
+echo TESTING:  TLP (if) with an empty condition >> %file%
+echo EXPECTED: Parser error - parse tree NOT printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\07_if_else_fail_b.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     08_literals_pass.txt >> %file%
+echo TESTING:  Integer, float and string literals, including exponents and escapes >> %file%
+echo EXPECTED: Parse tree printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\08_literals_pass.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     08_literals_fail_a.txt >> %file%
+echo TESTING:  Invalid character (@) inside a numeric literal >> %file%
+echo EXPECTED: Lexer error - unknown token @ >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\08_literals_fail_a.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     08_literals_fail_b.txt >> %file%
+echo TESTING:  Keyword used where a literal is expected >> %file%
+echo EXPECTED: Parser error - parse tree NOT printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\08_literals_fail_b.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     09_while_pass.txt >> %file%
+echo TESTING:  STX (while) basic, nested, compound condition and empty body >> %file%
+echo EXPECTED: Parse tree printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\09_while_pass.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     09_while_fail_a.txt >> %file%
+echo TESTING:  STX (while) with an empty condition >> %file%
+echo EXPECTED: Parser error - parse tree NOT printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\09_while_fail_a.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     10_procedure_calls_pass.txt >> %file%
+echo TESTING:  Procedures with 0, 1 and 3 parameters; expression and string arguments; calls inside if/else >> %file%
+echo EXPECTED: Parse tree printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\10_procedure_calls_pass.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     10_procedure_calls_fail_a.txt >> %file%
+echo TESTING:  Assigning a procedure call to a variable (procedures have no return values) >> %file%
+echo EXPECTED: Parser error - parse tree NOT printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\10_procedure_calls_fail_a.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     11_comments_pass.txt >> %file%
+echo TESTING:  Full-line comments, comments after code, keywords and symbols inside comments >> %file%
+echo EXPECTED: Parse tree printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\11_comments_pass.txt >> %file%
+echo. >> %file%
+
+echo ======================================================================== >> %file%
+echo TEST:     12_salute_integration_pass.txt >> %file%
+echo TESTING:  Integration - fire team engages, reloads and sends a SALUTE report >> %file%
+echo EXPECTED: Parse tree printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%bin\Debug\ConsoleApplication.exe testcases\pex2\while_loops_incorrect_2.txt >> %file%
+echo. >> %file%
+
+pause
+ D "PEX Starter Pack/.vs/ArmyLanguage.slnx/FileContentIndex/3d423585-f872-4408-b7b5-8f26eebcbf07.vsidx"
+ M "PEX Starter Pack/.vs/ArmyLanguage.slnx/FileContentIndex/6110930e-b9ac-4d08-88ae-b2cb9cc88eec.vsidx"
+ D "PEX Starter Pack/.vs/ArmyLanguage.slnx/FileContentIndex/efb1a6d1-843f-46d5-a066-457e1f2df074.vsidx"
+ M "PEX Starter Pack/.vs/ArmyLanguage.slnx/v18/.suo"
+ M "PEX Starter Pack/Doxyfile"
+ M "PEX Starter Pack/Makefile.dotgnu"
+ M "PEX Starter Pack/Makefile.mono"
+ M "PEX Starter Pack/README.parser"
+ M "PEX Starter Pack/analysis.cs"
+ M "PEX Starter Pack/doxygen.css"
+ M "PEX Starter Pack/lexer.cs"
+ M "PEX Starter Pack/nodes.cs"
+ M "PEX Starter Pack/obj/x86/Debug/DesignTimeResolveAssemblyReferencesInput.cache"
+ M "PEX Starter Pack/parser.cs"
+ M "PEX Starter Pack/pex_test_results.txt"
+ M "PEX Starter Pack/prods.cs"
+ M "PEX Starter Pack/test_lexer.cs"
+ M "PEX Starter Pack/test_parser.cs"
+ M "PEX Starter Pack/tokens.cs"
+?? "PEX Starter Pack/.vs/ArmyLanguage.slnx/FileContentIndex/3fcb8cfb-15a9-47fd-8744-ed67360f2397.vsidx"
+?? "PEX Starter Pack/.vs/ArmyLanguage.slnx/FileContentIndex/c85d1c6d-cc71-4cee-8936-530c1d606e20.vsidx"
+✓ • 1.41s
+$testPath = Join-Path (Get-Location) 'PEX Starter Pack\PEX_TEST.bat'; $content = [System.IO.File]::ReadAllText($testPath); $lines = $content -split '\r?\n'; $inPex2 = $false; $updated = foreach ($line in $lines) { if ($line -eq 'echo PEX 2 PARSER TEST CASES (C1C Hahn) >> %file%') { $inPex2 = $true }; if ($line -eq 'pause') { ':: ----------------------------------------'; ':: PEX 3 TEST CASES'; ':: ----------------------------------------'; ''; $inPex2 = $false }; if ($inPex2 -and $line.Length -gt 0 -and -not $line.StartsWith('::')) { ':: ' + $line } else { $line } }; [System.IO.File]::WriteAllText($testPath, ($updated -join "`r`n"), [System.Text.Encoding]::ASCII); git diff --stat -- 'PEX Starter Pack/PEX_TEST.bat'; Get-Content -LiteralPath $testPath -Tail 12; Select-String -LiteralPath $testPath -Pattern '^(?!::).*testcases\\pex2'
+ PEX Starter Pack/PEX_TEST.bat | 488 +++++++++++++++++++++---------------------
+ 1 file changed, 246 insertions(+), 242 deletions(-)
+:: echo ======================================================================== >> %file%
+:: echo TEST:     12_salute_integration_pass.txt >> %file%
+:: echo TESTING:  Integration - fire team engages, reloads and sends a SALUTE report >> %file%
+:: echo EXPECTED: Parse tree printed >> %file%
+:: echo ------------------------------------------------------------------------ >> %file%bin\Debug\ConsoleApplication.exe testcases\pex2\while_loops_incorrect_2.txt >> %file%
+:: echo. >> %file%
+
+:: ----------------------------------------
+:: PEX 3 TEST CASES
+:: ----------------------------------------
+
+pause
+✓ • 1.59s
+Updated PEX_TEST.bat (/C:/Code/PEX_3/CS426PEX/PEX Starter Pack/PEX_TEST.bat) to comment out all PEX 2 tests and add an empty PEX 3 test section header. No PEX 3 tests were added.
+
+for this project, update PEX_TEST.bat as well as the testcases/pex3 folder. In the pex3 Folder you are going to add passes and fails for each test that we need to do. Make these .txts blank. Look as pex2 tests for examples. In PEX_TEST.bat at the bottom for pex3 there is a pex2 test copied over, I want you use that format, edit it, and make it so that our PEX 3 Semantic Analyzer assignment lists 27 specific error checks on page 4, plus a parameter-count check mentioned earlier in the instructions.
+
+Below is the complete checklist of those 28 explicitly identified checks, organized by category.
+
+The assignment also states that the instructor's solution checks over 35 different conditions, so these 28 are your documented starting requirements, not necessarily every possible grading test. View Assessment.pdf
+
+PEX 3 — Semantic Rules Checklist
+Semantic rule progress
+
+0 / 28
+
+Check a rule only after you've implemented and tested it.1. Variable declarations
+[ ] Reject a variable name already declared in the same scope.
+
+[ ] Reject a variable declaration using an undeclared type.
+
+[ ] Reject a variable declaration using an identifier that exists but is not a type.
+
+2. Constant declarations
+   [ ] Reject a constant name already declared in the applicable scope.
+
+[ ] Reject a constant declaration using an undeclared type.
+
+[ ] Reject a constant declaration using an identifier that is not a type.
+
+[ ] Reject a constant initializer whose type doesn't match its declared type.
+
+3. Conditional statements
+   [ ] Reject an if condition whose expression is not Boolean (TLP in your language).
+
+[ ] Reject a while condition whose expression is not Boolean (STX in your language).
+
+4. Expression checking
+   [ ] Reject using a type name where a variable or value is expected.
+
+[ ] Reject using an undeclared variable in an expression.
+
+[ ] Reject arithmetic (+, -, *, /) when operand types don't match.
+
+[ ] Reject arithmetic when operands are not Integer or Float.
+
+[ ] Reject AND/OR when operand types don't match.
+
+[ ] Reject AND/OR/NOT when operands are not Boolean.
+
+[ ] Reject comparisons when operand types don't match.
+
+[ ] Reject comparisons when operands aren't Integer or Float, as specified by the assignment.
+
+5. Assignment statements
+   [ ] Reject assignment to an undeclared identifier.
+
+[ ] Reject assignment to an identifier that is not a variable.
+
+[ ] Reject assignment to a constant (SOP in your language).
+
+[ ] Reject assignment when the expression type doesn't match the variable type.
+
+6. Procedure declarations
+   [ ] Reject a procedure name that has already been used in the relevant symbol table.
+
+[ ] Reject a formal parameter declared with an invalid type (e.g., x x).
+
+[ ] Reject duplicate formal parameter names within the same procedure.
+
+7. Procedure calls
+   [ ] Reject calling an undeclared procedure name.
+
+[ ] Reject calling an identifier that exists but isn't a procedure.
+
+[ ] Reject arguments whose types don't match the formal parameter types.
+
+[ ] Reject a procedure call with the wrong number of arguments.
+
+Source: PEX 3 assignment, page 4, and parameter checking requirement on page 2. View Assessment.pdf
+
+Example semantic errors
+These are conceptual examples to help you recognize what each check means, not code to copy into your project.
+Situation	Why it's an error
+Declare x twice in the same scope	Duplicate identifier
+Use y without declaring it	Undeclared identifier
+Assign an INF value to an FA variable	Type mismatch
+Add an INF value to an FA value	Incompatible arithmetic types
+Use a numeric value as a TLP condition	Condition isn't Boolean
+Change the value of an SOP constant	Constants cannot be reassigned
+Call a MISSION with too few arguments	Wrong parameter count
+Pass an FA argument to a MISSION expecting INF	Wrong parameter type
+
+What order should you test them in?
+I recommend testing in this order:
+
+First: Declarations and identifiers
+
+Check duplicate names, undeclared identifiers, and valid types. These establish whether your symbol tables are working.
+
+Second: Expressions and assignments
+
+Check INF/FA/CBRN compatibility, arithmetic, comparisons, constant assignments, and Boolean conditions.
+
+Third: Procedures
+
+Check MISSION declarations, formal parameters, scope, procedure calls, and argument matching.
+
+Important grading detail
+The assignment says no credit will be given for implementing a construct unless it appears in a test file. View Assessment.pdf
+
+For each rule, aim to have at least one test that should pass and one that should fail. Some rules will require multiple cases to verify thoroughly.
+
+I’ll review the PEX 2 examples and current PEX 3 section, then create blank pass/fail files and batch entries for all 28 checks. I’ll also look for Assessment.pdf.
+Get-ChildItem -Path . -Filter AGENTS.md -Recurse -Force; Get-ChildItem -Path . -Filter '*Assessment*' -Recurse; Get-ChildItem -LiteralPath 'PEX Starter Pack\testcases'; Get-Content -LiteralPath 'PEX Starter Pack\PEX_TEST.bat' -Tail 35; Get-ChildItem -LiteralPath 'PEX Starter Pack\testcases\pex2' -Name; Get-ChildItem -LiteralPath 'PEX Starter Pack\testcases\pex3' -Force
+
+
+    Directory: C:\Code\PEX_3\CS426PEX\PEX Starter Pack\testcases
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        11/11/2026   4:16 PM                pex1
+d-----        11/11/2026   4:16 PM                pex2
+d-----        11/14/2026   6:04 PM                pex3
+:: echo TEST:     10_procedure_calls_fail_a.txt >> %file%
+:: echo TESTING:  Assigning a procedure call to a variable (procedures have no return values) >> %file%
+:: echo EXPECTED: Parser error - parse tree NOT printed >> %file%
+:: echo ------------------------------------------------------------------------ >> %file%
+:: bin\Debug\ConsoleApplication.exe testcases\pex2\10_procedure_calls_fail_a.txt >> %file%
+:: echo. >> %file%
+
+:: echo ======================================================================== >> %file%
+:: echo TEST:     11_comments_pass.txt >> %file%
+:: echo TESTING:  Full-line comments, comments after code, keywords and symbols inside comments >> %file%
+:: echo EXPECTED: Parse tree printed >> %file%
+:: echo ------------------------------------------------------------------------ >> %file%
+:: bin\Debug\ConsoleApplication.exe testcases\pex2\11_comments_pass.txt >> %file%
+:: echo. >> %file%
+
+:: echo ======================================================================== >> %file%
+:: echo TEST:     12_salute_integration_pass.txt >> %file%
+:: echo TESTING:  Integration - fire team engages, reloads and sends a SALUTE report >> %file%
+:: echo EXPECTED: Parse tree printed >> %file%
+:: echo ------------------------------------------------------------------------ >> %file%bin\Debug\ConsoleApplication.exe testcases\pex2\while_loops_incorrect_2.txt >> %file%
+:: echo. >> %file%
+
+:: ----------------------------------------
+:: PEX 3 TEST CASES
+:: ----------------------------------------
+
+echo ======================================================================== >> %file%
+echo TEST:     11_comments_pass.txt >> %file%
+echo TESTING:  Full-line comments, comments after code, keywords and symbols inside comments >> %file%
+echo EXPECTED: Parse tree printed >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex2\11_comments_pass.txt >> %file%
+echo. >> %file%
+
+pause
+01_operations_fail_a.txt
+01_operations_fail_b.txt
+01_operations_pass.txt
+02_assignment_fail_a.txt
+02_assignment_fail_b.txt
+02_assignment_pass.txt
+03_boolean_fail_a.txt
+03_boolean_fail_b.txt
+03_boolean_pass.txt
+04_constants_fail_a.txt
+04_constants_fail_b.txt
+04_constants_pass.txt
+05_declarations_fail_a.txt
+05_declarations_fail_b.txt
+05_declarations_pass.txt
+06_identifiers_fail_a.txt
+06_identifiers_fail_b.txt
+06_identifiers_pass.txt
+07_if_else_fail_a.txt
+07_if_else_fail_b.txt
+07_if_else_pass.txt
+08_literals_fail_a.txt
+08_literals_fail_b.txt
+08_literals_pass.txt
+09_while_fail_a.txt
+09_while_pass.txt
+10_procedure_calls_fail_a.txt
+10_procedure_calls_pass.txt
+11_comments_pass.txt
+12_salute_integration_pass.txt
+
+
+    Directory: C:\Code\PEX_3\CS426PEX\PEX Starter Pack\testcases\pex3
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        11/14/2026   6:04 PM             45 test1.txt
+
+
+✓ • 1.55s
+I found the copied PEX 2 block in the PEX 3 section. I’ll replace it with 56 entries—one pass and one fail for each rule—and create matching empty .txt files. I couldn’t find Assessment.pdf in the project, so I’ll use your supplied checklist and preserve the existing test1.txt.
+Get-Content -LiteralPath 'PEX Starter Pack\test_parser.cs' -Tail 55; Get-Content -LiteralPath 'PEX Starter Pack\main.cs' -Tail 60
+    last = false;
+  }
+
+  string SetColor (style style, fg_color fgColor, bg_color bgColor)
+  {
+    if ( color )
+        return (char)codes.ESC + "[" + (int)style + ";" + (int)fgColor + "m";
+
+    return "";
+  }
+
+  public override void CaseEOF (EOF node)
+  {
+    last = false;
+  }
+
+  string ResetColor ()
+  {
+    if ( color )
+        return (char)codes.ESC + "[0m";
+    else
+        return "";
+  }
+
+  string TreeColor ()
+  {
+    return SetColor (style.NORMAL, fg_color.FG_BLACK, bg_color.BG_BLACK);
+  }
+
+  public void SetColor (bool b)
+  {
+    color = b;
+  }
+
+  string indent, output;
+  Stack indentchar = new Stack();
+  bool last = false;
+  bool color = false;
+}
+
+class TestParser
+{
+  public static void Main(String[] args)
+  {
+    Lexer l = new Lexer(Console.In);
+    Parser p = new Parser (l);
+    Start s = p.Parse ();
+
+    TextPrinter printer = new TextPrinter ();
+    if ( args.Length > 0 && args[0] == "-ansi" )
+        printer.SetColor(true);
+
+    s.Apply(printer);
+  }
+}
+
+        return "";
+    }
+
+    public override void CaseEOF(EOF node)
+    {
+        last = false;
+    }
+
+    string ResetColor()
+    {
+        if (color)
+            return (char)codes.ESC + "[0m";
+        else
+            return "";
+    }
+
+    string TreeColor()
+    {
+        return SetColor(style.NORMAL, fg_color.FG_BLACK, bg_color.BG_BLACK);
+    }
+
+    public void SetColor(bool b)
+    {
+        color = b;
+    }
+
+    string indent, output;
+    Stack indentchar = new Stack();
+    bool last = false;
+    bool color = false;
+}
+
+class TestParser
+{
+    public static void Main(String[] args)
+     {
+        try
+        {
+
+            Lexer l = new Lexer(new StreamReader(args[0]));
+            Parser p = new Parser(l);
+            Start s = p.Parse(); //parse tree
+
+            // create semantic analyzer and apply it to the parse tree
+            SemanticAnalyzer sa = new SemanticAnalyzer();
+            s.Apply(sa);
+
+            TextPrinter printer = new TextPrinter();
+            if (args.Length > 1 && args[1] == "-ansi")
+                printer.SetColor(true);
+
+            s.Apply(printer);
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+}
+✓ • 1.55s
+$rules = @'
+variable_duplicate|Variable declarations|Variable names unique in the same scope|Variable name already declared in the same scope
+variable_undeclared_type|Variable declarations|Variable declared using a declared type|Variable declared using an undeclared type
+variable_non_type|Variable declarations|Variable declaration uses an identifier that is a type|Variable declaration uses an identifier that is not a type
+constant_duplicate|Constant declarations|Constant names unique in the applicable scope|Constant name already declared in the applicable scope
+constant_undeclared_type|Constant declarations|Constant declared using a declared type|Constant declared using an undeclared type
+constant_non_type|Constant declarations|Constant declaration uses an identifier that is a type|Constant declaration uses an identifier that is not a type
+constant_initializer_type|Constant declarations|Constant initializer matches its declared type|Constant initializer does not match its declared type
+if_condition_boolean|Conditional statements|TLP condition has Boolean type|TLP condition does not have Boolean type
+while_condition_boolean|Conditional statements|STX condition has Boolean type|STX condition does not have Boolean type
+expression_type_name|Expression checking|Expression uses a variable or value|Expression uses a type name as a value
+expression_undeclared_variable|Expression checking|Expression uses a declared variable|Expression uses an undeclared variable
+arithmetic_matching_types|Expression checking|Arithmetic operands have matching types for +, -, *, /|Arithmetic operands have mismatched types for +, -, *, /
+arithmetic_numeric_operands|Expression checking|Arithmetic operands are INF or FA for +, -, *, /|Arithmetic operands are not INF or FA for +, -, *, /
+logical_matching_types|Expression checking|AND/OR operands have matching types|AND/OR operands have mismatched types
+logical_boolean_operands|Expression checking|AND/OR/NOT operands are Boolean|AND/OR/NOT operands are not Boolean
+comparison_matching_types|Expression checking|Comparison operands have matching types|Comparison operands have mismatched types
+comparison_numeric_operands|Expression checking|Comparison operands are INF or FA|Comparison operands are not INF or FA
+assignment_undeclared_identifier|Assignment statements|Assignment target is declared|Assignment target is undeclared
+assignment_non_variable|Assignment statements|Assignment target is a variable|Assignment target is an identifier that is not a variable
+assignment_constant|Assignment statements|Assignment updates a mutable variable|Assignment attempts to update an SOP constant
+assignment_type_mismatch|Assignment statements|Assigned expression matches the variable type|Assigned expression does not match the variable type
+procedure_duplicate|Procedure declarations|MISSION name is unused in the relevant symbol table|MISSION name is already used in the relevant symbol table
+parameter_invalid_type|Procedure declarations|Formal parameter has a valid type|Formal parameter has an invalid type
+parameter_duplicate|Procedure declarations|Formal parameter names are unique within the MISSION|Formal parameter names are duplicated within the MISSION
+call_undeclared_procedure|Procedure calls|Call refers to a declared MISSION|Call refers to an undeclared procedure name
+call_non_procedure|Procedure calls|Call target is a MISSION|Call target exists but is not a procedure
+call_argument_types|Procedure calls|Argument types match formal parameter types|Argument types do not match formal parameter types
+call_argument_count|Procedure calls|Argument count matches formal parameter count|Argument count does not match formal parameter count
+'@ -split "`n"
+$batchPath = Join-Path (Get-Location) 'PEX Starter Pack\PEX_TEST.bat'
+$original = [System.IO.File]::ReadAllText($batchPath)
+$marker = ':: ----------------------------------------' + "`r`n" + ':: PEX 3 TEST CASES'
+$start = $original.IndexOf($marker)
+if ($start -lt 0) { throw 'PEX 3 header not found' }
+$output = [System.Collections.Generic.List[string]]::new()
+$output.Add(':: ----------------------------------------')
+$output.Add(':: PEX 3 TEST CASES')
+$output.Add(':: ----------------------------------------')
+$output.Add(':: Placeholder files are blank; expected results apply after test programs are written.')
+$output.Add('echo PEX 3 SEMANTIC ANALYZER TEST CASES >> %file%')
+$output.Add('echo. >> %file%')
+$output.Add('')
+$index = 0
+$category = ''
+foreach ($rule in $rules) {
+    $parts = $rule.Trim() -split '\|'
+    $index++
+    if ($category -ne $parts[1]) {
+        $category = $parts[1]
+        $output.Add(':: ' + $category)
+        $output.Add('')
+    }
+    foreach ($result in @('pass', 'fail')) {
+        $name = '{0:D2}_{1}_{2}.txt' -f $index, $parts[0], $result
+        $path = Join-Path (Get-Location) ('PEX Starter Pack\testcases\pex3\' + $name)
+        if (Test-Path -LiteralPath $path) { throw "File already exists: $name" }
+        [System.IO.File]::WriteAllBytes($path, [byte[]]@())
+        $description = if ($result -eq 'pass') { $parts[2] } else { $parts[3] }
+        $expected = if ($result -eq 'pass') { 'No semantic errors' } else { 'Semantic error - ' + $parts[3] }
+        $output.Add('echo ======================================================================== >> %file%')
+        $output.Add('echo TEST:     ' + $name + ' >> %file%')
+        $output.Add('echo TESTING:  Rule ' + $index + ' - ' + $description + ' >> %file%')
+        $output.Add('echo EXPECTED: ' + $expected + ' >> %file%')
+        $output.Add('echo ------------------------------------------------------------------------ >> %file%')
+        $output.Add('bin\Debug\ConsoleApplication.exe testcases\pex3\' + $name + ' >> %file%')
+        $output.Add('echo. >> %file%')
+        $output.Add('')
+    }
+}
+$output.Add('pause')
+$output.Add('')
+[System.IO.File]::WriteAllText($batchPath, $original.Substring(0, $start) + ($output -join "`r`n"), [System.Text.Encoding]::ASCII)
+Write-Output "Created $($index * 2) blank files and matching batch entries."
+Created 56 blank files and matching batch entries.
+✓ • 1.59s
+$batch = Get-Content -LiteralPath 'PEX Starter Pack\PEX_TEST.bat'; $calls = @($batch | Where-Object { $_ -match '^bin\\Debug\\ConsoleApplication.exe testcases\\pex3\\' }); if ($calls.Count -ne 56) { throw 'Expected 56 PEX 3 calls' }; foreach ($call in $calls) { $relative = ($call -split ' ')[1]; $item = Get-Item -LiteralPath (Join-Path 'PEX Starter Pack' $relative); if ($item.Length -ne 0) { throw "Nonempty placeholder: $relative" } }; if (@($batch | Where-Object { $_ -match '^(?!::).*testcases\\pex2\\' }).Count -ne 0) { throw 'Active PEX 2 entry found' }; git diff --check -- 'PEX Starter Pack/PEX_TEST.bat'; Write-Output 'Verified 56 blank placeholders, 56 matching PEX 3 calls, and no active PEX 2 calls.'
+Verified 56 blank placeholders, 56 matching PEX 3 calls, and no active PEX 2 calls.
+✓ • 1.49s
+Updated PEX_TEST.bat with 56 PEX 3 entries: one pass and one fail for each of the 28 rules, using the PEX 2 format.
+
+Created 56 matching, empty .txt files in testcases/pex3. Preserved test1.txt and kept all PEX 2 tests commented.
+
+Verified file mappings and blank contents. Assessment.pdf wasn’t found locally, so coverage follows your supplied checklist.
+
+what is wrong with my first pex 3 test? it keeps saying expecting march inside of the prextestresults after running PEX-TEST>bat
+
+I’ll check your first PEX 3 test, the parser’s expected syntax, and the latest test output.
+Get-Content -LiteralPath 'PEX Starter Pack\testcases\pex3\01_variable_duplicate_pass.txt'; Get-Content -LiteralPath 'PEX Starter Pack\testcases\pex3\01_variable_duplicate_fail.txt'; Get-Content -LiteralPath 'PEX Starter Pack\testcases\pex3\test1.txt'; Get-Content -LiteralPath 'PEX Starter Pack\pex_test_results.txt' -TotalCount 45; Get-Content -LiteralPath 'PEX Starter Pack\testcases\pex2\05_declarations_pass.txt'; Get-Content -LiteralPath 'PEX Starter Pack\PEX_LANGUAGE.txt' -TotalCount 110
+MARCH{
+INF x -> 5;
+INF x -> 3;
+}
+MISSION foo () {
+}
+
+MARCH {
+    x -> y;
+}
+PEX 3 SEMANTIC ANALYZER TEST CASES
+
+========================================================================
+TEST:     01_variable_duplicate_pass.txt
+TESTING:  Rule 1 - Variable names unique in the same scope
+EXPECTED: No semantic errors
+------------------------------------------------------------------------
+[1,1] expecting: 'MARCH'
+
+========================================================================
+TEST:     01_variable_duplicate_fail.txt
+TESTING:  Rule 1 - Variable name already declared in the same scope
+EXPECTED: Semantic error - Variable name already declared in the same scope
+------------------------------------------------------------------------
+[2,7] expecting: ';'
+
+========================================================================
+TEST:     02_variable_undeclared_type_pass.txt
+TESTING:  Rule 2 - Variable declared using a declared type
+EXPECTED: No semantic errors
+------------------------------------------------------------------------
+[1,1] expecting: 'MARCH'
+
+========================================================================
+TEST:     02_variable_undeclared_type_fail.txt
+TESTING:  Rule 2 - Variable declared using an undeclared type
+EXPECTED: Semantic error - Variable declared using an undeclared type
+------------------------------------------------------------------------
+[1,1] expecting: 'MARCH'
+
+========================================================================
+TEST:     03_variable_non_type_pass.txt
+TESTING:  Rule 3 - Variable declaration uses an identifier that is a type
+EXPECTED: No semantic errors
+------------------------------------------------------------------------
+[1,1] expecting: 'MARCH'
+
+========================================================================
+TEST:     03_variable_non_type_fail.txt
+TESTING:  Rule 3 - Variable declaration uses an identifier that is not a type
+EXPECTED: Semantic error - Variable declaration uses an identifier that is not a type
+------------------------------------------------------------------------
+[1,1] expecting: 'MARCH'
+
+========================================================================
+~ EXPECTED: PASS
+~ Declarations (spec 1.2)
+~ Declares uninitialized variables of every type in a procedure and in main,
+~ then uses them.
+
+MISSION calc_distance(FA speed, FA time) {
+    FA distance;
+    INF legs;
+    CBRN label;
+
+    distance -> speed * time;
+    legs -> 2;
+    label -> "leg one";
+
+    TLP (distance > 100.0) {
+        INF extra_legs;
+        extra_legs -> legs + 1;
+    }
+}
+
+MARCH {
+    INF count;
+    FA speed;
+    CBRN name;
+
+    count -> 1;
+    speed -> 2.5;
+    name -> "Falcon";
+
+    calc_distance(speed, 4.0);
+}
+// This tells SableCC to put all of the code in a package called CS426
+Package CS426;
+
+// Helpers are sets that let you talk about multiple characters in the same way
+Helpers
+    whitespaces = ' ' | 9 | 10 | 13;
+    natural = ['1'..'9'];
+    whole = ['0' + natural];
+    letter = [['a'..'z'] + ['A'..'Z']];
+    idhelp = [letter + whole];
+    all = [0..0xffff];
+    dquote = '"';
+    backslash = '\';
+    string_char = [all - [[dquote + backslash] + [10 + 13]]];
+    exponent = ('e' | 'E') ('+' | '-')? whole+;
+
+// PEX 1 - Lexer Portion
+Tokens
+
+    // Operations and eol
+    assign = '->';
+    plus = '+';
+    minus = '-';
+    mult = '*';
+    eol = ';';
+    div = '/';
+    comma = ',';
+    equiv = '-->';
+    notequiv = '#-->';
+    not = '#';
+    greater = '>';
+    less = '<';
+    greatereq = '->=';
+    lesseq = '<-=';
+    and = '&';
+    or = '|';
+
+
+    // Delimiters
+    open_parenthesis = '(';
+    close_parenthesis = ')';
+    open_curly = '{';
+    close_curly = '}';
+    open_bracket = '[';
+    close_bracket = ']';
+
+    // Keywords (INF = integer, FA = float, CBRN = string, SOP = constant, TLP = if, CAVEAT = else, STX = while, MISSION = procedure, MARCH = main)
+    inf = 'INF';
+    fa = 'FA';
+    cbrn = 'CBRN';
+    sop = 'SOP';
+    tlp = 'TLP';
+    caveat = 'CAVEAT';
+    stx = 'STX';
+    mission = 'MISSION';
+    main = 'MARCH';
+
+    // Identifiers (vars, procedure names) - starts with a letter or underscore, never two underscores in a row
+    id = (letter | '_' idhelp) (idhelp | '_' idhelp)* '_'?;
+
+    // Comments
+    comment = '~' ([[0..0xffff] - [10 + 13]])*;
+
+    // Literals
+    integer = natural whole* | '0';
+    float = (natural whole* | '0') ('.' whole+ exponent? | exponent);
+    string_literal = dquote (string_char | backslash (dquote | backslash))* dquote;
+
+    // Whitespace
+    blank = whitespaces+;
+
+Ignored Tokens
+    blank, comment;
+
+
+// PEX 2 - Parser Portion
+Productions
+
+    program = constants procedures main_proc;
+
+    type = {int} inf | {float} fa | {string} cbrn;
+    declare_statement = type id eol;
+
+    //assign
+    assign_statement = id assign expression eol;
+
+    block = open_curly statements close_curly;
+
+    statement = {declaration} declare_statement
+            | {assignment} assign_statement
+            | {if} if_statement
+            | {while_stmt} while_statement
+            | {call_stmt} call_statement;
+
+    statements = {multiple} statement statements | {none};
+
+    constants  = {multiple} constant constants | {none};
+    constant   = sop type id assign expression eol;
+
+    procedures = {multiple} procedure procedures | {none};
+    procedure = mission id open_parenthesis params close_parenthesis block;
+
+    main_proc = main block;
+
+
+    expression = {or} expression or and_expr | {pass} and_expr;
+    and_expr   = {and} and_expr and not_expr | {pass} not_expr;
+    not_expr   = {not} not not_expr | {pass} equality;
+
+    equality   = {equiv}    equality equiv relational
+✓ • 1.45s
+Get-Item -LiteralPath 'PEX Starter Pack\testcases\pex3\01_variable_duplicate_pass.txt','PEX Starter Pack\testcases\pex3\01_variable_duplicate_fail.txt' | Select-Object Name,Length; Get-Content -LiteralPath 'PEX Starter Pack\testcases\pex3\01_variable_duplicate_fail.txt'
+
+Name                           Length
+----                           ------
+01_variable_duplicate_pass.txt      0
+01_variable_duplicate_fail.txt     35
+MARCH{
+INF x -> 5;
+INF x -> 3;
+}
+
+
+✓ • 1.33s
+There are two separate issues:
+
+- 01_variable_duplicate_pass.txt is empty. The parser reaches the end before finding the required MARCH block, so it reports [1,1] expecting: 'MARCH'. Other blank placeholders will do the same.
+- Your fail test combines declaration and assignment. The grammar requires INF x;, so INF x -> 5; causes a syntax error before semantic analysis runs.
+
+For the pass file, use unique names:
+
+MARCH {
+    INF x;
+    INF y;
+    x -> 5;
+    y -> 3;
+}
+
+For the fail file, declare the same name twice:
+
+MARCH {
+    INF x;
+    INF x;
+}
+
+That fail test should reach the semantic analyzer and exercise the duplicate-variable check.
+
+on thi fail is it supposed to paste the parse tree afterwords? because it did? look in pextestresults
+
+I’ll check the duplicate-variable result and how the program handles semantic errors before printing the parse tree.
+Get-Content -LiteralPath 'PEX Starter Pack\pex_test_results.txt' -TotalCount 105; rg -n 'error|Error|duplicate|Duplicate|Console|throw' 'PEX Starter Pack\SemanticAnalyzer.cs'; Get-Content -LiteralPath 'PEX Starter Pack\main.cs' -Tail 40
+PEX 3 SEMANTIC ANALYZER TEST CASES
+
+========================================================================
+TEST:     01_variable_duplicate_pass.txt
+TESTING:  Rule 1 - Variable names unique in the same scope
+EXPECTED: No semantic errors
+------------------------------------------------------------------------
+
+- AProgram
+     `- ANoneConstants
+     |- ANoneProcedures
+     `- AMainProc
+        |- MARCH
+        `- ABlock
+           |- {
+           |- AMultipleStatements
+           |  |- ADeclarationStatement
+           |  |  `- ADeclareStatement
+           |  |     |- AIntType
+           |  |     |  `- INF
+           |  |     |- x
+           |  |     `- ;
+           |  `- AMultipleStatements
+           |     |- ADeclarationStatement
+           |     |  `- ADeclareStatement
+           |     |     |- AIntType
+           |     |     |  `- INF
+           |     |     |- y
+           |     |     `- ;
+           |     `- AMultipleStatements
+           |        |- AAssignmentStatement
+           |        |  `- AAssignStatement
+           |        |     |- x
+           |        |     |- ->
+           |        |     |- APassExpression
+           |        |     |  `- APassAndExpr
+           |        |     |     `- APassNotExpr
+           |        |     |        `- APassEquality
+           |        |     |           `- APassRelational
+           |        |     |              `- APassArith
+           |        |     |                 `- APassTerm
+           |        |     |                    `- APassFactor
+           |        |     |                       `- AIntOperand
+           |        |     |                          `- 5
+           |        |     `- ;
+           |        `- AMultipleStatements
+           |           `- AAssignmentStatement
+           |           |  `- AAssignStatement
+           |           |     |- y
+           |           |     |- ->
+           |           |     |- APassExpression
+           |           |     |  `- APassAndExpr
+           |           |     |     `- APassNotExpr
+           |           |     |        `- APassEquality
+           |           |     |           `- APassRelational
+           |           |     |              `- APassArith
+           |           |     |                 `- APassTerm
+           |           |     |                    `- APassFactor
+           |           |     |                       `- AIntOperand
+           |           |     |                          `- 3
+           |           |     `- ;
+           |           `- ANoneStatements
+           `- }
+
+
+========================================================================
+TEST:     01_variable_duplicate_fail.txt
+TESTING:  Rule 1 - Variable name already declared in the same scope
+EXPECTED: Semantic error - Variable name already declared in the same scope
+------------------------------------------------------------------------
+Line 3 Col 9: x is already defined
+
+- AProgram
+     `- ANoneConstants
+     |- ANoneProcedures
+     `- AMainProc
+        |- MARCH
+        `- ABlock
+           |- {
+           |- AMultipleStatements
+           |  |- ADeclarationStatement
+           |  |  `- ADeclareStatement
+           |  |     |- AIntType
+           |  |     |  `- INF
+           |  |     |- x
+           |  |     `- ;
+           |  `- AMultipleStatements
+           |     `- ADeclarationStatement
+           |     |  `- ADeclareStatement
+           |     |     |- AIntType
+           |     |     |  `- INF
+           |     |     |- x
+           |     |     `- ;
+           |     `- ANoneStatements
+           `- }
+
+
+========================================================================
+TEST:     02_variable_undeclared_type_pass.txt
+TESTING:  Rule 2 - Variable declared using a declared type
+EXPECTED: No semantic errors
+------------------------------------------------------------------------
+[1,1] expecting: 'MARCH'
+
+========================================================================
+26:            Console.WriteLine("Line " +  t.Line + " Col " + t.Pos + ": " + message);
+69:            Console.WriteLine("Semantic analysis started");
+    }
+
+    public void SetColor(bool b)
+    {
+        color = b;
+    }
+
+    string indent, output;
+    Stack indentchar = new Stack();
+    bool last = false;
+    bool color = false;
+}
+
+class TestParser
+{
+    public static void Main(String[] args)
+     {
+        try
+        {
+
+            Lexer l = new Lexer(new StreamReader(args[0]));
+            Parser p = new Parser(l);
+            Start s = p.Parse(); //parse tree
+
+            // create semantic analyzer and apply it to the parse tree
+            SemanticAnalyzer sa = new SemanticAnalyzer();
+            s.Apply(sa);
+
+            TextPrinter printer = new TextPrinter();
+            if (args.Length > 1 && args[1] == "-ansi")
+                printer.SetColor(true);
+
+            s.Apply(printer);
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+}
+✓ • 1.36s
+Yes—your current program prints the parse tree even after a semantic error.
+
+Your results show the fail test correctly detected the duplicate:
+
+Line 3 Col 9: x is already defined
+
+In main.cs, the program runs semantic analysis and then unconditionally prints the tree. The semantic analyzer reports the error without stopping execution.
+
+So this test worked: the program is syntactically valid, allowing a parse tree, but semantically invalid because x is declared twice. Whether you should suppress the tree depends on the assignment’s output requirements.
+
+help me out with test 02. How do i declare with an undeclared type
+
+Conceptually, use a type name that hasn’t been defined:
+
+MARCH {
+    UnknownType x;
+}
+
+However, your current grammar only accepts INF, FA, or CBRN as types:
+
+type = {int} inf | {float} fa | {string} cbrn;
+
+So that fail test will produce a parser error, before the semantic analyzer can check whether UnknownType is declared. To test this rule semantically, the grammar would need to accept identifiers as type names, with the analyzer validating them.
+
+Your test 02 pass file can contain:
+
+MARCH {
+    INF x;
+}
+
+The fail file above captures the intended rule, but your current parser prevents it from reaching semantic analysis.
+
+## im confused because it says that it needs ========================================================================
+TEST:     02_variable_undeclared_type_fail.txt
+TESTING:  Rule 2 - Variable declared using an undeclared type
+EXPECTED: Semantic error - Variable declared using an undeclared type
+
+[2,16] expecting: '->', '('
+
+That message means the parser interpreted UnknownType as a variable or procedure name. After a name, it expects either:
+
+- -> for an assignment
+- ( for a procedure call
+
+Instead, it found x, so parsing stopped.
+
+The EXPECTED: Semantic error... line is just a description we put in PEX_TEST.bat; it doesn’t control the compiler. I should have made that limitation clear when creating these entries.
+
+Your test expresses the intended error correctly, but your current grammar cannot parse an undeclared type. Supporting this semantic check requires allowing an identifier as a type in declarations, then checking that identifier in the semantic analyzer. Otherwise, record this case as a parser rejection rather than a verified semantic check.
+
+is this something that I can fix inside of semanticanalyzer.cs? in lines 554-581??
+
+I’ll look at those lines and the declaration grammar to see where the change would need to go.
+$source = Get-Content -LiteralPath 'PEX Starter Pack\SemanticAnalyzer.cs'; for ($line = 539; $line -lt [Math]::Min(590, $source.Count); $line++) { '{0}: {1}' -f ($line + 1), $source[$line] }; rg -n 'declare_statement|type =|CaseADeclareStatement|AIntType|GetType' 'PEX Starter Pack\PEX_LANGUAGE.txt' 'PEX Starter Pack\SemanticAnalyzer.cs'
+540:             {
+541:                 // child already failed and printed its own warning
+542:             }
+543:             else if (!(expressionDefinition is BooleanDefinition) || !(andExprDefinition is BooleanDefinition))
+544:             {
+545:                 PrintWarning(node.GetOr(), "Cannot | " + expressionDefinition.name + " and " + andExprDefinition.name);
+546:             }
+547:             else
+548:             {
+549:                 decoratedParseTree.Add(node, expressionDefinition);
+550:             }
+551:         }
+552:
+553:         //------
+554:         // Types
+555:         //------
+556:
+557:         // Label each type keyword with the same names the operands use
+558:         public override void OutAIntType(AIntType node)
+559:         {
+560:             Definition intDefinition = new NumberDefinition();
+561:             intDefinition.name = "int";
+562:
+563:             decoratedParseTree.Add(node, intDefinition);
+564:         }
+565:
+566:         public override void OutAFloatType(AFloatType node)
+567:         {
+568:             Definition floatDefinition = new NumberDefinition();
+569:             floatDefinition.name = "float";
+570:
+571:             decoratedParseTree.Add(node, floatDefinition);
+572:         }
+573:
+574:         public override void OutAStringType(AStringType node)
+575:         {
+576:             Definition strDefinition = new StringDefinition();
+577:             strDefinition.name = "str";
+578:
+579:             decoratedParseTree.Add(node, strDefinition);
+580:         }
+581:
+582:         //-----------
+583:         // Statements
+584:         //-----------
+585:
+586:         // TYPE id ;  -> add a new local variable
+587:         public override void OutADeclareStatement(ADeclareStatement node)
+588:         {
+589:             String varName = node.GetId().Text;
+590:             Definition typeDefinition;
+PEX Starter Pack\SemanticAnalyzer.cs:558:        public override void OutAIntType(AIntType node)
+PEX Starter Pack\SemanticAnalyzer.cs:592:            if (!decoratedParseTree.TryGetValue(node.GetType(), out typeDefinition))
+PEX Starter Pack\SemanticAnalyzer.cs:652:            if (!decoratedParseTree.TryGetValue(node.GetType(), out typeDefinition))
+PEX Starter Pack\SemanticAnalyzer.cs:826:            if (!decoratedParseTree.TryGetValue(node.GetType(), out typeDefinition))
+PEX Starter Pack\PEX_LANGUAGE.txt:81:    type = {int} inf | {float} fa | {string} cbrn;
+PEX Starter Pack\PEX_LANGUAGE.txt:82:    declare_statement = type id eol;
+PEX Starter Pack\PEX_LANGUAGE.txt:89:    statement = {declaration} declare_statement
+✓ • 1.51s
+Not by changing lines 554–581 alone. Those methods handle types the parser already recognizes: INF, FA, and CBRN.
+
+Your error happens before SemanticAnalyzer.cs runs. The parser rejects UnknownType x;, so those methods never receive it.
+
+To support this check, you would need to:
+
+1. Update type in PEX_LANGUAGE.txt to also accept an identifier:
+
+   type = {int} inf | {float} fa | {string} cbrn | {named} id;
+2. Regenerate the parser with SableCC.
+3. Add an OutANamedType handler near lines 554–581 that looks up the identifier and reports whether it is undeclared or exists but isn’t a type.
+
+So that section is the right place for the semantic part, but a grammar change must come first.
+
+check lines 582-590, how does that loook
+
+I’ll read the updated lines and check how they fit with the surrounding code.
+$source = Get-Content -LiteralPath 'PEX Starter Pack\SemanticAnalyzer.cs'; for ($line = 553; $line -lt [Math]::Min(640, $source.Count); $line++) { '{0}: {1}' -f ($line + 1), $source[$line] }; Get-Content -LiteralPath 'PEX Starter Pack\Definition.cs'; Get-Content -LiteralPath 'PEX Starter Pack\SemanticAnalyzer.cs' -TotalCount 110; rg -n 'type =|ANamedType' 'PEX Starter Pack\PEX_LANGUAGE.txt' 'PEX Starter Pack\nodes.cs'
+554:         // Types
+555:         //------
+556:
+557:         // Label each type keyword with the same names the operands use
+558:         public override void OutAIntType(AIntType node)
+559:         {
+560:             Definition intDefinition = new NumberDefinition();
+561:             intDefinition.name = "int";
+562:
+563:             decoratedParseTree.Add(node, intDefinition);
+564:         }
+565:
+566:         public override void OutAFloatType(AFloatType node)
+567:         {
+568:             Definition floatDefinition = new NumberDefinition();
+569:             floatDefinition.name = "float";
+570:
+571:             decoratedParseTree.Add(node, floatDefinition);
+572:         }
+573:
+574:         public override void OutAStringType(AStringType node)
+575:         {
+576:             Definition strDefinition = new StringDefinition();
+577:             strDefinition.name = "str";
+578:
+579:             decoratedParseTree.Add(node, strDefinition);
+580:         }
+581:
+582:         public override void OutANamedType(AStringType node)
+583:         {
+584:             String varName = node.GetId().Text;
+585:             Definition strDefinition = new StringDefinition();
+586:             if (varName != "INF" | "CBRN" | "FA")
+587:             {
+588:                 PrintWarning(node.GetId(), varName + " is not a declared type");
+589:             }
+590:         }
+591:
+592:         //-----------
+593:         // Statements
+594:         //-----------
+595:
+596:             // TYPE id ;  -> add a new local variable
+597:         public override void OutADeclareStatement(ADeclareStatement node)
+598:         {
+599:             String varName = node.GetId().Text;
+600:             Definition typeDefinition;
+601:
+602:             if (!decoratedParseTree.TryGetValue(node.GetType(), out typeDefinition))
+603:             {
+604:                 // type failed to decorate
+605:             }
+606:             else if (LookUp(varName) != null)
+607:             {
+608:                 PrintWarning(node.GetId(), varName + " is already defined");
+609:             }
+610:             else
+611:             {
+612:                 VariableDefinition varDefinition = new VariableDefinition();
+613:                 varDefinition.name = varName;
+614:                 varDefinition.VariableType = (TypeDefinition)typeDefinition;
+615:
+616:                 localSymbolTable.Add(varName, varDefinition);
+617:                 decoratedParseTree.Add(node, varDefinition);
+618:             }
+619:         }
+620:
+621:         // id -> expression ;  -> id must be a non-constant variable of the same type
+622:         public override void OutAAssignStatement(AAssignStatement node)
+623:         {
+624:             String varName = node.GetId().Text;
+625:             Definition varDefinition = LookUp(varName);
+626:             Definition expressionDefinition;
+627:
+628:             if (varDefinition == null)
+629:             {
+630:                 PrintWarning(node.GetId(), varName + " Does not exist");
+631:             }
+632:             else if (!(varDefinition is VariableDefinition))
+633:             {
+634:                 PrintWarning(node.GetId(), varName + " is not a variable");
+635:             }
+636:             else if (varDefinition is ConstantDefinition)
+637:             {
+638:                 PrintWarning(node.GetId(), varName + " is a constant and cannot be assigned to");
+639:             }
+640:             else if (!decoratedParseTree.TryGetValue(node.GetExpression(), out expressionDefinition))
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CS426.analysis
+{
+    public abstract class Definition
+    {
+        public string name;
+
+        public string toString()
+        {
+            return name;
+        }
+    }
+    public abstract class TypeDefinition : Definition { }
+    public class NumberDefinition : TypeDefinition { }
+
+    public class StringDefinition : TypeDefinition { }
+
+    public class BooleanDefinition : TypeDefinition { }
+
+    public class VariableDefinition : Definition
+    {
+        public TypeDefinition VariableType;
+    }
+
+    // A constant (SOP) is a variable that cannot be assigned to after it is declared
+    public class ConstantDefinition : VariableDefinition { }
+
+    public class FunctionDefinition : Definition
+    {
+        public List<VariableDefinition> parameters;
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
+using CS426.node;
+
+namespace CS426.analysis
+{
+    internal class SemanticAnalyzer : DepthFirstAdapter
+    {
+        // Global syumbol table: kepe track of global stuff
+        // example: function definitions, data types, constants
+        Dictionary<string, Definition> globalSymbolTable = new Dictionary<string, Definition>();
+
+        // Local symbol table: keep track of local stuff
+        // example: local variables, function parameters
+        Dictionary<string, Definition> localSymbolTable = new Dictionary<string, Definition>();
+
+        //Decorate Nodes
+        Dictionary<Node, Definition> decoratedParseTree = new Dictionary<Node, Definition>();
+
+        public void PrintWarning(Token t, String message)
+        {
+            Console.WriteLine("Line " +  t.Line + " Col " + t.Pos + ": " + message);
+        }
+
+
+        // Two types match when they have the same name ("int", "float", "str", "bool")
+        public bool SameType(Definition a, Definition b)
+        {
+            return a != null && b != null && a.name == b.name;
+        }
+
+        // Look up a name in the local table first, then the global table
+        public Definition LookUp(String name)
+        {
+            Definition def;
+
+            if (localSymbolTable.TryGetValue(name, out def))
+            {
+                return def;
+            }
+            if (globalSymbolTable.TryGetValue(name, out def))
+            {
+                return def;
+            }
+            return null;
+        }
+
+        // The procedure currently being analyzed (so params can be added to it)
+        FunctionDefinition currentFunction;
+
+        public override void InAProgram(AProgram node)
+        {
+            /*
+            // Create Definitoion for integers
+            Definition intDefinition = new NumberDefinition();
+            intDefinition.name = "INF";
+
+            Definition strDefinition = new StringDefinition();
+            strDefinition.name = "CBRN";
+
+            // register the defininiton with the global symbol table
+            globalSymbolTable.Add("INF", intDefinition);
+            globalSymbolTable.Add("CBRN", strDefinition);
+
+            Console.WriteLine("Semantic analysis started");
+            */
+
+        }
+
+
+        // Assuming I have to add the rest of language outside of operands
+
+
+
+        //------------------
+        // Operands
+        //------------------
+
+
+
+        public override void OutAIntOperand(AIntOperand node)
+        {
+            {   //Create Def
+                Definition intDefinition = new NumberDefinition();
+                intDefinition.name = "int";
+
+                decoratedParseTree.Add(node, intDefinition);
+            }
+        }
+
+        public override void OutAFloatOperand(AFloatOperand node)
+        {
+            Definition floatDefinition = new NumberDefinition();
+            floatDefinition.name = "float";
+
+            decoratedParseTree.Add(node, floatDefinition);
+        }
+
+        public override void OutAStringOperand(AStringOperand node)
+        {
+            //Def
+            Definition strDefinition = new StringDefinition();
+            strDefinition.name = "str";
+
+            decoratedParseTree.Add(node, strDefinition);
+        }
+PEX Starter Pack\PEX_LANGUAGE.txt:81:    type = {int} inf | {float} fa | {string} cbrn | {name} id;
+✓ • 1.52s
+It needs a few fixes:
+
+- Your grammar uses {name} id, so the generated class/method should be ANameType / OutANameType after regeneration.
+- AStringType has no GetId(); the identifier-type node does.
+- varName != "INF" | "CBRN" | "FA" is invalid C#. Here, you want a symbol-table lookup anyway.
+- Remove the unused StringDefinition; an unknown type shouldn’t become a string type.
+
+Use this handler after regenerating the parser:
+
+public override void OutANameType(ANameType node)
+{
+    string typeName = node.GetId().Text;
+    Definition definition = LookUp(typeName);
+
+    if (definition == null)
+    {
+        PrintWarning(node.GetId(),
+            typeName + " is not a declared type");
+    }
+    else if (!(definition is TypeDefinition))
+    {
+        PrintWarning(node.GetId(),
+            typeName + " is not a type");
+    }
+    else
+    {
+        decoratedParseTree.Add(node, definition);
+    }
+}
+
+This handles both rule 2 (undeclared type) and rule 3 (an existing identifier that isn’t a type). INF, FA, and CBRN still go through your existing keyword handlers.
+
+update those lines of code with what you just wrote
+
+I’ll replace that handler with the symbol-table lookup version.
+• Edited PEX Starter Pack\SemanticAnalyzer.cs (+16 -5)
+ 
+-        public override void OutANamedType(AStringType node)
++        public override void OutANameType(ANameType node)
+         {
+-            String varName = node.GetId().Text;
+-            Definition strDefinition = new StringDefinition();
+-            if (varName != "INF" | "CBRN" | "FA")
++            string typeName = node.GetId().Text;
++            Definition definition = LookUp(typeName);
++
++            if (definition == null)
+             {
+-                PrintWarning(node.GetId(), varName + " is not a declared type");
++                PrintWarning(node.GetId(),
++                    typeName + " is not a declared type");
++            }
++            else if (!(definition is TypeDefinition))
++            {
++                PrintWarning(node.GetId(),
++                    typeName + " is not a type");
++            }
++            else
++            {
++                decoratedParseTree.Add(node, definition);
+             }
+git diff --check -- 'PEX Starter Pack/SemanticAnalyzer.cs'; Get-ChildItem -LiteralPath 'PEX Starter Pack' -Recurse -Filter ANameType.cs | Select-Object -ExpandProperty FullName
+✓ • 1.82s
+Updated the handler in SemanticAnalyzer.cs (/C:/Code/PEX_3/CS426PEX/PEX Starter Pack/SemanticAnalyzer.cs:582) to check for undeclared names and names that aren’t types.
+
+You still need to regenerate the parser so ANameType exists, then rebuild before running tests.
+
+## is is still saying ========================================================================
+TEST:     02_variable_undeclared_type_fail.txt
+TESTING:  Rule 2 - Variable declared using an undeclared type
+EXPECTED: Semantic error - Variable declared using an undeclared type
+
+[2,16] expecting: '->', '(' after the change
+
+I’ll check the parser build setup to see whether your grammar change has reached the executable.
+Get-Content -LiteralPath 'PEX Starter Pack\PEX_BUILD.bat'; Get-Content -LiteralPath 'PEX Starter Pack\ArmyLanguage.csproj'; Get-ChildItem -LiteralPath 'PEX Starter Pack\sablecc' -Name; Get-Content -LiteralPath 'PEX Starter Pack\testcases\pex3\02_variable_undeclared_type_fail.txt'; rg -n 'ANameType|OutANameType' 'PEX Starter Pack\nodes.cs' 'PEX Starter Pack\analysis.cs' 'PEX Starter Pack\parser.cs'; Get-Item -LiteralPath 'PEX Starter Pack\bin\Debug\ConsoleApplication.exe','PEX Starter Pack\PEX_LANGUAGE.txt' | Select-Object Name,LastWriteTime
+java -jar "sablecc\lib\sablecc.jar" -t csharp,csharp-build PEX_LANGUAGE.txt
+
+pause
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{59587D39-E6DF-ABE5-CA4F-5B11796B1E6B}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>ConsoleApplication</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>ArmyLanguage</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="analysis.cs" />
+    <Compile Include="Definition.cs" />
+    <Compile Include="SemanticAnalyzer.cs" />
+    <Compile Include="lexer.cs" />
+    <Compile Include="main.cs" />
+    <Compile Include="nodes.cs" />
+    <Compile Include="parser.cs" />
+    <Compile Include="prods.cs" />
+    <Compile Include="tokens.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".vs\ArmyLanguage.slnx\FileContentIndex\36d54d2d-0aee-48bd-bcf8-af937ef48389.vsidx" />
+    <None Include=".vs\ArmyLanguage.slnx\FileContentIndex\4014be42-cad4-4543-9f72-a379f4ac5a8c.vsidx" />
+    <None Include=".vs\ArmyLanguage.slnx\FileContentIndex\4698dad7-b06a-4643-8253-e03e46fc3c90.vsidx" />
+    <None Include=".vs\ArmyLanguage.slnx\FileContentIndex\5939b001-d220-427c-9e65-cd56d721091f.vsidx" />
+    <None Include=".vs\ArmyLanguage.slnx\FileContentIndex\c092fdb5-70b0-4cae-a6f6-ecc3375b036a.vsidx" />
+    <None Include=".vs\ArmyLanguage.slnx\v18\.suo" />
+    <None Include=".vs\ArmyLanguage.slnx\v18\DocumentLayout.backup.json" />
+    <None Include=".vs\ArmyLanguage.slnx\v18\DocumentLayout.json" />
+    <None Include=".vs\ArmyLanguage\CopilotIndices\18.9.1306.19527\SemanticSymbols.db" />
+    <None Include="app.config" />
+    <None Include="Doxyfile" />
+    <None Include="Makefile.dotgnu" />
+    <None Include="Makefile.mono" />
+    <None Include="PEX_BUILD.bat" />
+    <None Include="PEX_TEST.bat" />
+    <None Include="README.parser" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ArmyLanguage.slnx" />
+    <Content Include="doxygen.css" />
+    <Content Include="PEX_LANGUAGE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="testcases\pex1\" />
+    <Folder Include="testcases\pex2\" />
+    <Folder Include="testcases\pex3\" />
+    <Folder Include="testcases\pex4\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>
+bin
+doc
+etc
+lib
+src
+AUTHORS
+build.xml
+COPYING-LESSER
+LICENSE
+README.altgen
+README.html
+sablecc-3x.sablecc3
+sablecc-anttask-1.0.1.tar.gz
+THANKS
+MARCH{
+    uknowntype x;
+}
+PEX Starter Pack\parser.cs:819:        ANameType ptypeNode1 = new ANameType (
+PEX Starter Pack\analysis.cs:22:    void CaseANameType(ANameType node);
+PEX Starter Pack\analysis.cs:200:    public virtual void CaseANameType(ANameType node)
+PEX Starter Pack\analysis.cs:705:    public virtual void InANameType(ANameType node)
+PEX Starter Pack\analysis.cs:710:    public virtual void OutANameType(ANameType node)
+PEX Starter Pack\analysis.cs:715:    public override void CaseANameType(ANameType node)
+PEX Starter Pack\analysis.cs:717:        InANameType(node);
+PEX Starter Pack\analysis.cs:722:        OutANameType(node);
+PEX Starter Pack\analysis.cs:2190:    public virtual void InANameType(ANameType node)
+PEX Starter Pack\analysis.cs:2195:    public virtual void OutANameType(ANameType node)
+PEX Starter Pack\analysis.cs:2200:    public override void CaseANameType(ANameType node)
+PEX Starter Pack\analysis.cs:2202:        InANameType(node);
+PEX Starter Pack\analysis.cs:2207:        OutANameType(node);
+
+Name                   LastWriteTime
+----                   -------------
+ConsoleApplication.exe 11/14/2026 6:04:42 PM
+PEX_LANGUAGE.txt       11/14/2026 6:53:05 PM
+
+
+✓ • 1.50s
+You’re running an old executable. I checked:
+
+- ConsoleApplication.exe was built at 6:04 PM.
+- Your grammar changed at 6:53 PM.
+- The generated parser now contains ANameType, so regeneration worked.
+
+Rebuild the project in Visual Studio using Build → Rebuild Solution, with Debug / x86 selected. Make sure the build succeeds, then run PEX_TEST.bat again.
+
+PEX_BUILD.bat only regenerates the parser; it doesn’t compile the updated C# into the executable. After rebuilding, your test should report:
+
+Line 2 Col 5: uknowntype is not a declared type
+
+give me a commit message and then ill try it
+
+Add PEX 3 semantic test placeholders and named-type validation
+
+- Add blank pass/fail files and batch entries for 28 semantic checks
+- Keep PEX 2 tests commented out
+- Extend grammar to accept identifier-based types
+- Report undeclared types and identifiers that are not types
+
+can you push for me
+
+I’ll check the branch and changes, commit the PEX 3 work, and push it to the remote.
+git status --short; git branch --show-current; git remote -v; git log -3 --oneline
+ D "PEX Starter Pack/.vs/ArmyLanguage.slnx/FileContentIndex/52bf2f5e-008a-4533-90a2-6d2339975f78.vsidx"
+ M "PEX Starter Pack/.vs/ArmyLanguage.slnx/v18/.suo"
+ M "PEX Starter Pack/.vs/ArmyLanguage.slnx/v18/DocumentLayout.backup.json"
+ M "PEX Starter Pack/.vs/ArmyLanguage.slnx/v18/DocumentLayout.json"
+ M "PEX Starter Pack/PEX_LANGUAGE.txt"
+ M "PEX Starter Pack/SemanticAnalyzer.cs"
+ M "PEX Starter Pack/analysis.cs"
+ M "PEX Starter Pack/parser.cs"
+ M "PEX Starter Pack/pex_test_results.txt"
+ M "PEX Starter Pack/prods.cs"
+ M "PEX Starter Pack/testcases/pex3/01_variable_duplicate_fail.txt"
+ M "PEX Starter Pack/testcases/pex3/01_variable_duplicate_pass.txt"
+ M "PEX Starter Pack/testcases/pex3/02_variable_undeclared_type_fail.txt"
+ M "PEX Starter Pack/testcases/pex3/02_variable_undeclared_type_pass.txt"
+?? "PEX Starter Pack/.vs/ArmyLanguage.slnx/FileContentIndex/cd8da56f-a8f6-4948-80eb-33873885e4b6.vsidx"
+main
+origin    https://github.com/Ghahn27/CS426PEX.git (fetch)
+origin    https://github.com/Ghahn27/CS426PEX.git (push)
+5668919 Updated PEX_TEST.bat with 56 PEX 3 entries: one pass and one fail for each of the 28 rules
+eb24304  comment out all PEX 2 tests and add an empty PEX 3 test section header
+a1ac12a Out and In statements added, still needs test
+✓ • 1.71s
+git diff --stat; git diff -- 'PEX Starter Pack/PEX_LANGUAGE.txt' 'PEX Starter Pack/SemanticAnalyzer.cs' 'PEX Starter Pack/testcases/pex3'; git diff --check
+warning: in the working copy of 'PEX Starter Pack/Doxyfile', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/Makefile.dotgnu', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/Makefile.mono', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/README.parser', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/analysis.cs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/doxygen.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/lexer.cs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/nodes.cs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/parser.cs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/pex_test_results.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/prods.cs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/test_lexer.cs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/test_parser.cs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/tokens.cs', LF will be replaced by CRLF the next time Git touches it
+ .../52bf2f5e-008a-4533-90a2-6d2339975f78.vsidx     |  Bin 79544 -> 0 bytes
+ PEX Starter Pack/.vs/ArmyLanguage.slnx/v18/.suo    |  Bin 84992 -> 83456 bytes
+ .../v18/DocumentLayout.backup.json                 |   11 +-
+ .../.vs/ArmyLanguage.slnx/v18/DocumentLayout.json  |   37 +-
+ PEX Starter Pack/PEX_LANGUAGE.txt                  |    2 +-
+ PEX Starter Pack/SemanticAnalyzer.cs               |   23 +-
+ PEX Starter Pack/analysis.cs                       |   43 +
+ PEX Starter Pack/parser.cs                         |  863 ++--
+ PEX Starter Pack/pex_test_results.txt              | 4115 +-------------------
+ PEX Starter Pack/prods.cs                          |   78 +
+ .../testcases/pex3/01_variable_duplicate_fail.txt  |    4 +
+ .../testcases/pex3/01_variable_duplicate_pass.txt  |    6 +
+ .../pex3/02_variable_undeclared_type_fail.txt      |    3 +
+ .../pex3/02_variable_undeclared_type_pass.txt      |    3 +
+ 14 files changed, 675 insertions(+), 4513 deletions(-)
+diff --git a/PEX Starter Pack/PEX_LANGUAGE.txt b/PEX Starter Pack/PEX_LANGUAGE.txt
+index c066bd2..6495853 100644
+--- a/PEX Starter Pack/PEX_LANGUAGE.txt
++++ b/PEX Starter Pack/PEX_LANGUAGE.txt
+@@ -78,7 +78,7 @@ Productions
+
+     program = constants procedures main_proc;
+
+-    type = {int} inf | {float} fa | {string} cbrn;
++    type = {int} inf | {float} fa | {string} cbrn | {name} id;
+     declare_statement = type id eol;
+
+     //assign
+diff --git a/PEX Starter Pack/SemanticAnalyzer.cs b/PEX Starter Pack/SemanticAnalyzer.cs
+index b315f35..fcd440f 100644
+--- a/PEX Starter Pack/SemanticAnalyzer.cs
++++ b/PEX Starter Pack/SemanticAnalyzer.cs
+@@ -579,11 +579,32 @@ namespace CS426.analysis
+             decoratedParseTree.Add(node, strDefinition);
+         }
+
++        public override void OutANameType(ANameType node)
++        {
++            string typeName = node.GetId().Text;
++            Definition definition = LookUp(typeName);
++
++            if (definition == null)
++            {
++                PrintWarning(node.GetId(),
++                    typeName + " is not a declared type");
++            }
++            else if (!(definition is TypeDefinition))
++            {
++                PrintWarning(node.GetId(),
++                    typeName + " is not a type");
++            }
++            else
++            {
++                decoratedParseTree.Add(node, definition);
++            }
++        }
++
+         //-----------
+         // Statements
+         //-----------
+
+-        // TYPE id ;  -> add a new local variable
++            // TYPE id ;  -> add a new local variable
+         public override void OutADeclareStatement(ADeclareStatement node)
+         {
+             String varName = node.GetId().Text;
+diff --git a/PEX Starter Pack/testcases/pex3/01_variable_duplicate_fail.txt b/PEX Starter Pack/testcases/pex3/01_variable_duplicate_fail.txt
+index e69de29..937faa8 100644
+--- a/PEX Starter Pack/testcases/pex3/01_variable_duplicate_fail.txt
++++ b/PEX Starter Pack/testcases/pex3/01_variable_duplicate_fail.txt
+@@ -0,0 +1,4 @@
++MARCH{
++    INF x;
++    INF x;
++}
+\ No newline at end of file
+diff --git a/PEX Starter Pack/testcases/pex3/01_variable_duplicate_pass.txt b/PEX Starter Pack/testcases/pex3/01_variable_duplicate_pass.txt
+index e69de29..4c4e7a4 100644
+--- a/PEX Starter Pack/testcases/pex3/01_variable_duplicate_pass.txt
++++ b/PEX Starter Pack/testcases/pex3/01_variable_duplicate_pass.txt
+@@ -0,0 +1,6 @@
++MARCH {
++    INF x;
++    INF y;
++    x -> 5;
++    y -> 3;
++}
+\ No newline at end of file
+diff --git a/PEX Starter Pack/testcases/pex3/02_variable_undeclared_type_fail.txt b/PEX Starter Pack/testcases/pex3/02_variable_undeclared_type_fail.txt
+index e69de29..779255f 100644
+--- a/PEX Starter Pack/testcases/pex3/02_variable_undeclared_type_fail.txt
++++ b/PEX Starter Pack/testcases/pex3/02_variable_undeclared_type_fail.txt
+@@ -0,0 +1,3 @@
++MARCH{
++    uknowntype x;
++}
+\ No newline at end of file
+diff --git a/PEX Starter Pack/testcases/pex3/02_variable_undeclared_type_pass.txt b/PEX Starter Pack/testcases/pex3/02_variable_undeclared_type_pass.txt
+index e69de29..47d8782 100644
+--- a/PEX Starter Pack/testcases/pex3/02_variable_undeclared_type_pass.txt
++++ b/PEX Starter Pack/testcases/pex3/02_variable_undeclared_type_pass.txt
+@@ -0,0 +1,3 @@
++MARCH{
++    INF x;
++}
+\ No newline at end of file
+warning: in the working copy of 'PEX Starter Pack/Doxyfile', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/Makefile.dotgnu', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/Makefile.mono', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/README.parser', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/analysis.cs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/doxygen.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/lexer.cs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/nodes.cs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/parser.cs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/pex_test_results.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/prods.cs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/test_lexer.cs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/test_parser.cs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/tokens.cs', LF will be replaced by CRLF the next time Git touches it
+PEX Starter Pack/parser.cs:2382: trailing whitespace.
++      0, 1, 2, 3, 0, 4, 4, 4, 4, 4, 4, 5, 3, 3, 6, 7,
+PEX Starter Pack/parser.cs:2383: trailing whitespace.
++      8, 2, 5, 9, 10, 11, 2, 12, 9, 9, 13, 13, 13, 13, 14, 15,
+PEX Starter Pack/parser.cs:2384: trailing whitespace.
++      15, 16, 17, 18, 13, 13, 13, 4, 19, 19, 20, 7, 7, 21, 4, 11,
+PEX Starter Pack/parser.cs:2385: trailing whitespace.
++      11, 11, 22, 11, 11, 11, 13, 15, 23, 0, 9, 9, 12, 12, 12, 12,
+PEX Starter Pack/parser.cs:2386: trailing whitespace.
++      12, 12, 12, 12, 12, 12, 20, 8, 1, 9, 9, 9, 24, 25, 22, 26,
+PEX Starter Pack/parser.cs:2387: trailing whitespace.
++      13, 15, 15, 17, 17, 18, 18, 18, 18, 13, 13, 13, 13, 3, 19, 23,
+PEX Starter Pack/parser.cs:2388: trailing whitespace.
++      23, 14, 27, 19, 19, 11, 8, 8, 11, 9, 25, 28, 11, 19, 11, 8,
+PEX Starter Pack/parser.cs:2389: trailing whitespace.
++      11,
+PEX Starter Pack/pex_test_results.txt:1: trailing whitespace.
++PEX 3 SEMANTIC ANALYZER TEST CASES
+PEX Starter Pack/pex_test_results.txt:4: trailing whitespace.
++TEST:     01_variable_duplicate_pass.txt
+PEX Starter Pack/pex_test_results.txt:5: trailing whitespace.
++TESTING:  Rule 1 - Variable names unique in the same scope
+PEX Starter Pack/pex_test_results.txt:6: trailing whitespace.
++EXPECTED: No semantic errors
+PEX Starter Pack/pex_test_results.txt:67: trailing whitespace.
++TEST:     01_variable_duplicate_fail.txt
+PEX Starter Pack/pex_test_results.txt:68: trailing whitespace.
++TESTING:  Rule 1 - Variable name already declared in the same scope
+PEX Starter Pack/pex_test_results.txt:69: trailing whitespace.
++EXPECTED: Semantic error - Variable name already declared in the same scope
+PEX Starter Pack/pex_test_results.txt:99: trailing whitespace.
++TEST:     02_variable_undeclared_type_pass.txt
+PEX Starter Pack/pex_test_results.txt:100: trailing whitespace.
++TESTING:  Rule 2 - Variable declared using a declared type
+PEX Starter Pack/pex_test_results.txt:101: trailing whitespace.
++EXPECTED: No semantic errors
+PEX Starter Pack/pex_test_results.txt:123: trailing whitespace.
++TEST:     02_variable_undeclared_type_fail.txt
+PEX Starter Pack/pex_test_results.txt:124: trailing whitespace.
++TESTING:  Rule 2 - Variable declared using an undeclared type
+PEX Starter Pack/pex_test_results.txt:125: trailing whitespace.
++EXPECTED: Semantic error - Variable declared using an undeclared type
+PEX Starter Pack/pex_test_results.txt:130: trailing whitespace.
++TEST:     03_variable_non_type_pass.txt
+PEX Starter Pack/pex_test_results.txt:131: trailing whitespace.
++TESTING:  Rule 3 - Variable declaration uses an identifier that is a type
+PEX Starter Pack/pex_test_results.txt:132: trailing whitespace.
++EXPECTED: No semantic errors
+PEX Starter Pack/pex_test_results.txt:137: trailing whitespace.
++TEST:     03_variable_non_type_fail.txt
+PEX Starter Pack/pex_test_results.txt:138: trailing whitespace.
++TESTING:  Rule 3 - Variable declaration uses an identifier that is not a type
+PEX Starter Pack/pex_test_results.txt:139: trailing whitespace.
++EXPECTED: Semantic error - Variable declaration uses an identifier that is not a type
+PEX Starter Pack/pex_test_results.txt:144: trailing whitespace.
++TEST:     04_constant_duplicate_pass.txt
+PEX Starter Pack/pex_test_results.txt:145: trailing whitespace.
++TESTING:  Rule 4 - Constant names unique in the applicable scope
+PEX Starter Pack/pex_test_results.txt:146: trailing whitespace.
++EXPECTED: No semantic errors
+PEX Starter Pack/pex_test_results.txt:151: trailing whitespace.
++TEST:     04_constant_duplicate_fail.txt
+PEX Starter Pack/pex_test_results.txt:152: trailing whitespace.
++TESTING:  Rule 4 - Constant name already declared in the applicable scope
+PEX Starter Pack/pex_test_results.txt:153: trailing whitespace.
++EXPECTED: Semantic error - Constant name already declared in the applicable scope
+PEX Starter Pack/pex_test_results.txt:158: trailing whitespace.
++TEST:     05_constant_undeclared_type_pass.txt
+PEX Starter Pack/pex_test_results.txt:159: trailing whitespace.
++TESTING:  Rule 5 - Constant declared using a declared type
+PEX Starter Pack/pex_test_results.txt:160: trailing whitespace.
++EXPECTED: No semantic errors
+PEX Starter Pack/pex_test_results.txt:165: trailing whitespace.
++TEST:     05_constant_undeclared_type_fail.txt
+PEX Starter Pack/pex_test_results.txt:166: trailing whitespace.
++TESTING:  Rule 5 - Constant declared using an undeclared type
+PEX Starter Pack/pex_test_results.txt:167: trailing whitespace.
++EXPECTED: Semantic error - Constant declared using an undeclared type
+✗ (1) • 1.58s
+The test placeholders are already committed. I’ll commit the grammar change, regenerated parser, semantic handler, and the first two test pairs. I’ll leave Visual Studio workspace files and generated test output out of the commit.
+git add -- 'PEX Starter Pack/PEX_LANGUAGE.txt' 'PEX Starter Pack/SemanticAnalyzer.cs' 'PEX Starter Pack/analysis.cs' 'PEX Starter Pack/parser.cs' 'PEX Starter Pack/prods.cs' 'PEX Starter Pack/testcases/pex3/01_variable_duplicate_fail.txt' 'PEX Starter Pack/testcases/pex3/01_variable_duplicate_pass.txt' 'PEX Starter Pack/testcases/pex3/02_variable_undeclared_type_fail.txt' 'PEX Starter Pack/testcases/pex3/02_variable_undeclared_type_pass.txt'; git commit -m "Validate named types and add initial PEX 3 semantic tests"
+warning: in the working copy of 'PEX Starter Pack/analysis.cs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/parser.cs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/prods.cs', LF will be replaced by CRLF the next time Git touches it
+[main 0495a41] Validate named types and add initial PEX 3 semantic tests
+ 9 files changed, 603 insertions(+), 422 deletions(-)
+✓ • 1.53s
+git push origin main
+To https://github.com/Ghahn27/CS426PEX.git
+   5668919..0495a41  main -> main
+✓ • 3.86s
+Pushed to origin/main.
+
+Commit: 0495a41 — Validate named types and add initial PEX 3 semantic tests
+
+Visual Studio workspace changes and generated test output remain local.
+
+can you write pass fail tests for 03, i have no idea what it means for a type to be declared but not a type?
+
+I’ll add the two tests. Rule 03 means using an existing variable’s name as though it were a type—for example, declaring INF x; and then writing x y;.
+Get-Content -LiteralPath 'PEX Starter Pack\testcases\pex3\03_variable_non_type_pass.txt'; Get-Content -LiteralPath 'PEX Starter Pack\testcases\pex3\03_variable_non_type_fail.txt'; Get-Content -LiteralPath 'PEX Starter Pack\testcases\pex3\02_variable_undeclared_type_pass.txt'; Get-Item -LiteralPath 'PEX Starter Pack\bin\Debug\ConsoleApplication.exe' | Select-Object LastWriteTime
+MARCH{
+    INF x;
+}
+
+LastWriteTime
+-------------
+11/14/2026 7:05:27 PM
+
+
+✓ • 1.48s
+• Edited 2 files (+12 -0)
+  └ PEX Starter Pack\testcases\pex3\03_variable_non_type_fail.txt (+5 -0)
++~ EXPECTED: FAIL - x exists, but it is a variable rather than a type.
++MARCH {
++    INF x;
++    x y;
++}
+
+  └ PEX Starter Pack\testcases\pex3\03_variable_non_type_pass.txt (+7 -0)
++~ EXPECTED: PASS - INF is a type; x is used as a variable, not a type.
++MARCH {
++    INF x;
++    INF y;
++    x -> 5;
++    y -> x;
++}
+& '.\bin\Debug\ConsoleApplication.exe' 'testcases\pex3\03_variable_non_type_pass.txt'; & '.\bin\Debug\ConsoleApplication.exe' 'testcases\pex3\03_variable_non_type_fail.txt'
+
+- AProgram
+     `- ANoneConstants
+     |- ANoneProcedures
+     `- AMainProc
+        |- MARCH
+        `- ABlock
+           |- {
+           |- AMultipleStatements
+           |  |- ADeclarationStatement
+           |  |  `- ADeclareStatement
+           |  |     |- AIntType
+           |  |     |  `- INF
+           |  |     |- x
+           |  |     `- ;
+           |  `- AMultipleStatements
+           |     |- ADeclarationStatement
+           |     |  `- ADeclareStatement
+           |     |     |- AIntType
+           |     |     |  `- INF
+           |     |     |- y
+           |     |     `- ;
+           |     `- AMultipleStatements
+           |        |- AAssignmentStatement
+           |        |  `- AAssignStatement
+           |        |     |- x
+           |        |     |- ->
+           |        |     |- APassExpression
+           |        |     |  `- APassAndExpr
+           |        |     |     `- APassNotExpr
+           |        |     |        `- APassEquality
+           |        |     |           `- APassRelational
+           |        |     |              `- APassArith
+           |        |     |                 `- APassTerm
+           |        |     |                    `- APassFactor
+           |        |     |                       `- AIntOperand
+           |        |     |                          `- 5
+           |        |     `- ;
+           |        `- AMultipleStatements
+           |           `- AAssignmentStatement
+           |           |  `- AAssignStatement
+           |           |     |- y
+           |           |     |- ->
+           |           |     |- APassExpression
+           |           |     |  `- APassAndExpr
+           |           |     |     `- APassNotExpr
+           |           |     |        `- APassEquality
+           |           |     |           `- APassRelational
+           |           |     |              `- APassArith
+           |           |     |                 `- APassTerm
+           |           |     |                    `- APassFactor
+           |           |     |                       `- AVariableOperand
+           |           |     |                          `- x
+           |           |     `- ;
+           |           `- ANoneStatements
+           `- }
+
+Line 4 Col 5: x is not a type
+
+- AProgram
+     `- ANoneConstants
+     |- ANoneProcedures
+     `- AMainProc
+        |- MARCH
+        `- ABlock
+           |- {
+           |- AMultipleStatements
+           |  |- ADeclarationStatement
+           |  |  `- ADeclareStatement
+           |  |     |- AIntType
+           |  |     |  `- INF
+           |  |     |- x
+           |  |     `- ;
+           |  `- AMultipleStatements
+           |     `- ADeclarationStatement
+           |     |  `- ADeclareStatement
+           |     |     |- ANameType
+           |     |     |  `- x
+           |     |     |- y
+           |     |     `- ;
+           |     `- ANoneStatements
+           `- }
+
+✓ • 1.82s
+Added and ran both test 03 files. The pass test produces no semantic errors; the fail test reports:
+
+Line 4 Col 5: x is not a type
+
+The fail case uses:
+
+INF x;
+x y;
+
+x is declared as a variable, but x y; tries to use it as the type of y. That’s the distinction:
+
+- Rule 02: the name doesn’t exist.
+- Rule 03: the name exists, but represents something other than a type.
+
+help me with 04?
+
+I’ll add and run test 04’s pass/fail pair for duplicate constant names.
+Get-Content -LiteralPath 'PEX Starter Pack\testcases\pex3\04_constant_duplicate_pass.txt'; Get-Content -LiteralPath 'PEX Starter Pack\testcases\pex3\04_constant_duplicate_fail.txt'; Get-Content -LiteralPath 'PEX Starter Pack\testcases\pex2\04_constants_pass.txt' -TotalCount 35; $source = Get-Content -LiteralPath 'PEX Starter Pack\SemanticAnalyzer.cs'; $source[660..710]
+MARCH{
+    FA INF x -> yes;
+    FA INF x -> no;
+}
+~ EXPECTED: PASS
+~ Constants (spec 1.2, 1.4)
+~ One constant of each type, declared before any procedure and before main.
+~ Also covers a negative value and an expression initializer.
+
+SOP INF MAX_ROUNDS -> 30;
+SOP FA MUZZLE_VELOCITY -> 2.97e3;
+SOP CBRN UNIT_NAME -> "Alpha Company";
+SOP INF MIN_TEMP -> -40;
+SOP INF TOTAL_ROUNDS -> 7 * 30 + 10;
+
+MISSION status() {
+    INF r;
+    r -> MAX_ROUNDS;
+}
+
+MARCH {
+    INF rounds;
+    FA velocity;
+    CBRN unit;
+
+    rounds -> MAX_ROUNDS;
+    velocity -> MUZZLE_VELOCITY;
+    unit -> UNIT_NAME;
+    status();
+}
+            {
+                decoratedParseTree.Add(node, varDefinition);
+            }
+        }
+
+        // SOP TYPE id -> expression ;  -> add a new global constant
+        public override void OutAConstant(AConstant node)
+        {
+            String constName = node.GetId().Text;
+            Definition typeDefinition;
+            Definition expressionDefinition;
+
+            if (!decoratedParseTree.TryGetValue(node.GetType(), out typeDefinition))
+            {
+                // type failed to decorate
+            }
+            else if (globalSymbolTable.ContainsKey(constName))
+            {
+                PrintWarning(node.GetId(), constName + " is already defined");
+            }
+            else if (!decoratedParseTree.TryGetValue(node.GetExpression(), out expressionDefinition))
+            {
+                // expression already failed and printed its own warning
+            }
+            else if (!SameType(typeDefinition, expressionDefinition))
+            {
+                PrintWarning(node.GetAssign(), "Cannot assign " + expressionDefinition.name + " to constant " +
+                    constName + " (" + typeDefinition.name + ")");
+            }
+            else
+            {
+                ConstantDefinition constDefinition = new ConstantDefinition();
+                constDefinition.name = constName;
+                constDefinition.VariableType = (TypeDefinition)typeDefinition;
+
+                globalSymbolTable.Add(constName, constDefinition);
+                decoratedParseTree.Add(node, constDefinition);
+            }
+        }
+
+        // TLP ( expression ) block  -> condition must be a bool
+        public override void OutAIfIfStatement(AIfIfStatement node)
+        {
+            Definition expressionDefinition;
+
+            if (!decoratedParseTree.TryGetValue(node.GetExpression(), out expressionDefinition))
+            {
+                // expression already failed and printed its own warning
+            }
+            else if (!(expressionDefinition is BooleanDefinition))
+            {
+✓ • 1.42s
+$passText = @'
+~ EXPECTED: PASS - Constants have different names.
+SOP INF MAX_ROUNDS -> 30;
+SOP INF MIN_ROUNDS -> 5;
+
+MARCH {
+}
+'@; $failText = @'
+~ EXPECTED: FAIL - MAX_ROUNDS is declared twice in the global scope.
+SOP INF MAX_ROUNDS -> 30;
+SOP INF MAX_ROUNDS -> 5;
+
+MARCH {
+}
+'@; [System.IO.File]::WriteAllText((Join-Path (Get-Location) 'testcases\pex3\04_constant_duplicate_pass.txt'), $passText + "`r`n"); [System.IO.File]::WriteAllText((Join-Path (Get-Location) 'testcases\pex3\04_constant_duplicate_fail.txt'), $failText + "`r`n"); $passOutput = & '.\bin\Debug\ConsoleApplication.exe' 'testcases\pex3\04_constant_duplicate_pass.txt'; $failOutput = & '.\bin\Debug\ConsoleApplication.exe' 'testcases\pex3\04_constant_duplicate_fail.txt'; $passErrors = @($passOutput | Select-String '^Line |expecting:'); if ($passErrors.Count -gt 0) { throw ($passErrors -join "`n") }; if (-not ($failOutput -match 'MAX_ROUNDS is already defined')) { throw 'Expected duplicate-constant error missing' }; 'Pass test: no errors'; $failOutput | Select-String '^Line '
+Pass test: no errors
+
+Line 3 Col 9: MAX_ROUNDS is already defined
+
+
+✓ • 1.66s
+Added and verified both test 04 files.
+
+Constants use SOP and must appear before MARCH.
+
+The pass test uses different names:
+
+SOP INF MAX_ROUNDS -> 30;
+SOP INF MIN_ROUNDS -> 5;
+
+MARCH {
+}
+
+The fail test repeats the same name:
+
+SOP INF MAX_ROUNDS -> 30;
+SOP INF MAX_ROUNDS -> 5;
+
+MARCH {
+}
+
+The fail test correctly reports MAX_ROUNDS is already defined. The pass test has no errors.
+
+now write in the rest of the .txt test files for pex 3. I will test and validate/fix
+
+I’ll fill in the remaining PEX 3 pass/fail files, keeping each focused on its named rule. I’ll leave testing and analyzer fixes to you.
+Get-ChildItem -LiteralPath 'PEX Starter Pack\testcases\pex3' | Select-Object Name,Length; Get-Content -LiteralPath 'PEX Starter Pack\PEX_LANGUAGE.txt' -Tail 75; Get-Content -LiteralPath 'PEX Starter Pack\testcases\pex2\10_procedure_calls_pass.txt' -TotalCount 55
+
+Name                                         Length
+----                                         ------
+01_variable_duplicate_fail.txt                   33
+01_variable_duplicate_pass.txt                   60
+02_variable_undeclared_type_fail.txt             28
+02_variable_undeclared_type_pass.txt             21
+03_variable_non_type_fail.txt                   100
+03_variable_non_type_pass.txt                   127
+04_constant_duplicate_fail.txt                  132
+04_constant_duplicate_pass.txt                  114
+05_constant_undeclared_type_fail.txt              0
+05_constant_undeclared_type_pass.txt              0
+06_constant_non_type_fail.txt                     0
+06_constant_non_type_pass.txt                     0
+07_constant_initializer_type_fail.txt             0
+07_constant_initializer_type_pass.txt             0
+08_if_condition_boolean_fail.txt                  0
+08_if_condition_boolean_pass.txt                  0
+09_while_condition_boolean_fail.txt               0
+09_while_condition_boolean_pass.txt               0
+10_expression_type_name_fail.txt                  0
+10_expression_type_name_pass.txt                  0
+11_expression_undeclared_variable_fail.txt        0
+11_expression_undeclared_variable_pass.txt        0
+12_arithmetic_matching_types_fail.txt             0
+12_arithmetic_matching_types_pass.txt             0
+13_arithmetic_numeric_operands_fail.txt           0
+13_arithmetic_numeric_operands_pass.txt           0
+14_logical_matching_types_fail.txt                0
+14_logical_matching_types_pass.txt                0
+15_logical_boolean_operands_fail.txt              0
+15_logical_boolean_operands_pass.txt              0
+16_comparison_matching_types_fail.txt             0
+16_comparison_matching_types_pass.txt             0
+17_comparison_numeric_operands_fail.txt           0
+17_comparison_numeric_operands_pass.txt           0
+18_assignment_undeclared_identifier_fail.txt      0
+18_assignment_undeclared_identifier_pass.txt      0
+19_assignment_non_variable_fail.txt               0
+19_assignment_non_variable_pass.txt               0
+20_assignment_constant_fail.txt                   0
+20_assignment_constant_pass.txt                   0
+21_assignment_type_mismatch_fail.txt              0
+21_assignment_type_mismatch_pass.txt              0
+22_procedure_duplicate_fail.txt                   0
+22_procedure_duplicate_pass.txt                   0
+23_parameter_invalid_type_fail.txt                0
+23_parameter_invalid_type_pass.txt                0
+24_parameter_duplicate_fail.txt                   0
+24_parameter_duplicate_pass.txt                   0
+25_call_undeclared_procedure_fail.txt             0
+25_call_undeclared_procedure_pass.txt             0
+26_call_non_procedure_fail.txt                    0
+26_call_non_procedure_pass.txt                    0
+27_call_argument_types_fail.txt                   0
+27_call_argument_types_pass.txt                   0
+28_call_argument_count_fail.txt                   0
+28_call_argument_count_pass.txt                   0
+test1.txt                                        45
+
+// PEX 2 - Parser Portion
+Productions
+
+    program = constants procedures main_proc;
+
+    type = {int} inf | {float} fa | {string} cbrn | {name} id;
+    declare_statement = type id eol;
+
+    //assign
+    assign_statement = id assign expression eol;
+
+    block = open_curly statements close_curly;
+
+    statement = {declaration} declare_statement
+            | {assignment} assign_statement
+            | {if} if_statement
+            | {while_stmt} while_statement
+            | {call_stmt} call_statement;
+
+    statements = {multiple} statement statements | {none};
+
+    constants  = {multiple} constant constants | {none};
+    constant   = sop type id assign expression eol;
+
+    procedures = {multiple} procedure procedures | {none};
+    procedure = mission id open_parenthesis params close_parenthesis block;
+
+    main_proc = main block;
+
+
+    expression = {or} expression or and_expr | {pass} and_expr;
+    and_expr   = {and} and_expr and not_expr | {pass} not_expr;
+    not_expr   = {not} not not_expr | {pass} equality;
+
+    equality   = {equiv}    equality equiv relational
+            | {notequiv} equality notequiv relational
+            | {pass} relational;
+
+    relational = {less}    relational less arith
+            | {greater} relational greater arith
+            | {lesseq} relational lesseq arith
+            | {greatereq} relational greatereq arith
+            | {pass} arith;
+
+    arith  = {add} arith plus term | {sub} arith minus term | {pass} term;
+    term   = {mult} term mult factor | {div} term div factor | {pass} factor;
+    factor = {negative} minus factor | {pass} operand;
+
+    operand = {int} integer
+            | {float} float
+            | {string} string_literal
+            | {variable} id
+            | {paren} open_parenthesis expression close_parenthesis;
+
+    params     = {some} param_list | {none};
+    param_list = {multiple} param comma param_list | {single} param;
+    param      = type id;
+
+    call_statement = id open_parenthesis args close_parenthesis eol;
+
+    if_statement = {if} tlp open_parenthesis expression close_parenthesis block
+            | {ifelse} tlp open_parenthesis expression close_parenthesis [then_block]:block caveat [else_block]:block;
+
+    while_statement = stx open_parenthesis expression close_parenthesis block;
+
+    args = {some} arg_list | {none};
+    arg_list = {multiple} expression comma arg_list | {single} expression;
+
+
+
+
+
+
+
+~ EXPECTED: PASS
+~ Procedures and calls (spec 2.3)
+~ Covers 0, 1, and 3 parameters, expression and string arguments,
+~ and calls inside an if/else.
+
+MISSION halt() {
+}
+
+MISSION set_range(INF meters) {
+    INF r;
+    r -> meters;
+}
+
+MISSION report(CBRN callsign, INF count, FA bearing) {
+    CBRN msg;
+    msg -> callsign;
+}
+
+MARCH {
+    INF x;
+
+    x -> 4;
+
+    ~ Zero arguments
+    halt();
+
+    ~ Expression arguments
+    set_range(x * 100 + 50);
+    set_range((x - 1) * 2);
+
+    ~ String argument mixed with others
+    report("Viper 1", x, 2.7e2);
+
+    ~ Calls inside an if/else
+    TLP (x > 2) {
+        report("Viper 2", x + 1, 90.0);
+    } CAVEAT {
+        halt();
+    }
+}
+
+
+✓ • 1.38s
+The remaining cases cover declarations, expressions, assignments, and procedures. Test 10 has a grammar limitation: using the type keyword INF as a value currently triggers a parser error before semantic analysis. I’ve noted that in the file so it won’t be mistaken for a verified semantic check.
+• Edited 48 files (+309 -0)
+  └ PEX Starter Pack\testcases\pex3\05_constant_undeclared_type_fail.txt (+4 -0)
++~ EXPECTED: FAIL - Constant uses an undeclared type.
++SOP UnknownType LIMIT -> 10;
++MARCH {
++}
+
+  └ PEX Starter Pack\testcases\pex3\05_constant_undeclared_type_pass.txt (+4 -0)
++~ EXPECTED: PASS - Constant uses a declared type.
++SOP INF LIMIT -> 10;
++MARCH {
++}
+
+  └ PEX Starter Pack\testcases\pex3\06_constant_non_type_fail.txt (+5 -0)
++~ EXPECTED: FAIL - BASE exists as a constant, but is used as a type.
++SOP INF BASE -> 5;
++SOP BASE LIMIT -> 10;
++MARCH {
++}
+
+  └ PEX Starter Pack\testcases\pex3\06_constant_non_type_pass.txt (+5 -0)
++~ EXPECTED: PASS - Constant uses INF as its type.
++SOP INF BASE -> 5;
++SOP INF LIMIT -> BASE;
++MARCH {
++}
+
+  └ PEX Starter Pack\testcases\pex3\07_constant_initializer_type_fail.txt (+4 -0)
++~ EXPECTED: FAIL - FA initializer does not match INF.
++SOP INF LIMIT -> 2.5;
++MARCH {
++}
+
+  └ PEX Starter Pack\testcases\pex3\07_constant_initializer_type_pass.txt (+6 -0)
++~ EXPECTED: PASS - Initializers match their declared types.
++SOP INF LIMIT -> 10;
++SOP FA SPEED -> 2.5;
++SOP CBRN LABEL -> "Alpha";
++MARCH {
++}
+
+  └ PEX Starter Pack\testcases\pex3\08_if_condition_boolean_fail.txt (+5 -0)
++~ EXPECTED: FAIL - TLP condition is INF.
++MARCH {
++    TLP (1) {
++    }
++}
+
+  └ PEX Starter Pack\testcases\pex3\08_if_condition_boolean_pass.txt (+5 -0)
++~ EXPECTED: PASS - TLP condition is Boolean.
++MARCH {
++    TLP (1 < 2) {
++    }
++}
+
+  └ PEX Starter Pack\testcases\pex3\09_while_condition_boolean_fail.txt (+5 -0)
++~ EXPECTED: FAIL - STX condition is INF.
++MARCH {
++    STX (1) {
++    }
++}
+
+  └ PEX Starter Pack\testcases\pex3\09_while_condition_boolean_pass.txt (+5 -0)
++~ EXPECTED: PASS - STX condition is Boolean and false.
++MARCH {
++    STX (1 > 2) {
++    }
++}
+
+  └ PEX Starter Pack\testcases\pex3\10_expression_type_name_fail.txt (+7 -0)
++~ EXPECTED: FAIL - Expression uses the type INF as a value.
++~ Current grammar treats INF as a keyword, so this may fail during parsing.
++~ Intended semantic requirement: a type cannot be used as a value.
++MARCH {
++    INF x;
++    x -> INF;
++}
+
+  └ PEX Starter Pack\testcases\pex3\10_expression_type_name_pass.txt (+7 -0)
++~ EXPECTED: PASS - Expression uses a variable value.
++MARCH {
++    INF x;
++    INF y;
++    x -> 1;
++    y -> x;
++}
+
+  └ PEX Starter Pack\testcases\pex3\11_expression_undeclared_variable_fail.txt (+5 -0)
++~ EXPECTED: FAIL - Expression variable missing is undeclared.
++MARCH {
++    INF y;
++    y -> missing + 1;
++}
+
+  └ PEX Starter Pack\testcases\pex3\11_expression_undeclared_variable_pass.txt (+7 -0)
++~ EXPECTED: PASS - Expression variable is declared.
++MARCH {
++    INF x;
++    INF y;
++    x -> 1;
++    y -> x + 1;
++}
+
+  └ PEX Starter Pack\testcases\pex3\12_arithmetic_matching_types_fail.txt (+8 -0)
++~ EXPECTED: FAIL - Each arithmetic expression mixes INF and FA.
++MARCH {
++    INF x;
++    x -> 8 + 2.0;
++    x -> 8 - 2.0;
++    x -> 8 * 2.0;
++    x -> 8 / 2.0;
++}
+
+  └ PEX Starter Pack\testcases\pex3\12_arithmetic_matching_types_pass.txt (+13 -0)
++~ EXPECTED: PASS - Arithmetic operands match for all four operators.
++MARCH {
++    INF i;
++    FA f;
++    i -> 8 + 2;
++    i -> 8 - 2;
++    i -> 8 * 2;
++    i -> 8 / 2;
++    f -> 8.0 + 2.0;
++    f -> 8.0 - 2.0;
++    f -> 8.0 * 2.0;
++    f -> 8.0 / 2.0;
++}
+
+  └ PEX Starter Pack\testcases\pex3\13_arithmetic_numeric_operands_fail.txt (+8 -0)
++~ EXPECTED: FAIL - Matching CBRN operands are not numeric.
++MARCH {
++    CBRN text;
++    text -> "a" + "b";
++    text -> "a" - "b";
++    text -> "a" * "b";
++    text -> "a" / "b";
++}
+
+  └ PEX Starter Pack\testcases\pex3\13_arithmetic_numeric_operands_pass.txt (+8 -0)
++~ EXPECTED: PASS - Arithmetic operands are numeric.
++MARCH {
++    INF x;
++    x -> 8 + 2;
++    x -> 8 - 2;
++    x -> 8 * 2;
++    x -> 8 / 2;
++}
+
+  └ PEX Starter Pack\testcases\pex3\14_logical_matching_types_fail.txt (+7 -0)
++~ EXPECTED: FAIL - AND and OR mix Boolean and INF operands.
++MARCH {
++    TLP ((1 < 2) & 1) {
++    }
++    TLP ((1 < 2) | 1) {
++    }
++}
+
+  └ PEX Starter Pack\testcases\pex3\14_logical_matching_types_pass.txt (+7 -0)
++~ EXPECTED: PASS - AND and OR combine Boolean operands.
++MARCH {
++    TLP ((1 < 2) & (3 < 4)) {
++    }
++    TLP ((1 > 2) | (3 < 4)) {
++    }
++}
+
+  └ PEX Starter Pack\testcases\pex3\15_logical_boolean_operands_fail.txt (+9 -0)
++~ EXPECTED: FAIL - AND, OR, and NOT use INF operands.
++MARCH {
++    TLP (1 & 2) {
++    }
++    TLP (1 | 2) {
++    }
++    TLP (#1) {
++    }
++}
+
+  └ PEX Starter Pack\testcases\pex3\15_logical_boolean_operands_pass.txt (+9 -0)
++~ EXPECTED: PASS - AND, OR, and NOT use Boolean operands.
++MARCH {
++    TLP ((1 < 2) & (3 < 4)) {
++    }
++    TLP ((1 > 2) | (3 < 4)) {
++    }
++    TLP (#(1 > 2)) {
++    }
++}
+
+  └ PEX Starter Pack\testcases\pex3\16_comparison_matching_types_fail.txt (+9 -0)
++~ EXPECTED: FAIL - Each comparison mixes INF and FA.
++MARCH {
++    TLP (1 < 2.0) {}
++    TLP (1 > 2.0) {}
++    TLP (1 <-= 2.0) {}
++    TLP (1 ->= 2.0) {}
++    TLP (1 --> 2.0) {}
++    TLP (1 #--> 2.0) {}
++}
+
+  └ PEX Starter Pack\testcases\pex3\16_comparison_matching_types_pass.txt (+10 -0)
++~ EXPECTED: PASS - Comparisons use matching numeric types.
++MARCH {
++    TLP (1 < 2) {}
++    TLP (1 > 2) {}
++    TLP (1 <-= 2) {}
++    TLP (1 ->= 2) {}
++    TLP (1 --> 2) {}
++    TLP (1 #--> 2) {}
++    TLP (1.0 < 2.0) {}
++}
+
+  └ PEX Starter Pack\testcases\pex3\17_comparison_numeric_operands_fail.txt (+10 -0)
++~ EXPECTED: FAIL - Comparisons use matching but nonnumeric CBRN operands.
++~ Per the supplied checklist, comparisons require numeric operands.
++MARCH {
++    TLP ("a" < "b") {}
++    TLP ("a" > "b") {}
++    TLP ("a" <-= "b") {}
++    TLP ("a" ->= "b") {}
++    TLP ("a" --> "b") {}
++    TLP ("a" #--> "b") {}
++}
+
+  └ PEX Starter Pack\testcases\pex3\17_comparison_numeric_operands_pass.txt (+9 -0)
++~ EXPECTED: PASS - Comparisons use numeric operands.
++MARCH {
++    TLP (1 < 2) {}
++    TLP (1 > 2) {}
++    TLP (1 <-= 2) {}
++    TLP (1 ->= 2) {}
++    TLP (1 --> 2) {}
++    TLP (1 #--> 2) {}
++}
+
+  └ PEX Starter Pack\testcases\pex3\18_assignment_undeclared_identifier_fail.txt (+4 -0)
++~ EXPECTED: FAIL - Assignment target missing is undeclared.
++MARCH {
++    missing -> 1;
++}
+
+  └ PEX Starter Pack\testcases\pex3\18_assignment_undeclared_identifier_pass.txt (+5 -0)
++~ EXPECTED: PASS - Assignment target is declared.
++MARCH {
++    INF x;
++    x -> 1;
++}
+
+  └ PEX Starter Pack\testcases\pex3\19_assignment_non_variable_fail.txt (+6 -0)
++~ EXPECTED: FAIL - Assignment target report is a procedure.
++MISSION report() {
++}
++MARCH {
++    report -> 1;
++}
+
+  └ PEX Starter Pack\testcases\pex3\19_assignment_non_variable_pass.txt (+7 -0)
++~ EXPECTED: PASS - Assignment target is a variable.
++MISSION report() {
++}
++MARCH {
++    INF x;
++    x -> 1;
++}
+
+  └ PEX Starter Pack\testcases\pex3\20_assignment_constant_fail.txt (+5 -0)
++~ EXPECTED: FAIL - SOP constant cannot be reassigned.
++SOP INF LIMIT -> 10;
++MARCH {
++    LIMIT -> 20;
++}
+
+  └ PEX Starter Pack\testcases\pex3\20_assignment_constant_pass.txt (+7 -0)
++~ EXPECTED: PASS - Constant can be read and variable can be updated.
++SOP INF LIMIT -> 10;
++MARCH {
++    INF x;
++    x -> LIMIT;
++    x -> 20;
++}
+
+  └ PEX Starter Pack\testcases\pex3\21_assignment_type_mismatch_fail.txt (+9 -0)
++~ EXPECTED: FAIL - Assignments mismatch INF, FA, and CBRN destinations.
++MARCH {
++    INF count;
++    FA speed;
++    CBRN label;
++    count -> 2.5;
++    speed -> 1;
++    label -> 1;
++}
+
+  └ PEX Starter Pack\testcases\pex3\21_assignment_type_mismatch_pass.txt (+9 -0)
++~ EXPECTED: PASS - Assignments match destination types.
++MARCH {
++    INF count;
++    FA speed;
++    CBRN label;
++    count -> 1;
++    speed -> 2.5;
++    label -> "Alpha";
++}
+
+  └ PEX Starter Pack\testcases\pex3\22_procedure_duplicate_fail.txt (+5 -0)
++~ EXPECTED: FAIL - Procedure name report is declared twice.
++MISSION report() {}
++MISSION report() {}
++MARCH {
++}
+
+  └ PEX Starter Pack\testcases\pex3\22_procedure_duplicate_pass.txt (+7 -0)
++~ EXPECTED: PASS - Procedure names are distinct.
++MISSION first() {}
++MISSION second() {}
++MARCH {
++    first();
++    second();
++}
+
+  └ PEX Starter Pack\testcases\pex3\23_parameter_invalid_type_fail.txt (+5 -0)
++~ EXPECTED: FAIL - Formal parameter uses invalid type x.
++~ x has not been declared as a type.
++MISSION report(x x) {}
++MARCH {
++}
+
+  └ PEX Starter Pack\testcases\pex3\23_parameter_invalid_type_pass.txt (+5 -0)
++~ EXPECTED: PASS - Formal parameter uses a valid type.
++MISSION report(INF count) {}
++MARCH {
++    report(1);
++}
+
+  └ PEX Starter Pack\testcases\pex3\24_parameter_duplicate_fail.txt (+4 -0)
++~ EXPECTED: FAIL - Formal parameter count is declared twice.
++MISSION report(INF count, INF count) {}
++MARCH {
++}
+
+  └ PEX Starter Pack\testcases\pex3\24_parameter_duplicate_pass.txt (+5 -0)
++~ EXPECTED: PASS - Formal parameter names are distinct.
++MISSION report(INF count, INF limit) {}
++MARCH {
++    report(1, 2);
++}
+
+  └ PEX Starter Pack\testcases\pex3\25_call_undeclared_procedure_fail.txt (+4 -0)
++~ EXPECTED: FAIL - Called procedure missing is undeclared.
++MARCH {
++    missing();
++}
+
+  └ PEX Starter Pack\testcases\pex3\25_call_undeclared_procedure_pass.txt (+5 -0)
++~ EXPECTED: PASS - Called procedure is declared.
++MISSION report() {}
++MARCH {
++    report();
++}
+
+  └ PEX Starter Pack\testcases\pex3\26_call_non_procedure_fail.txt (+6 -0)
++~ EXPECTED: FAIL - Call target report is a variable.
++MARCH {
++    INF report;
++    report -> 1;
++    report();
++}
+
+  └ PEX Starter Pack\testcases\pex3\26_call_non_procedure_pass.txt (+5 -0)
++~ EXPECTED: PASS - Call target is a procedure.
++MISSION report() {}
++MARCH {
++    report();
++}
+
+  └ PEX Starter Pack\testcases\pex3\27_call_argument_types_fail.txt (+5 -0)
++~ EXPECTED: FAIL - Argument count matches, but argument types do not.
++MISSION report(INF count, FA speed, CBRN label) {}
++MARCH {
++    report(2.5, 1, 3);
++}
+
+  └ PEX Starter Pack\testcases\pex3\27_call_argument_types_pass.txt (+5 -0)
++~ EXPECTED: PASS - All argument types match their corresponding parameters.
++MISSION report(INF count, FA speed, CBRN label) {}
++MARCH {
++    report(1, 2.5, "Alpha");
++}
+
+  └ PEX Starter Pack\testcases\pex3\28_call_argument_count_fail.txt (+8 -0)
++~ EXPECTED: FAIL - Calls provide too few and too many arguments.
++MISSION report(INF count, FA speed) {}
++MARCH {
++    ~ Too few arguments; supplied argument has the correct type.
++    report(1);
++    ~ Too many arguments; the first two have the correct types.
++    report(1, 2.5, 3);
++}
+
+  └ PEX Starter Pack\testcases\pex3\28_call_argument_count_pass.txt (+7 -0)
++~ EXPECTED: PASS - Calls have exactly the required number of arguments.
++MISSION halt() {}
++MISSION report(INF count, FA speed) {}
++MARCH {
++    halt();
++    report(1, 2.5);
++}
+$testFiles = @(Get-ChildItem -LiteralPath 'PEX Starter Pack\testcases\pex3' -Filter '*.txt' | Where-Object { $_.Name -match '^\d{2}_' }); $empty = @($testFiles | Where-Object { $_.Length -eq 0 }); if ($testFiles.Count -ne 56 -or $empty.Count -gt 0) { throw 'Missing or empty numbered test files' }; git diff --check -- 'PEX Starter Pack/testcases/pex3'; Write-Output 'All 56 numbered pass/fail files contain test programs.'; git diff --stat -- 'PEX Starter Pack/testcases/pex3'
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/03_variable_non_type_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/03_variable_non_type_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/04_constant_duplicate_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/04_constant_duplicate_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/05_constant_undeclared_type_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/05_constant_undeclared_type_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/06_constant_non_type_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/06_constant_non_type_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/07_constant_initializer_type_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/07_constant_initializer_type_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/08_if_condition_boolean_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/08_if_condition_boolean_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/09_while_condition_boolean_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/09_while_condition_boolean_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/10_expression_type_name_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/10_expression_type_name_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/11_expression_undeclared_variable_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/11_expression_undeclared_variable_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/12_arithmetic_matching_types_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/12_arithmetic_matching_types_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/13_arithmetic_numeric_operands_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/13_arithmetic_numeric_operands_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/14_logical_matching_types_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/14_logical_matching_types_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/15_logical_boolean_operands_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/15_logical_boolean_operands_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/16_comparison_matching_types_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/16_comparison_matching_types_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/17_comparison_numeric_operands_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/17_comparison_numeric_operands_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/18_assignment_undeclared_identifier_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/18_assignment_undeclared_identifier_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/19_assignment_non_variable_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/19_assignment_non_variable_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/20_assignment_constant_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/20_assignment_constant_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/21_assignment_type_mismatch_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/21_assignment_type_mismatch_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/22_procedure_duplicate_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/22_procedure_duplicate_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/23_parameter_invalid_type_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/23_parameter_invalid_type_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/24_parameter_duplicate_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/24_parameter_duplicate_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/25_call_undeclared_procedure_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/25_call_undeclared_procedure_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/26_call_non_procedure_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/26_call_non_procedure_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/27_call_argument_types_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/27_call_argument_types_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/28_call_argument_count_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/28_call_argument_count_pass.txt', LF will be replaced by CRLF the next time Git touches it
+All 56 numbered pass/fail files contain test programs.
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/03_variable_non_type_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/03_variable_non_type_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/04_constant_duplicate_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/04_constant_duplicate_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/05_constant_undeclared_type_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/05_constant_undeclared_type_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/06_constant_non_type_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/06_constant_non_type_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/07_constant_initializer_type_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/07_constant_initializer_type_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/08_if_condition_boolean_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/08_if_condition_boolean_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/09_while_condition_boolean_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/09_while_condition_boolean_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/10_expression_type_name_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/10_expression_type_name_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/11_expression_undeclared_variable_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/11_expression_undeclared_variable_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/12_arithmetic_matching_types_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/12_arithmetic_matching_types_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/13_arithmetic_numeric_operands_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/13_arithmetic_numeric_operands_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/14_logical_matching_types_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/14_logical_matching_types_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/15_logical_boolean_operands_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/15_logical_boolean_operands_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/16_comparison_matching_types_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/16_comparison_matching_types_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/17_comparison_numeric_operands_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/17_comparison_numeric_operands_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/18_assignment_undeclared_identifier_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/18_assignment_undeclared_identifier_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/19_assignment_non_variable_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/19_assignment_non_variable_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/20_assignment_constant_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/20_assignment_constant_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/21_assignment_type_mismatch_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/21_assignment_type_mismatch_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/22_procedure_duplicate_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/22_procedure_duplicate_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/23_parameter_invalid_type_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/23_parameter_invalid_type_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/24_parameter_duplicate_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/24_parameter_duplicate_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/25_call_undeclared_procedure_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/25_call_undeclared_procedure_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/26_call_non_procedure_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/26_call_non_procedure_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/27_call_argument_types_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/27_call_argument_types_pass.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/28_call_argument_count_fail.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PEX Starter Pack/testcases/pex3/28_call_argument_count_pass.txt', LF will be replaced by CRLF the next time Git touches it
+ .../testcases/pex3/03_variable_non_type_fail.txt            |  5 +++++
+ .../testcases/pex3/03_variable_non_type_pass.txt            |  7 +++++++
+ .../testcases/pex3/04_constant_duplicate_fail.txt           |  6 ++++++
+ .../testcases/pex3/04_constant_duplicate_pass.txt           |  6 ++++++
+ .../testcases/pex3/05_constant_undeclared_type_fail.txt     |  4 ++++
+ .../testcases/pex3/05_constant_undeclared_type_pass.txt     |  4 ++++
+ .../testcases/pex3/06_constant_non_type_fail.txt            |  5 +++++
+ .../testcases/pex3/06_constant_non_type_pass.txt            |  5 +++++
+ .../testcases/pex3/07_constant_initializer_type_fail.txt    |  4 ++++
+ .../testcases/pex3/07_constant_initializer_type_pass.txt    |  6 ++++++
+ .../testcases/pex3/08_if_condition_boolean_fail.txt         |  5 +++++
+ .../testcases/pex3/08_if_condition_boolean_pass.txt         |  5 +++++
+ .../testcases/pex3/09_while_condition_boolean_fail.txt      |  5 +++++
+ .../testcases/pex3/09_while_condition_boolean_pass.txt      |  5 +++++
+ .../testcases/pex3/10_expression_type_name_fail.txt         |  7 +++++++
+ .../testcases/pex3/10_expression_type_name_pass.txt         |  7 +++++++
+ .../pex3/11_expression_undeclared_variable_fail.txt         |  5 +++++
+ .../pex3/11_expression_undeclared_variable_pass.txt         |  7 +++++++
+ .../testcases/pex3/12_arithmetic_matching_types_fail.txt    |  8 ++++++++
+ .../testcases/pex3/12_arithmetic_matching_types_pass.txt    | 13 +++++++++++++
+ .../testcases/pex3/13_arithmetic_numeric_operands_fail.txt  |  8 ++++++++
+ .../testcases/pex3/13_arithmetic_numeric_operands_pass.txt  |  8 ++++++++
+ .../testcases/pex3/14_logical_matching_types_fail.txt       |  7 +++++++
+ .../testcases/pex3/14_logical_matching_types_pass.txt       |  7 +++++++
+ .../testcases/pex3/15_logical_boolean_operands_fail.txt     |  9 +++++++++
+ .../testcases/pex3/15_logical_boolean_operands_pass.txt     |  9 +++++++++
+ .../testcases/pex3/16_comparison_matching_types_fail.txt    |  9 +++++++++
+ .../testcases/pex3/16_comparison_matching_types_pass.txt    | 10 ++++++++++
+ .../testcases/pex3/17_comparison_numeric_operands_fail.txt  | 10 ++++++++++
+ .../testcases/pex3/17_comparison_numeric_operands_pass.txt  |  9 +++++++++
+ .../pex3/18_assignment_undeclared_identifier_fail.txt       |  4 ++++
+ .../pex3/18_assignment_undeclared_identifier_pass.txt       |  5 +++++
+ .../testcases/pex3/19_assignment_non_variable_fail.txt      |  6 ++++++
+ .../testcases/pex3/19_assignment_non_variable_pass.txt      |  7 +++++++
+ .../testcases/pex3/20_assignment_constant_fail.txt          |  5 +++++
+ .../testcases/pex3/20_assignment_constant_pass.txt          |  7 +++++++
+ .../testcases/pex3/21_assignment_type_mismatch_fail.txt     |  9 +++++++++
+ .../testcases/pex3/21_assignment_type_mismatch_pass.txt     |  9 +++++++++
+ .../testcases/pex3/22_procedure_duplicate_fail.txt          |  5 +++++
+ .../testcases/pex3/22_procedure_duplicate_pass.txt          |  7 +++++++
+ .../testcases/pex3/23_parameter_invalid_type_fail.txt       |  5 +++++
+ .../testcases/pex3/23_parameter_invalid_type_pass.txt       |  5 +++++
+ .../testcases/pex3/24_parameter_duplicate_fail.txt          |  4 ++++
+ .../testcases/pex3/24_parameter_duplicate_pass.txt          |  5 +++++
+ .../testcases/pex3/25_call_undeclared_procedure_fail.txt    |  4 ++++
+ .../testcases/pex3/25_call_undeclared_procedure_pass.txt    |  5 +++++
+ .../testcases/pex3/26_call_non_procedure_fail.txt           |  6 ++++++
+ .../testcases/pex3/26_call_non_procedure_pass.txt           |  5 +++++
+ .../testcases/pex3/27_call_argument_types_fail.txt          |  5 +++++
+ .../testcases/pex3/27_call_argument_types_pass.txt          |  5 +++++
+ .../testcases/pex3/28_call_argument_count_fail.txt          |  8 ++++++++
+ .../testcases/pex3/28_call_argument_count_pass.txt          |  7 +++++++
+ 52 files changed, 333 insertions(+)
+✓ • 1.84s
+Filled in the remaining 48 files for tests 05–28, with comments explaining each expected pass or failure. All 56 numbered test files now contain programs.
+
+I left execution and analyzer validation to you.
+
+Test 10 caveat: using INF as an expression currently causes a parser error before semantic analysis. That limitation is documented inside the fail file.
