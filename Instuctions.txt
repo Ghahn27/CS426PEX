@@ -1,0 +1,83 @@
+OBJECTIVE
+
+The objective of this exercise is to develop a semantic analyzer for the language you designed in PEX 0, lexed in PEX 1, and parsed in PEX 2. The semantic analyzer will do simple type-checking and implement context-sensitive grammar rules (e.g., you cannot declare the same variable twice). VIDEO.
+
+For example, let's say that you have the following lines of code in your program:
+
+1  // Declaring a Variable
+2 float x;
+3 
+4 // Assigning x a value
+5 x = 123;
+ 
+Your semantic analyzer should report an error on line 5 since the code is attempting to assign a float variable with an integer value.
+
+BACKGROUND
+
+From your class notes and text, you will have the background necessary to write your semantic analyzer. You also have access to a code sample from our "Toy Language" on the resources page. You will receive a 5% early turn-in bonus if your assignment is electronically submitted 48 hours early. 
+
+This is a pair programming project. You may use the lexer and parser of either person in the pair to complete this phase of the compiler.  
+
+You may implement your parser in a language of your choice. Suggested language is C# using the automated tool SableCC.  
+
+PROBLEM STATEMENT
+Create a Copy of Your PEX 2 Solution. Just in case you mess up and need to revert.
+Determine what illegal program statements should be caught by your semantic analyzer.  Remember that the purpose of the semantic analyzer is to do context-sensitive checking such as type mismatches, duplicate variables of the same name, missing parameters in function calls, etc.  The instructor solution has over 35 different items to check. As a starting point, here are things your program should catch--as stated below, your grade is based SOLELY on tests that your semantic analyzer passes (i.e., tests that catch errors or don't report errors)An assignment from an expression of type Integer to a variable of type Float
+Incorrect mathematical expressions (3 + 3.5)
+Assignments to constants
+Redeclarations of the same variable name in the same procedure
+Wrong number of type of parameters to procedures
+Implement your semantic analyzer using the Visitor pattern.  Essentially, you will create a new class that inherits from the DepthFirstAdapter class. This class, when applied, will visit each node in your parse tree.You will need to update your main program so that it creates an instance of your new class, and applies it to the parse tree
+Override the appropriate InA and OutA methods to decorate your parse tree and populate your global and local symbol tables.
+Create test case files in the testcases/pex3 folder. Each test file should include examples of programs that pass and fail semantic analysis
+Your test files need to be named so that we know what it is you are trying to test
+Examples: declarations_correct_1.txt, declarations_incorrect_1.txtNote: Depending on the nature of the error, you may want to create multiple correct / incorrect test files for each statement type
+DO NOT NAME YOUR FILES test1.txt, test2.txt, etc. We will take off points if you do this!
+Modify PEX_TEST.bat to test the services of your semantic analyzer against all of the test cases you created in the previous step. It will call your semantic analyzer program, which should print out the tree (if the code passes the test) or the line:column if an error is found. This program should generate an output report that shows the results of all tests.
+Your output report should contain text that tells us what you are trying to test
+TURN-IN
+When you have completed this assignment, zip the entire starter pack folder (please name it something else) and upload it to Canvas. 
+
+Your ZIP file should contain:
+
+SableCC Grammar File (PEX_LANGUAGE.txt)
+Semantic Analyzer Project Files
+Test Case Files (stored in the testcases/pex3 folder)
+Test Harness BAT File (PEX_TEST.bat)
+A text file containing your documentation statement
+NOTES / HINTS
+Read the Language Specification! You will refer to the language specification throughout the semester as you work on PEX 1-4. A common student mistake is to build more features into their language than what is strictly required, so make sure you are following the specification precisely.
+Nodes only decorate themselves--never their kids or parents
+Print out your grammar, and cross off the rules you have analyzed. This will help you figure out how much work is left.
+The test plan is important! A program that is not fully functional but fully tested will receive a higher score than a program that is fully functional but poorly tested. NO CREDIT WILL BE GIVEN FOR IMPLEMENTING A CONSTRUCT UNLESS IT APPEARS IN A TEST FILE.
+Do not be the victim of lost work due to inadvertently deleting files or system malfunctions. As you work on your PEX, establish some sort of backup routine such as GitHub. It is very painful to have to redo lost work.
+ERRORS THAT SHOULD BE REPORTED
+y x; – fails if x already declared
+y x; – fails if y is not declared
+y x; – fails if y is declared, but not a type
+final y x=z; - fails if x already declared
+final y x=z; - fails if y is not declared
+final y x=z; - fails if y is declared, but not a type
+final y x=z; - fails if types of y, z don’t match
+if (Expr)… - fails if Expr is not Boolean
+while (Expr) … - fails if Expr is not Boolean
+Expressions: - fails if type name used instead of variable name
+Expressions: - fails if undeclared variable used
++,-,*,/ fail when types don’t match
++,-,*,/ fail when types aren’t integer or float
+and/or fail when types don’t match
+and/or/not fail when types aren’t Boolean
+<,<=,>,>=.=. fail when types don’t match
+<,<=,>,>=.=. fail when types aren’t integer or float
+Assignment: x:=y fails when x is not declared
+Assignment: x:=y fails when x is declared, but not a variable
+Assignment: x:=y fails when x is constant
+Assignment: x:=y fails when types don’t match
+Procedures: reports failure when procedure name already used
+Procedures: reports failure when formal parameter declared incorrectly (e.g. x x)
+Procedures: reports failure when formal parameter declared twice (e.g. int x, int x)
+x(y,z) : reports failure when x is not declared
+x(y,z) : reports failure when x is declared, but not a procedure
+x(y,z) : reports failure when types of y,z don’t match formal parameters
+
+

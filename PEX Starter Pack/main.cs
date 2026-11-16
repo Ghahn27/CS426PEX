@@ -143,6 +143,12 @@ class TestParser
             SemanticAnalyzer sa = new SemanticAnalyzer();
             s.Apply(sa);
 
+            if (sa.ErrorCount > 0)
+            {
+                Environment.ExitCode = 1;
+                return;
+            }
+
             TextPrinter printer = new TextPrinter();
             if (args.Length > 1 && args[1] == "-ansi")
                 printer.SetColor(true);

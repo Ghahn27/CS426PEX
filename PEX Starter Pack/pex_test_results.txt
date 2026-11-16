@@ -2666,6 +2666,8 @@ Line 4 Col 14: Cannot compare str < str
 Line 5 Col 14: Cannot compare str > str
 Line 6 Col 14: Cannot compare str <-= str
 Line 7 Col 14: Cannot compare str ->= str
+Line 8 Col 14: Cannot compare str --> str
+Line 9 Col 14: Cannot compare str #--> str
 
 - AProgram
      `- ANoneConstants
@@ -4119,6 +4121,52 @@ Line 7 Col 5: report expects 2 argument(s) but got 3
            |     |     |- )
            |     |     `- ;
            |     `- ANoneStatements
+           `- }
+
+ 
+======================================================================== 
+TEST:     29_undeclared_assignment_and_expression_fail.txt 
+TESTING:  Assignment target x and expression variable y are both undeclared 
+EXPECTED: Two semantic errors - undeclared assignment target and expression variable 
+------------------------------------------------------------------------ 
+Line 5 Col 7: y Does not exist
+Line 5 Col 2: x Does not exist
+
+- AProgram
+     |- ANoneConstants
+     |- AMultipleProcedures
+     |  `- AProcedure
+     |  |  |- MISSION
+     |  |  |- foo
+     |  |  `- (
+     |  |  |- ANoneParams
+     |  |  |- )
+     |  |  `- ABlock
+     |  |     `- {
+     |  |     |- ANoneStatements
+     |  |     `- }
+     |  `- ANoneProcedures
+     `- AMainProc
+        |- MARCH
+        `- ABlock
+           |- {
+           |- AMultipleStatements
+           |  `- AAssignmentStatement
+           |  |  `- AAssignStatement
+           |  |     |- x
+           |  |     |- ->
+           |  |     |- APassExpression
+           |  |     |  `- APassAndExpr
+           |  |     |     `- APassNotExpr
+           |  |     |        `- APassEquality
+           |  |     |           `- APassRelational
+           |  |     |              `- APassArith
+           |  |     |                 `- APassTerm
+           |  |     |                    `- APassFactor
+           |  |     |                       `- AVariableOperand
+           |  |     |                          `- y
+           |  |     `- ;
+           |  `- ANoneStatements
            `- }
 
  

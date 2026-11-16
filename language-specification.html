@@ -1,0 +1,141 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>Language Specification</title>
+<meta name="identifier" content="g9a5fe499545cbdbec6fa22d1abdcd6b4"/>
+<meta name="editing_roles" content="teachers"/>
+<meta name="workflow_state" content="active"/>
+</head>
+<body>
+<h2 style="text-align: center;"><span style="font-size: 24pt;">Compiler Language Specification</span></h2>
+<p style="text-align: center;"><span style="color: #236fa1;"><strong><span style="font-size: 14pt;">Used in Programming Exercises 0 - 4</span></strong></span></p>
+<h4><span style="color: #236fa1;"><strong>Overview</strong></span></h4>
+<p>Your completed compiler must implement a strongly-typed language where your constants and procedure declarations are done upfront.&nbsp; This document outlines the minimal functional requirements your language must satisfy in order to receive full credit on the Programming Exercises.&nbsp;&nbsp;</p>
+<p><span style="font-size: 10pt;"><em>NOTE:&nbsp; While you are free to implement functionality above and beyond what is specified in this document, you may find that doing so is more trouble than it is worth--especially as you get to PEX 3 and 4.&nbsp; This might be the only time in your academic career when your instructor is going to say "It's okay.&nbsp; Do the minimum."</em></span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4><span style="color: #236fa1;"><strong>1.&nbsp; Variables</strong></span></h4>
+<ul>
+<li>1.1&nbsp; Identifiers must be legal C variables
+<ul>
+<li>Ex:&nbsp; Variable names must allow “_”, but not two in a row</li>
+<li>Ex:&nbsp; Variable names can start with a letter or underscore, but cannot start with a number</li>
+</ul>
+</li>
+<li>1.2&nbsp; Your language must allow for string, integer and floating-point constant AND variable declarations
+<ul>
+<li>No Booleans, enumerated types, etc. are required</li>
+<li>Variables do not need to be initialized when declared</li>
+<li>Constants must be initialized when declared</li>
+</ul>
+</li>
+<li>1.3&nbsp; Variable assignments must be allowed</li>
+<li>1.4&nbsp; Constant declarations should appear before your functions.&nbsp; Constants do not need to be declared in a function or in your main.</li>
+<li>1.5&nbsp; String literals
+<ul>
+<li>Strings must allow the user to include quotation marks using an escape character</li>
+<li>Strings must also allow you to store the escape character</li>
+</ul>
+</li>
+<li>1.6&nbsp; Integer and floating-point literals
+<ul>
+<li><span style="color: #3598db;">(PEX 1 Hint) Your lexer should treat "-3" as 2 separate tokens (“-“ and “3”)</span></li>
+<li>Exponential notation for floating point literals are required (e.g., 5.2e-4)</li>
+</ul>
+</li>
+</ul>
+<p>&nbsp;</p>
+<h4><span style="color: #236fa1;"><strong>2.&nbsp; Program Control</strong></span></h4>
+<ul>
+<li>2.1&nbsp; Your language must support IF/ELSE statements (no Else If is required)</li>
+<li>2.2&nbsp; Your language must support WHILE loops (no FOR loops, DO/WHILEs, or BREAKS are required)</li>
+<li>2.3&nbsp; Methods or Procedures must be defined after constants, but before your MAIN
+<ul>
+<li>No return values required</li>
+<li>Must support 0..n parameters</li>
+</ul>
+</li>
+<li>2.4&nbsp; Main method is not required to have arguments and may be required to have a particular name
+<ul>
+<li>The main method should always be LAST in your program</li>
+</ul>
+</li>
+</ul>
+<p>&nbsp;</p>
+<h4><span style="color: #236fa1;"><strong>3.&nbsp; Operations</strong></span></h4>
+<ul>
+<li>3.1&nbsp; Your language must support the following operations&nbsp;
+<ul>
+<li>addition&nbsp;</li>
+<li>subtraction&nbsp;</li>
+<li>negation (e.g., -5)</li>
+<li>multiplication&nbsp;</li>
+<li>division</li>
+<li>parenthesis</li>
+<li>AND</li>
+<li>OR</li>
+<li>NOT</li>
+<li>equivalence</li>
+<li>greater than / greater than or equal to</li>
+<li>less than / less than or equal to</li>
+</ul>
+</li>
+<li>3.2&nbsp; Operators must use the standard order of operations:<br>
+<table class="wikitable" style="border-collapse: collapse; width: 16.6879%; height: 243px;" border="1"><caption><span style="color: #236fa1;">Operations (1= Highest Precedence)</span></caption>
+<tbody>
+<tr style="height: 28px;">
+<td style="width: 7.63359%; height: 28px;"><span style="color: #236fa1;">1</span></td>
+<td style="width: 92.2538%; height: 28px;"><span style="color: #236fa1;">Parenthesis</span></td>
+</tr>
+<tr style="height: 28px;">
+<td style="width: 7.63359%; height: 28px;"><span style="color: #236fa1;">2</span></td>
+<td style="width: 92.2538%; height: 28px;"><span style="color: #236fa1;">Unary operators</span></td>
+</tr>
+<tr style="height: 28px;">
+<td style="width: 7.63359%; height: 28px;"><span style="color: #236fa1;">3</span></td>
+<td style="width: 92.2538%; height: 28px;"><span style="color: #236fa1;">Multiplication, division</span></td>
+</tr>
+<tr style="height: 28px;">
+<td style="width: 7.63359%; height: 28px;"><span style="color: #236fa1;">4</span></td>
+<td style="width: 92.2538%; height: 28px;"><span style="color: #236fa1;">Addition, subtraction</span></td>
+</tr>
+<tr style="height: 28px;">
+<td style="width: 7.63359%; height: 28px;"><span style="color: #236fa1;">5</span></td>
+<td style="width: 92.2538%; height: 28px;"><span style="color: #236fa1;">Comparisons: &lt;.&lt;=,&gt;,&gt;=</span></td>
+</tr>
+<tr style="height: 52px;">
+<td style="width: 7.63359%; height: 52px;"><span style="color: #236fa1;">6</span></td>
+<td style="width: 92.2538%; height: 52px;"><span style="color: #236fa1;">Comparisons: equal and not equal</span></td>
+</tr>
+<tr style="height: 28px;">
+<td style="width: 7.63359%; height: 28px;"><span style="color: #236fa1;">7</span></td>
+<td style="width: 92.2538%; height: 28px;"><span style="color: #236fa1;">Logical NOT</span></td>
+</tr>
+<tr style="height: 10px;">
+<td style="width: 7.63359%; height: 10px;"><span style="color: #236fa1;">8</span></td>
+<td style="width: 92.2538%; height: 10px;">
+<p><span style="color: #236fa1;">Logical AND</span></p>
+</td>
+</tr>
+<tr style="height: 13px;">
+<td style="width: 7.63359%; height: 13px;"><span style="color: #236fa1;">9</span></td>
+<td style="width: 92.2538%; height: 13px;">
+<p><span style="color: #236fa1;">Logical OR</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><span style="color: #b96ad9;">(PEX 2 Hint)&nbsp; Your parser should not attempt to consider boolean expressions different from mathematical ones</span></li>
+<li><span style="color: #2dc26b;">(PEX 3 Hint)&nbsp; Your semantic analyzer should not allow operators (+, -, *, ==, &gt;=, &lt;=, &lt;, &lt;) to be used on strings</span></li>
+<li>3.3&nbsp; (PEX 3) <span style="text-decoration: underline;"><strong>Do not</strong></span> allow chaining for boolean operations (e.g., 3 &lt; x &lt; 5)</li>
+<li>3.4&nbsp; (PEX2) <span style="text-decoration: underline;"><strong>Allow</strong></span> chaining for math operations (e.g., 3 + x - 5)</li>
+</ul>
+<p>&nbsp;</p>
+<h4><span style="color: #236fa1;"><strong>Comments</strong></span></h4>
+<ul>
+<li>Your language must support single line comments (no /* . . . */ style comments required)</li>
+</ul>
+<p>&nbsp;</p>
+</body>
+</html>

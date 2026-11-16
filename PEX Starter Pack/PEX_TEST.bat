@@ -719,4 +719,12 @@ echo ------------------------------------------------------------------------ >>
 bin\Debug\ConsoleApplication.exe testcases\pex3\28_call_argument_count_fail.txt >> %file%
 echo. >> %file%
 
+echo ======================================================================== >> %file%
+echo TEST:     29_undeclared_assignment_and_expression_fail.txt >> %file%
+echo TESTING:  Assignment target x and expression variable y are both undeclared >> %file%
+echo EXPECTED: Two semantic errors - undeclared assignment target and expression variable >> %file%
+echo ------------------------------------------------------------------------ >> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex3\29_undeclared_assignment_and_expression_fail.txt >> %file%
+echo. >> %file%
+
 pause

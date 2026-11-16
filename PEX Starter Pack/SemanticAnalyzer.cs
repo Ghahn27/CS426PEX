@@ -21,8 +21,11 @@ namespace CS426.analysis
         //Decorate Nodes
         Dictionary<Node, Definition> decoratedParseTree = new Dictionary<Node, Definition>();
 
+        public int ErrorCount { get; private set; }
+
         public void PrintWarning(Token t, String message)
         {
+            ErrorCount++;
             Console.WriteLine("Line " +  t.Line + " Col " + t.Pos + ": " + message);
         }
 
@@ -451,7 +454,9 @@ namespace CS426.analysis
             {
                 // child already failed and printed its own warning
             }
-            else if (!SameType(equalityDefinition, relationalDefinition))
+            else if (!(equalityDefinition is NumberDefinition) ||
+                !(relationalDefinition is NumberDefinition) ||
+                !SameType(equalityDefinition, relationalDefinition))
             {
                 PrintWarning(node.GetEquiv(), "Cannot compare " + equalityDefinition.name + " --> " + relationalDefinition.name);
             }
@@ -474,7 +479,9 @@ namespace CS426.analysis
             {
                 // child already failed and printed its own warning
             }
-            else if (!SameType(equalityDefinition, relationalDefinition))
+            else if (!(equalityDefinition is NumberDefinition) ||
+                !(relationalDefinition is NumberDefinition) ||
+                !SameType(equalityDefinition, relationalDefinition))
             {
                 PrintWarning(node.GetNotequiv(), "Cannot compare " + equalityDefinition.name + " #--> " + relationalDefinition.name);
             }
